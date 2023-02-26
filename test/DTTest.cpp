@@ -1,4 +1,4 @@
-#include "../common/JMDataType.h"
+#include "JMDataType.h"
 
 using namespace JMLib;
 
