@@ -53,7 +53,7 @@ namespace JMLib
         /// @param irString  추가를 원하는 문자열
         void Append( const string & irString )
         {
-            maString.append( irString.append );
+            maString.append( irString.maString.c_str() );
         }
 
         /// @brief 문자열의 현재 내용 뒤로 일반 문자열 추가 
@@ -131,5 +131,5 @@ namespace JMLib
             return maString != irString.maString;
         }
     };
-    
+
 }
