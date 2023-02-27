@@ -8,7 +8,7 @@
             "name": "(gdb) 시작",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/DTTest",
+            "program": "${workspaceFolder}/test/DTTest",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
