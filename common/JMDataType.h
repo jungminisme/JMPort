@@ -14,5 +14,4 @@ namespace JMLib
     typedef float float32;
     typedef double float64;
 
-    typedef std::wstring string;
 }
