@@ -93,11 +93,11 @@ namespace JMLib
         }
 
         /// @brief ioStream 비슷한 형태의 구문으로 문자열에 일반 스트링을 추가 
-        /// @param irString 일반 문자열 입력
+        /// @param ipString 일반 문자열 입력
         /// @return 자신을 반환 . << 가 연속되는 경우를 지원한다. 
-        string & operator << ( const wchar_t * irString )
+        string & operator << ( const wchar_t * ipString )
         {
-            maString.append( irString );
+            maString.append( ipString );
             return * this;
         }
 
@@ -115,12 +115,54 @@ namespace JMLib
             return * this;
         }
 
+        /**
+         * @brief  + 연산자를 이용한 문자열 추가 
+         * 
+         * @param ipString 추가를 원하는 문자열
+         * @return string&  연속된 + 나 다른 연산을 위해서 자신을 반환
+         */
+        string & operator + ( const wchar_t * ipString )
+        {
+            maString.append( ipString );
+            return * this;
+        }
+
+        /**
+         * @brief = 연산자를 이용한 할당
+         * 
+         * @param irString 원래의 문자열
+         * @return string&  할당된 문자열, 여기의 경우 this
+         */
+        string & operator = ( const string & irString )
+        {
+            maString.assign( irString.maString.c_str() );
+            return * this;
+        }
+
+        /**
+         * @brief = 연산자를 이용한 할당
+         * 
+         * @param ipString 원래의 문자열
+         * @return string& 할당된 문자열, 여기의 경우 this
+         */
+        string & operator = ( const wchar_t * ipString )
+        {
+            maString.assign( ipString );
+            return * this;
+        }
+
         /// @brief 좌우가 같은 문자열인지 비교
         /// @param irString 비교를 원하는 문자열
         /// @return 좌우 문자열이 같은 경우 true, 같지 않은 경우 false  
         bool operator == ( const string & irString ) const 
         {
             return maString == irString.maString;
+        }
+
+        void Trim( const string & irDelimeter = L("\t\v\n") )
+        {
+            maString.erase( maString.find_last_not_of(irDelimeter.maString) + 1);
+            maString.erase( maString.find_first_not_of(irDelimeter.maString ));
         }
 
         /// @brief 좌우가 같지 않은 문자열인지 비교
