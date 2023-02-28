@@ -25,6 +25,7 @@ namespace JMLib
 
         string() {}
         string( bsstring & irString ) : maString( irString ) {}
+        string( const wchar_t * ipString ) : maString( ipString ) {}
         string( string & irString ) : maString( irString.maString) {}
 
         /// @brief 문자열 비교 함수 
@@ -159,10 +160,12 @@ namespace JMLib
             return maString == irString.maString;
         }
 
-        void Trim( const string & irDelimeter = L("\t\v\n") )
+        /// @brief 문자열 좌우의 여백을 제거한다. 
+        /// @param irDel 제거할 여백의 종류
+        void Trim( const string & irDel = L"\t\n\v" )
         {
-            maString.erase( maString.find_last_not_of(irDelimeter.maString) + 1);
-            maString.erase( maString.find_first_not_of(irDelimeter.maString ));
+            maString.erase( maString.find_last_not_of(irDel.maString) + 1);
+            maString.erase( maString.find_first_not_of(irDel.maString ));
         }
 
         /// @brief 좌우가 같지 않은 문자열인지 비교

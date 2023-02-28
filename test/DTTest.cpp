@@ -19,10 +19,8 @@ int main()
     printf( "Data size of float32 is %lu\n", sizeof( float32 ) );
     printf( "Data size of float64 is %lu\n", sizeof( float64 ));
 
-    string aString = L("This is first sTring \n");
+    string aString = L"This is first sTring \n";
+    std::wcout << aString.c_str() << std::endl;
 
-    wprintf( "%s\n", aString.c_str() );
-
-    
     return 0;
 }
