@@ -197,6 +197,33 @@ namespace JMLib
                 return std::stod( maString.c_str() );
             return 0;
         }
+
+        /// @brief  포멧으로 문자열을 생성한다. 
+        /// @param ipFormat 문자열 생성포멧. printf에 쓰는 포멧들
+        /// @param  Format을 위한 파라미터들
+        /// @return 자신을 반환한다. 
+        string & Format( const wchar_t * ipFormat, ... )
+        {
+            wchar_t aBuffer[DSTRING_BUFFER_SIZE];
+            va_list aVarList;
+            va_start( aVarList, ipFormat );
+            vswprintf(aBuffer, DSTRING_BUFFER_SIZE, ipFormat, aVarList );
+            va_end( aVarList );
+            maString.assign(aBuffer);
+            return * this;
+        }
+
+        /// @brief va_list를 받을 수 밖에 없는 경우의 포멧으로 문자열 생성
+        /// @param ipFormat 문자열 생성포멧
+        /// @param iaList 파라미터 리스트 
+        /// @return 자신을 반환
+        string & FormatWithVAList( const wchar_t * ipFormat, va_list iaList )
+        {
+            wchar_t aBuffer[DSTRING_BUFFER_SIZE];
+            vswprintf(aBuffer, DSTRING_BUFFER_SIZE, ipFormat, iaList);
+            maString.assign(aBuffer);
+            return * this;
+        }
     };
 
 }
