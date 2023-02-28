@@ -21,10 +21,8 @@ namespace JMLib
         std::wstring maString;
 
         public:
-        typedef std::basic_string<wchar_t> bsstring;
 
         string() {}
-        string( bsstring & irString ) : maString( irString ) {}
         string( const wchar_t * ipString ) : maString( ipString ) {}
         string( string & irString ) : maString( irString.maString) {}
 
@@ -174,6 +172,30 @@ namespace JMLib
         bool operator != ( const string & irString ) const 
         {
             return maString != irString.maString;
+        }
+
+        /**
+         * @brief 문자열을 숫자로 변환
+         * 
+         * @return int32 변환된 숫자
+         */
+        int32 ToInt()
+        {
+            if( std::regex_match(maString.c_str(), DINT_REG ) == true )
+                return std::stoi( maString.c_str() );
+            return 0;
+        }
+
+        /**
+         * @brief 문자열을 float 로 변환
+         * 
+         * @return float64 변환된 숫자
+         */
+        float64 ToFloat()
+        {
+            if( std::regex_match(maString.c_str(), DFLAOT_REG) == true )
+                return std::stod( maString.c_str() );
+            return 0;
         }
     };
 
