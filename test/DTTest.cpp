@@ -2,7 +2,7 @@
 #include "../common/JMString.h"
 
 #include <string>
-#include <iostream>>
+#include <iostream>
 
 using namespace JMLib;
 
