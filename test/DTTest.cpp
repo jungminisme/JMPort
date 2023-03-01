@@ -22,5 +22,7 @@ int main()
     string aString = L"This is first sTring \n";
     std::wcout << aString.c_str() << std::endl;
 
+    std::FILE 
+
     return 0;
 }

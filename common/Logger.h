@@ -6,8 +6,8 @@
 using namespace JMLib;
 
 /**
- * @brief 
- * 
+ * @brief 각종 Logger들의 superclass
+ *  LogOut을 제외한 모든 공통 작업들은 수행한다. 
  */
 class CLogger : public ILogger{
     private:
@@ -18,11 +18,14 @@ class CLogger : public ILogger{
 
     public:
     CLogger() {}
-    ~CLogger() {}
+    virtual ~CLogger() = default;
 
     void Log( const string & irString );
-    void LogWithLevel( const NLog::LevelType iaType, const string & irString );
+    void LogWithLevel( const NLog::LevelType iaLevel, const string & irString );
     void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
-        const string & irChannel, const NLog::LevelType iaLevel, const string & irLogString );
+        const NLog::LevelType iaLevel, const string & irLogString );
+
+    private:
+    virtual void LogOut( const string & irString ) = 0;
 
 };

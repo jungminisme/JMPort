@@ -5,6 +5,7 @@
 
 using namespace JMLib;
 
+/// @brief 
 class CLogManager 
 {
 private:
@@ -19,8 +20,8 @@ private:
 public:
     static CLogManager & GetInstance();
 
-    void SetLogger( NLog::LogChannel iaChannel, slogger ipLogger);
-    void RemoveLogger( NLog::LogChannel iaChannel );
+    void  RemoveLogger( NLog::LogChannel iaChannel );
+    bool SetLogger( NLog::LogChannel iaChannel, NLog::LogType iaType );
 
     void Log( NLog::LogChannel iaChannel, const string & irString );
     void LogWithLevel( NLog::LogChannel iaChannel, NLog::LevelType iaLevel, const string & irString );
@@ -28,4 +29,5 @@ public:
 private:
     CLogManager();
     virtual ~CLogManager();
+    void SetLogger( NLog::LogChannel iaChannel, slogger ipLogger);
 };

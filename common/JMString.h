@@ -224,6 +224,8 @@ namespace JMLib
             maString.assign(aBuffer);
             return * this;
         }
+
+        
     };
 
 }

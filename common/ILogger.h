@@ -22,7 +22,7 @@ namespace NLog
 
         /// @brief Log Filtering 시에만 사용하는 레벨
         const static LevelType DNONNE = 7;      //! 로그를 남기지 않음 
-        const static LevelType DALL = 1;        //! 모든 로그를 남김
+        const static LevelType DALL = 0;        //! 모든 로그를 남김
     }
 
     namespace NType
