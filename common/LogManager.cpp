@@ -24,12 +24,12 @@ CLogManager & CLogManager::GetInstance()
  * Logger factory를 따로 만들지 말고 여기서 생성까지 하자. 
  * 로거는 복잡하지도 않으니. 
  * TODO : 추후 이부분에 Excpetion을 추가한다. 
- * @param iaChannel 등록을 원하는 채널 
+ * @param irChannel 등록을 원하는 채널 
  * @param iaType 로거의 종류
  * @return true 로거 등록에 성공
  * @return false  같은 이름이 있거나, 로거 타입을 정못적은 경우 실패 
  */
-bool CLogManager::SetLogger( NLog::LogChannel iaChannel, NLog::LogType iaType )
+bool CLogManager::SetLogger( const NLog::LogChannel & irChannel, NLog::LogType iaType )
 {
     lockguard aLG(maLock );
     
@@ -46,15 +46,21 @@ bool CLogManager::SetLogger( NLog::LogChannel iaChannel, NLog::LogType iaType )
             {
                 // 파일 로거의 경우, 파일 이름을 체널이름.log로 설정해 준다. 
                 std::shared_ptr<CFileLogger> aTempLogger = std::make_shared<CFileLogger>( );
-                aTempLogger->Initialize(iaChannel + L".log");
+                string aTempString;
+                aTempString = irChannel;
+                aTempString << L".log";
+                aTempLogger->Initialize(aTempString);
                 aLogger = std::static_pointer_cast<JMLib::ILogger>( aTempLogger );
             }
             break;
         default:
             return false;
     }
+
+    string aChannel ;
+    aChannel = irChannel;
     std::pair<logs::iterator, bool > aRet;
-    aRet = maLogs.insert( logs::value_type(iaChannel, aLogger ));
+    aRet = maLogs.insert( logs::value_type(aChannel, aLogger ));
     return aRet.second;
 }
 
@@ -63,10 +69,10 @@ bool CLogManager::SetLogger( NLog::LogChannel iaChannel, NLog::LogType iaType )
  * 중간에 쓸일이 있을지 모르지만. 로거 생성이 있으니 삭제도 만들어 본다. 
  * @param iaChannel 등록된 채널
  */
-void CLogManager::RemoveLogger( NLog::LogChannel iaChannel )
+void CLogManager::RemoveLogger( const NLog::LogChannel & irChannel )
 {
     lockguard aLG( maLock );
-    logs::iterator aIt = maLogs.find( iaChannel );
+    logs::iterator aIt = maLogs.find( irChannel );
     if( aIt == maLogs.end() )
         return;
     slogger aLog = aIt->second;

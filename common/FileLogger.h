@@ -9,7 +9,7 @@ class CFileLogger
     private:
     CFile maFileOut;
     public:
-    CFileLogger( const string & irFileName );
+    CFileLogger();
     ~CFileLogger();
 
     void LogOut( const string & irString );

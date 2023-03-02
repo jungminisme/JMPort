@@ -23,12 +23,12 @@ private:
 public:
     static CLogManager & GetInstance();
 
-    void  RemoveLogger( NLog::LogChannel iaChannel );
-    bool SetLogger( NLog::LogChannel iaChannel, NLog::LogType iaType );
+    void  RemoveLogger( const NLog::LogChannel & irChannel );
+    bool SetLogger( const NLog::LogChannel & irChannel, NLog::LogType iaType );
 
-    void Log( NLog::LogChannel iaChannel, const string & irString );
-    void LogWithLevel( NLog::LogChannel iaChannel, NLog::LevelType iaLevel, const string & irString );
-    void LogWithAllArg( NLog::LogChannel iaChannel, string & irSrcFile, const uint32 iaLine, 
+    void Log( const NLog::LogChannel & irChannel, const string & irString );
+    void LogWithLevel( const NLog::LogChannel & irChannel, NLog::LevelType iaLevel, const string & irString );
+    void LogWithAllArg( const NLog::LogChannel & irChannel, string & irSrcFile, const uint32 iaLine, 
         const NLog::LevelType iaLevel, const string & irLogString );
 
 private:

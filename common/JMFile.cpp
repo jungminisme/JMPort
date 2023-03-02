@@ -63,7 +63,10 @@ int32 CFile::Append( const string & irString )
 {
     if( maStream.is_open() == false )
         return 0;
-    return 0;
+    int32 aBeforePos = maStream.tellg();
+    maStream << irString.c_str() << std::endl;
+    int32 aAfterPos = maStream.tellg();
+    return (aAfterPos - aBeforePos);
 }
 
 /**
@@ -79,7 +82,7 @@ int32 CFile::ReadLine( string & orString )
     wchar_t aBuffer[DMAX_STRING_SIZE];
     maStream.getline( aBuffer, DMAX_STRING_SIZE);
     orString.Assign(aBuffer );
-    return 0;
+    return orString.Size();
 }
 
 /**

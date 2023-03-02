@@ -14,6 +14,15 @@ class CNoneLogger : public CLogger
     CNoneLogger() {}
     ~CNoneLogger() {}
 
+    void Log( const string & irString )
+    {}
+
+    void LogWithLevel( const NLog::LevelType iaType, const string & irString )
+    {}
+    void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
+        const NLog::LevelType iaLevel, const string & irLogString )
+    {}
+
     void LogOut( const string & irString )
     {
         return;

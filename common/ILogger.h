@@ -44,15 +44,22 @@ class ILogger
     virtual void LogWithLevel( const NLog::LevelType iaType, const string & irString ) = 0;
     virtual void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
         const NLog::LevelType iaLevel, const string & irLogString ) = 0;
-    virtual void Finalize() = 0;
+        
 };
 
 typedef std::shared_ptr<ILogger> slogger;
 
 }
 
-void LOG_ERROR( const uint16 iaChannel, wchar_t * ipFormat, ... );
-void LOG_TRACE( const uint16 iaChannel, wchar_t * ipFormat, ... );
-void LOG_INFO( const uint16 iaChannel, wchar_t * ipFormat, ... );
-void LOG_DEBUG( const uint16 iaChannel, wchar_t * ipFormat, ... );
-void LOG_WARN( const uint16 iaChannel, wchar_t * ipFormat, ... );
+void LOG_ERROR( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+void LOG_TRACE( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+void LOG_INFO( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+void LOG_DEBUG( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+void LOG_WARN( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+
+void LOG_ERROR( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine,  wchar_t * ipFormat, ... );
+void LOG_TRACE( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine, wchar_t * ipFormat, ... );
+void LOG_INFO( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine, wchar_t * ipFormat, ... );
+void LOG_DEBUG( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine, wchar_t * ipFormat, ... );
+void LOG_WARN( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine, wchar_t * ipFormat, ... );
+void LOG_FATAL(const NLog::LogChannel &irChannel, wchar_t *ipFileName, int32 iaLine, wchar_t *ipFormat, ...);
