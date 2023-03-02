@@ -5,7 +5,10 @@
 
 using namespace JMLib;
 
-/// @brief 
+/**
+ * @brief Log에 관한 모든 것을 총괄하는 클래스
+ * 채널을 관리하고, 로그를 전역적으로 출력한다. 
+ */
 class CLogManager 
 {
 private:
@@ -25,9 +28,10 @@ public:
 
     void Log( NLog::LogChannel iaChannel, const string & irString );
     void LogWithLevel( NLog::LogChannel iaChannel, NLog::LevelType iaLevel, const string & irString );
+    void LogWithAllArg( NLog::LogChannel iaChannel, string & irSrcFile, const uint32 iaLine, 
+        const NLog::LevelType iaLevel, const string & irLogString );
 
 private:
     CLogManager();
     virtual ~CLogManager();
-    void SetLogger( NLog::LogChannel iaChannel, slogger ipLogger);
 };

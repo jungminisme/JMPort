@@ -8,7 +8,7 @@ namespace NLog
 {
     typedef uint8 LevelType;
     typedef uint8 LogType;
-    typedef uint16 LogChannel;
+    typedef string LogChannel;
 
     namespace NLevel 
     {
@@ -43,7 +43,7 @@ class ILogger
     virtual void Log( const string & irString ) = 0;
     virtual void LogWithLevel( const NLog::LevelType iaType, const string & irString ) = 0;
     virtual void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
-        const string & irChannel, const NLog::LevelType iaLevel, const string & irLogString ) = 0;
+        const NLog::LevelType iaLevel, const string & irLogString ) = 0;
     virtual void Finalize() = 0;
 };
 

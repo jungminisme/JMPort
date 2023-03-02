@@ -32,10 +32,16 @@ class CFile
     CFile();
     ~CFile();
     bool Open( const string & irFileName, NFile::mode iaMode );
-    int Append( const string & irString );
+    int32 Append( const string & irString );
+
+    int32 ReadLine( string & orString );
+
+    bool IsOpen() const;
 
     CFile & operator << ( const string & irString );
-    CFile & operator + ( const string & irString );
+    CFile & operator >> ( string & orString );
+
+    int32 Size();
 
 
     void Close();
