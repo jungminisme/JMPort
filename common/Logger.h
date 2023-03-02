@@ -20,9 +20,9 @@ class CLogger : public ILogger{
     CLogger() {}
     virtual ~CLogger() = default;
 
-    void Log( const string & irString );
-    void LogWithLevel( const NLog::LevelType iaLevel, const string & irString );
-    void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
+    virtual void Log( const string & irString );
+    virtual void LogWithLevel( const NLog::LevelType iaLevel, const string & irString );
+    virtual void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
         const NLog::LevelType iaLevel, const string & irLogString );
 
     private:
