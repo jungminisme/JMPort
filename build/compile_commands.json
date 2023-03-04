@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/ruso/dev/JMPort/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/JMPort.dir/main.cpp.o -c /home/ruso/dev/JMPort/main.cpp",
+  "file": "/home/ruso/dev/JMPort/main.cpp"
+}
+]
