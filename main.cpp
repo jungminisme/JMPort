@@ -1,5 +1,7 @@
 #include <iostream>
+#include "JMString.h"
 
 int main(int, char**) {
-    std::cout << "Hello, world!\n";
+    JMLib::string aString( L"Hello World!!");
+    std::wcout << aString.c_str() << std::endl;
 }
