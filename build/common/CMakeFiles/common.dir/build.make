@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ruso/dev/JMPort
+CMAKE_SOURCE_DIR = /home/suro/dev/JMPort
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ruso/dev/JMPort/build
+CMAKE_BINARY_DIR = /home/suro/dev/JMPort/build
 
 # Include any dependencies generated for this target.
 include common/CMakeFiles/common.dir/depend.make
@@ -72,100 +72,100 @@ include common/CMakeFiles/common.dir/flags.make
 common/CMakeFiles/common.dir/ConsoleLogger.cpp.o: common/CMakeFiles/common.dir/flags.make
 common/CMakeFiles/common.dir/ConsoleLogger.cpp.o: ../common/ConsoleLogger.cpp
 common/CMakeFiles/common.dir/ConsoleLogger.cpp.o: common/CMakeFiles/common.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruso/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object common/CMakeFiles/common.dir/ConsoleLogger.cpp.o"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/ConsoleLogger.cpp.o -MF CMakeFiles/common.dir/ConsoleLogger.cpp.o.d -o CMakeFiles/common.dir/ConsoleLogger.cpp.o -c /home/ruso/dev/JMPort/common/ConsoleLogger.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/suro/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object common/CMakeFiles/common.dir/ConsoleLogger.cpp.o"
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/ConsoleLogger.cpp.o -MF CMakeFiles/common.dir/ConsoleLogger.cpp.o.d -o CMakeFiles/common.dir/ConsoleLogger.cpp.o -c /home/suro/dev/JMPort/common/ConsoleLogger.cpp
 
 common/CMakeFiles/common.dir/ConsoleLogger.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/common.dir/ConsoleLogger.cpp.i"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruso/dev/JMPort/common/ConsoleLogger.cpp > CMakeFiles/common.dir/ConsoleLogger.cpp.i
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/suro/dev/JMPort/common/ConsoleLogger.cpp > CMakeFiles/common.dir/ConsoleLogger.cpp.i
 
 common/CMakeFiles/common.dir/ConsoleLogger.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/common.dir/ConsoleLogger.cpp.s"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruso/dev/JMPort/common/ConsoleLogger.cpp -o CMakeFiles/common.dir/ConsoleLogger.cpp.s
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/suro/dev/JMPort/common/ConsoleLogger.cpp -o CMakeFiles/common.dir/ConsoleLogger.cpp.s
 
 common/CMakeFiles/common.dir/FileLogger.cpp.o: common/CMakeFiles/common.dir/flags.make
 common/CMakeFiles/common.dir/FileLogger.cpp.o: ../common/FileLogger.cpp
 common/CMakeFiles/common.dir/FileLogger.cpp.o: common/CMakeFiles/common.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruso/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object common/CMakeFiles/common.dir/FileLogger.cpp.o"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/FileLogger.cpp.o -MF CMakeFiles/common.dir/FileLogger.cpp.o.d -o CMakeFiles/common.dir/FileLogger.cpp.o -c /home/ruso/dev/JMPort/common/FileLogger.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/suro/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object common/CMakeFiles/common.dir/FileLogger.cpp.o"
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/FileLogger.cpp.o -MF CMakeFiles/common.dir/FileLogger.cpp.o.d -o CMakeFiles/common.dir/FileLogger.cpp.o -c /home/suro/dev/JMPort/common/FileLogger.cpp
 
 common/CMakeFiles/common.dir/FileLogger.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/common.dir/FileLogger.cpp.i"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruso/dev/JMPort/common/FileLogger.cpp > CMakeFiles/common.dir/FileLogger.cpp.i
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/suro/dev/JMPort/common/FileLogger.cpp > CMakeFiles/common.dir/FileLogger.cpp.i
 
 common/CMakeFiles/common.dir/FileLogger.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/common.dir/FileLogger.cpp.s"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruso/dev/JMPort/common/FileLogger.cpp -o CMakeFiles/common.dir/FileLogger.cpp.s
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/suro/dev/JMPort/common/FileLogger.cpp -o CMakeFiles/common.dir/FileLogger.cpp.s
 
 common/CMakeFiles/common.dir/ILogger.cpp.o: common/CMakeFiles/common.dir/flags.make
 common/CMakeFiles/common.dir/ILogger.cpp.o: ../common/ILogger.cpp
 common/CMakeFiles/common.dir/ILogger.cpp.o: common/CMakeFiles/common.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruso/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object common/CMakeFiles/common.dir/ILogger.cpp.o"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/ILogger.cpp.o -MF CMakeFiles/common.dir/ILogger.cpp.o.d -o CMakeFiles/common.dir/ILogger.cpp.o -c /home/ruso/dev/JMPort/common/ILogger.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/suro/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object common/CMakeFiles/common.dir/ILogger.cpp.o"
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/ILogger.cpp.o -MF CMakeFiles/common.dir/ILogger.cpp.o.d -o CMakeFiles/common.dir/ILogger.cpp.o -c /home/suro/dev/JMPort/common/ILogger.cpp
 
 common/CMakeFiles/common.dir/ILogger.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/common.dir/ILogger.cpp.i"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruso/dev/JMPort/common/ILogger.cpp > CMakeFiles/common.dir/ILogger.cpp.i
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/suro/dev/JMPort/common/ILogger.cpp > CMakeFiles/common.dir/ILogger.cpp.i
 
 common/CMakeFiles/common.dir/ILogger.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/common.dir/ILogger.cpp.s"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruso/dev/JMPort/common/ILogger.cpp -o CMakeFiles/common.dir/ILogger.cpp.s
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/suro/dev/JMPort/common/ILogger.cpp -o CMakeFiles/common.dir/ILogger.cpp.s
 
 common/CMakeFiles/common.dir/JMFile.cpp.o: common/CMakeFiles/common.dir/flags.make
 common/CMakeFiles/common.dir/JMFile.cpp.o: ../common/JMFile.cpp
 common/CMakeFiles/common.dir/JMFile.cpp.o: common/CMakeFiles/common.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruso/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object common/CMakeFiles/common.dir/JMFile.cpp.o"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/JMFile.cpp.o -MF CMakeFiles/common.dir/JMFile.cpp.o.d -o CMakeFiles/common.dir/JMFile.cpp.o -c /home/ruso/dev/JMPort/common/JMFile.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/suro/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object common/CMakeFiles/common.dir/JMFile.cpp.o"
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/JMFile.cpp.o -MF CMakeFiles/common.dir/JMFile.cpp.o.d -o CMakeFiles/common.dir/JMFile.cpp.o -c /home/suro/dev/JMPort/common/JMFile.cpp
 
 common/CMakeFiles/common.dir/JMFile.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/common.dir/JMFile.cpp.i"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruso/dev/JMPort/common/JMFile.cpp > CMakeFiles/common.dir/JMFile.cpp.i
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/suro/dev/JMPort/common/JMFile.cpp > CMakeFiles/common.dir/JMFile.cpp.i
 
 common/CMakeFiles/common.dir/JMFile.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/common.dir/JMFile.cpp.s"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruso/dev/JMPort/common/JMFile.cpp -o CMakeFiles/common.dir/JMFile.cpp.s
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/suro/dev/JMPort/common/JMFile.cpp -o CMakeFiles/common.dir/JMFile.cpp.s
 
 common/CMakeFiles/common.dir/JMString.cpp.o: common/CMakeFiles/common.dir/flags.make
 common/CMakeFiles/common.dir/JMString.cpp.o: ../common/JMString.cpp
 common/CMakeFiles/common.dir/JMString.cpp.o: common/CMakeFiles/common.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruso/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object common/CMakeFiles/common.dir/JMString.cpp.o"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/JMString.cpp.o -MF CMakeFiles/common.dir/JMString.cpp.o.d -o CMakeFiles/common.dir/JMString.cpp.o -c /home/ruso/dev/JMPort/common/JMString.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/suro/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object common/CMakeFiles/common.dir/JMString.cpp.o"
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/JMString.cpp.o -MF CMakeFiles/common.dir/JMString.cpp.o.d -o CMakeFiles/common.dir/JMString.cpp.o -c /home/suro/dev/JMPort/common/JMString.cpp
 
 common/CMakeFiles/common.dir/JMString.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/common.dir/JMString.cpp.i"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruso/dev/JMPort/common/JMString.cpp > CMakeFiles/common.dir/JMString.cpp.i
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/suro/dev/JMPort/common/JMString.cpp > CMakeFiles/common.dir/JMString.cpp.i
 
 common/CMakeFiles/common.dir/JMString.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/common.dir/JMString.cpp.s"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruso/dev/JMPort/common/JMString.cpp -o CMakeFiles/common.dir/JMString.cpp.s
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/suro/dev/JMPort/common/JMString.cpp -o CMakeFiles/common.dir/JMString.cpp.s
 
 common/CMakeFiles/common.dir/Logger.cpp.o: common/CMakeFiles/common.dir/flags.make
 common/CMakeFiles/common.dir/Logger.cpp.o: ../common/Logger.cpp
 common/CMakeFiles/common.dir/Logger.cpp.o: common/CMakeFiles/common.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruso/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object common/CMakeFiles/common.dir/Logger.cpp.o"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/Logger.cpp.o -MF CMakeFiles/common.dir/Logger.cpp.o.d -o CMakeFiles/common.dir/Logger.cpp.o -c /home/ruso/dev/JMPort/common/Logger.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/suro/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object common/CMakeFiles/common.dir/Logger.cpp.o"
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/Logger.cpp.o -MF CMakeFiles/common.dir/Logger.cpp.o.d -o CMakeFiles/common.dir/Logger.cpp.o -c /home/suro/dev/JMPort/common/Logger.cpp
 
 common/CMakeFiles/common.dir/Logger.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/common.dir/Logger.cpp.i"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruso/dev/JMPort/common/Logger.cpp > CMakeFiles/common.dir/Logger.cpp.i
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/suro/dev/JMPort/common/Logger.cpp > CMakeFiles/common.dir/Logger.cpp.i
 
 common/CMakeFiles/common.dir/Logger.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/common.dir/Logger.cpp.s"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruso/dev/JMPort/common/Logger.cpp -o CMakeFiles/common.dir/Logger.cpp.s
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/suro/dev/JMPort/common/Logger.cpp -o CMakeFiles/common.dir/Logger.cpp.s
 
 common/CMakeFiles/common.dir/LogManager.cpp.o: common/CMakeFiles/common.dir/flags.make
 common/CMakeFiles/common.dir/LogManager.cpp.o: ../common/LogManager.cpp
 common/CMakeFiles/common.dir/LogManager.cpp.o: common/CMakeFiles/common.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruso/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object common/CMakeFiles/common.dir/LogManager.cpp.o"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/LogManager.cpp.o -MF CMakeFiles/common.dir/LogManager.cpp.o.d -o CMakeFiles/common.dir/LogManager.cpp.o -c /home/ruso/dev/JMPort/common/LogManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/suro/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object common/CMakeFiles/common.dir/LogManager.cpp.o"
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT common/CMakeFiles/common.dir/LogManager.cpp.o -MF CMakeFiles/common.dir/LogManager.cpp.o.d -o CMakeFiles/common.dir/LogManager.cpp.o -c /home/suro/dev/JMPort/common/LogManager.cpp
 
 common/CMakeFiles/common.dir/LogManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/common.dir/LogManager.cpp.i"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruso/dev/JMPort/common/LogManager.cpp > CMakeFiles/common.dir/LogManager.cpp.i
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/suro/dev/JMPort/common/LogManager.cpp > CMakeFiles/common.dir/LogManager.cpp.i
 
 common/CMakeFiles/common.dir/LogManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/common.dir/LogManager.cpp.s"
-	cd /home/ruso/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruso/dev/JMPort/common/LogManager.cpp -o CMakeFiles/common.dir/LogManager.cpp.s
+	cd /home/suro/dev/JMPort/build/common && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/suro/dev/JMPort/common/LogManager.cpp -o CMakeFiles/common.dir/LogManager.cpp.s
 
 # Object files for target common
 common_OBJECTS = \
@@ -189,19 +189,19 @@ common/libcommon.a: common/CMakeFiles/common.dir/Logger.cpp.o
 common/libcommon.a: common/CMakeFiles/common.dir/LogManager.cpp.o
 common/libcommon.a: common/CMakeFiles/common.dir/build.make
 common/libcommon.a: common/CMakeFiles/common.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ruso/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libcommon.a"
-	cd /home/ruso/dev/JMPort/build/common && $(CMAKE_COMMAND) -P CMakeFiles/common.dir/cmake_clean_target.cmake
-	cd /home/ruso/dev/JMPort/build/common && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/common.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/suro/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libcommon.a"
+	cd /home/suro/dev/JMPort/build/common && $(CMAKE_COMMAND) -P CMakeFiles/common.dir/cmake_clean_target.cmake
+	cd /home/suro/dev/JMPort/build/common && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/common.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 common/CMakeFiles/common.dir/build: common/libcommon.a
 .PHONY : common/CMakeFiles/common.dir/build
 
 common/CMakeFiles/common.dir/clean:
-	cd /home/ruso/dev/JMPort/build/common && $(CMAKE_COMMAND) -P CMakeFiles/common.dir/cmake_clean.cmake
+	cd /home/suro/dev/JMPort/build/common && $(CMAKE_COMMAND) -P CMakeFiles/common.dir/cmake_clean.cmake
 .PHONY : common/CMakeFiles/common.dir/clean
 
 common/CMakeFiles/common.dir/depend:
-	cd /home/ruso/dev/JMPort/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ruso/dev/JMPort /home/ruso/dev/JMPort/common /home/ruso/dev/JMPort/build /home/ruso/dev/JMPort/build/common /home/ruso/dev/JMPort/build/common/CMakeFiles/common.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/suro/dev/JMPort/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/suro/dev/JMPort /home/suro/dev/JMPort/common /home/suro/dev/JMPort/build /home/suro/dev/JMPort/build/common /home/suro/dev/JMPort/build/common/CMakeFiles/common.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : common/CMakeFiles/common.dir/depend
 

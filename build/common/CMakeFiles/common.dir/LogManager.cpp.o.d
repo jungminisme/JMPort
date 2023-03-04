@@ -1,8 +1,8 @@
 common/CMakeFiles/common.dir/LogManager.cpp.o: \
- /home/ruso/dev/JMPort/common/LogManager.cpp /usr/include/stdc-predef.h \
- /home/ruso/dev/JMPort/common/LogManager.h \
- /home/ruso/dev/JMPort/common/ILogger.h \
- /home/ruso/dev/JMPort/common/JMDataType.h /usr/include/c++/11/string \
+ /home/suro/dev/JMPort/common/LogManager.cpp /usr/include/stdc-predef.h \
+ /home/suro/dev/JMPort/common/LogManager.h \
+ /home/suro/dev/JMPort/common/ILogger.h \
+ /home/suro/dev/JMPort/common/JMDataType.h /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -130,7 +130,7 @@ common/CMakeFiles/common.dir/LogManager.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/ruso/dev/JMPort/common/JMString.h /usr/include/c++/11/vector \
+ /home/suro/dev/JMPort/common/JMString.h /usr/include/c++/11/vector \
  /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
@@ -214,16 +214,16 @@ common/CMakeFiles/common.dir/LogManager.cpp.o: \
  /usr/include/c++/11/bits/regex.h /usr/include/c++/11/bits/regex.tcc \
  /usr/include/c++/11/bits/regex_executor.h \
  /usr/include/c++/11/bits/regex_executor.tcc \
- /home/ruso/dev/JMPort/common/Lock.h /usr/include/c++/11/mutex \
+ /home/suro/dev/JMPort/common/Lock.h /usr/include/c++/11/mutex \
  /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
  /usr/include/c++/11/limits /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/c++/11/bits/std_mutex.h \
  /usr/include/c++/11/bits/unique_lock.h \
- /home/ruso/dev/JMPort/common/NoneLogger.h \
- /home/ruso/dev/JMPort/common/Logger.h \
- /home/ruso/dev/JMPort/common/ConsoleLogger.h \
- /home/ruso/dev/JMPort/common/FileLogger.h \
- /home/ruso/dev/JMPort/common/JMFile.h /usr/include/c++/11/fstream \
+ /home/suro/dev/JMPort/common/NoneLogger.h \
+ /home/suro/dev/JMPort/common/Logger.h \
+ /home/suro/dev/JMPort/common/ConsoleLogger.h \
+ /home/suro/dev/JMPort/common/FileLogger.h \
+ /home/suro/dev/JMPort/common/JMFile.h /usr/include/c++/11/fstream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
  /usr/include/c++/11/bits/fstream.tcc

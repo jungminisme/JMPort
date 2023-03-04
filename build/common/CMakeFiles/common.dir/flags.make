@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ruso/dev/JMPort/common
+CXX_INCLUDES = -I/home/suro/dev/JMPort/common
 
 CXX_FLAGS = -g -Wall -Werror
 

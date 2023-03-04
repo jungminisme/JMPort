@@ -1,4 +1,4 @@
-# Install script for directory: /home/ruso/dev/JMPort/common
+# Install script for directory: /home/suro/dev/JMPort/common
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

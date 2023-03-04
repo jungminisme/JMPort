@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ruso/dev/JMPort
+CMAKE_SOURCE_DIR = /home/suro/dev/JMPort
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ruso/dev/JMPort/build
+CMAKE_BINARY_DIR = /home/suro/dev/JMPort/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/ruso/dev/JMPort/build
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/ruso/dev/JMPort/build && /usr/bin/cpack --config ./CPackConfig.cmake
+	cd /home/suro/dev/JMPort/build && /usr/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -78,7 +78,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/ruso/dev/JMPort/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/ruso/dev/JMPort/build/CPackSourceConfig.cmake
+	cd /home/suro/dev/JMPort/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/suro/dev/JMPort/build/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -117,14 +117,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/ruso/dev/JMPort/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ruso/dev/JMPort/build/CMakeFiles /home/ruso/dev/JMPort/build/common//CMakeFiles/progress.marks
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ruso/dev/JMPort/build/CMakeFiles 0
+	cd /home/suro/dev/JMPort/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/suro/dev/JMPort/build/CMakeFiles /home/suro/dev/JMPort/build/common//CMakeFiles/progress.marks
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/suro/dev/JMPort/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/clean
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/clean
 .PHONY : clean
 
 # The main clean target
@@ -133,22 +133,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/preinstall
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/preinstall
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/ruso/dev/JMPort/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/suro/dev/JMPort/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 common/CMakeFiles/common.dir/rule:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/CMakeFiles/common.dir/rule
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common/CMakeFiles/common.dir/rule
 .PHONY : common/CMakeFiles/common.dir/rule
 
 # Convenience name for target.
@@ -157,7 +157,7 @@ common: common/CMakeFiles/common.dir/rule
 
 # fast build rule for target.
 common/fast:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/build
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/build
 .PHONY : common/fast
 
 ConsoleLogger.o: ConsoleLogger.cpp.o
@@ -165,7 +165,7 @@ ConsoleLogger.o: ConsoleLogger.cpp.o
 
 # target to build an object file
 ConsoleLogger.cpp.o:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ConsoleLogger.cpp.o
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ConsoleLogger.cpp.o
 .PHONY : ConsoleLogger.cpp.o
 
 ConsoleLogger.i: ConsoleLogger.cpp.i
@@ -173,7 +173,7 @@ ConsoleLogger.i: ConsoleLogger.cpp.i
 
 # target to preprocess a source file
 ConsoleLogger.cpp.i:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ConsoleLogger.cpp.i
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ConsoleLogger.cpp.i
 .PHONY : ConsoleLogger.cpp.i
 
 ConsoleLogger.s: ConsoleLogger.cpp.s
@@ -181,7 +181,7 @@ ConsoleLogger.s: ConsoleLogger.cpp.s
 
 # target to generate assembly for a file
 ConsoleLogger.cpp.s:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ConsoleLogger.cpp.s
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ConsoleLogger.cpp.s
 .PHONY : ConsoleLogger.cpp.s
 
 FileLogger.o: FileLogger.cpp.o
@@ -189,7 +189,7 @@ FileLogger.o: FileLogger.cpp.o
 
 # target to build an object file
 FileLogger.cpp.o:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/FileLogger.cpp.o
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/FileLogger.cpp.o
 .PHONY : FileLogger.cpp.o
 
 FileLogger.i: FileLogger.cpp.i
@@ -197,7 +197,7 @@ FileLogger.i: FileLogger.cpp.i
 
 # target to preprocess a source file
 FileLogger.cpp.i:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/FileLogger.cpp.i
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/FileLogger.cpp.i
 .PHONY : FileLogger.cpp.i
 
 FileLogger.s: FileLogger.cpp.s
@@ -205,7 +205,7 @@ FileLogger.s: FileLogger.cpp.s
 
 # target to generate assembly for a file
 FileLogger.cpp.s:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/FileLogger.cpp.s
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/FileLogger.cpp.s
 .PHONY : FileLogger.cpp.s
 
 ILogger.o: ILogger.cpp.o
@@ -213,7 +213,7 @@ ILogger.o: ILogger.cpp.o
 
 # target to build an object file
 ILogger.cpp.o:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ILogger.cpp.o
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ILogger.cpp.o
 .PHONY : ILogger.cpp.o
 
 ILogger.i: ILogger.cpp.i
@@ -221,7 +221,7 @@ ILogger.i: ILogger.cpp.i
 
 # target to preprocess a source file
 ILogger.cpp.i:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ILogger.cpp.i
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ILogger.cpp.i
 .PHONY : ILogger.cpp.i
 
 ILogger.s: ILogger.cpp.s
@@ -229,7 +229,7 @@ ILogger.s: ILogger.cpp.s
 
 # target to generate assembly for a file
 ILogger.cpp.s:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ILogger.cpp.s
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/ILogger.cpp.s
 .PHONY : ILogger.cpp.s
 
 JMFile.o: JMFile.cpp.o
@@ -237,7 +237,7 @@ JMFile.o: JMFile.cpp.o
 
 # target to build an object file
 JMFile.cpp.o:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMFile.cpp.o
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMFile.cpp.o
 .PHONY : JMFile.cpp.o
 
 JMFile.i: JMFile.cpp.i
@@ -245,7 +245,7 @@ JMFile.i: JMFile.cpp.i
 
 # target to preprocess a source file
 JMFile.cpp.i:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMFile.cpp.i
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMFile.cpp.i
 .PHONY : JMFile.cpp.i
 
 JMFile.s: JMFile.cpp.s
@@ -253,7 +253,7 @@ JMFile.s: JMFile.cpp.s
 
 # target to generate assembly for a file
 JMFile.cpp.s:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMFile.cpp.s
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMFile.cpp.s
 .PHONY : JMFile.cpp.s
 
 JMString.o: JMString.cpp.o
@@ -261,7 +261,7 @@ JMString.o: JMString.cpp.o
 
 # target to build an object file
 JMString.cpp.o:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMString.cpp.o
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMString.cpp.o
 .PHONY : JMString.cpp.o
 
 JMString.i: JMString.cpp.i
@@ -269,7 +269,7 @@ JMString.i: JMString.cpp.i
 
 # target to preprocess a source file
 JMString.cpp.i:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMString.cpp.i
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMString.cpp.i
 .PHONY : JMString.cpp.i
 
 JMString.s: JMString.cpp.s
@@ -277,7 +277,7 @@ JMString.s: JMString.cpp.s
 
 # target to generate assembly for a file
 JMString.cpp.s:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMString.cpp.s
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/JMString.cpp.s
 .PHONY : JMString.cpp.s
 
 LogManager.o: LogManager.cpp.o
@@ -285,7 +285,7 @@ LogManager.o: LogManager.cpp.o
 
 # target to build an object file
 LogManager.cpp.o:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/LogManager.cpp.o
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/LogManager.cpp.o
 .PHONY : LogManager.cpp.o
 
 LogManager.i: LogManager.cpp.i
@@ -293,7 +293,7 @@ LogManager.i: LogManager.cpp.i
 
 # target to preprocess a source file
 LogManager.cpp.i:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/LogManager.cpp.i
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/LogManager.cpp.i
 .PHONY : LogManager.cpp.i
 
 LogManager.s: LogManager.cpp.s
@@ -301,7 +301,7 @@ LogManager.s: LogManager.cpp.s
 
 # target to generate assembly for a file
 LogManager.cpp.s:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/LogManager.cpp.s
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/LogManager.cpp.s
 .PHONY : LogManager.cpp.s
 
 Logger.o: Logger.cpp.o
@@ -309,7 +309,7 @@ Logger.o: Logger.cpp.o
 
 # target to build an object file
 Logger.cpp.o:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/Logger.cpp.o
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/Logger.cpp.o
 .PHONY : Logger.cpp.o
 
 Logger.i: Logger.cpp.i
@@ -317,7 +317,7 @@ Logger.i: Logger.cpp.i
 
 # target to preprocess a source file
 Logger.cpp.i:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/Logger.cpp.i
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/Logger.cpp.i
 .PHONY : Logger.cpp.i
 
 Logger.s: Logger.cpp.s
@@ -325,7 +325,7 @@ Logger.s: Logger.cpp.s
 
 # target to generate assembly for a file
 Logger.cpp.s:
-	cd /home/ruso/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/Logger.cpp.s
+	cd /home/suro/dev/JMPort/build && $(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/Logger.cpp.s
 .PHONY : Logger.cpp.s
 
 # Help Target
@@ -372,6 +372,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/ruso/dev/JMPort/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/suro/dev/JMPort/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

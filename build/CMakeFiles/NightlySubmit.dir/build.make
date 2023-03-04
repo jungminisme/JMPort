@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ruso/dev/JMPort
+CMAKE_SOURCE_DIR = /home/suro/dev/JMPort
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ruso/dev/JMPort/build
+CMAKE_BINARY_DIR = /home/suro/dev/JMPort/build
 
 # Utility rule file for NightlySubmit.
 
@@ -82,6 +82,6 @@ CMakeFiles/NightlySubmit.dir/clean:
 .PHONY : CMakeFiles/NightlySubmit.dir/clean
 
 CMakeFiles/NightlySubmit.dir/depend:
-	cd /home/ruso/dev/JMPort/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ruso/dev/JMPort /home/ruso/dev/JMPort /home/ruso/dev/JMPort/build /home/ruso/dev/JMPort/build /home/ruso/dev/JMPort/build/CMakeFiles/NightlySubmit.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/suro/dev/JMPort/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/suro/dev/JMPort /home/suro/dev/JMPort /home/suro/dev/JMPort/build /home/suro/dev/JMPort/build /home/suro/dev/JMPort/build/CMakeFiles/NightlySubmit.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/NightlySubmit.dir/depend
 

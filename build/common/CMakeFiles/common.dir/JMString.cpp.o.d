@@ -1,6 +1,6 @@
 common/CMakeFiles/common.dir/JMString.cpp.o: \
- /home/ruso/dev/JMPort/common/JMString.cpp /usr/include/stdc-predef.h \
- /home/ruso/dev/JMPort/common/JMString.h /usr/include/c++/11/string \
+ /home/suro/dev/JMPort/common/JMString.cpp /usr/include/stdc-predef.h \
+ /home/suro/dev/JMPort/common/JMString.h /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -211,4 +211,4 @@ common/CMakeFiles/common.dir/JMString.cpp.o: \
  /usr/include/c++/11/bits/regex.h /usr/include/c++/11/bits/regex.tcc \
  /usr/include/c++/11/bits/regex_executor.h \
  /usr/include/c++/11/bits/regex_executor.tcc \
- /home/ruso/dev/JMPort/common/JMDataType.h
+ /home/suro/dev/JMPort/common/JMDataType.h

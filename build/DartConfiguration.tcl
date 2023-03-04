@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/ruso/dev/JMPort
-BuildDirectory: /home/ruso/dev/JMPort/build
+SourceDirectory: /home/suro/dev/JMPort
+BuildDirectory: /home/suro/dev/JMPort/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: ruso-Latitude-E6400
+Site: DESKTOP-4O8VSK9
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Linux-g++
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/bin/cmake" "/home/ruso/dev/JMPort"
+ConfigureCommand: "/usr/bin/cmake" "/home/suro/dev/JMPort"
 MakeCommand: /usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
