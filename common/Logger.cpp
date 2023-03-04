@@ -1,9 +1,21 @@
 #include "Logger.h"
 
 using namespace JMLib;
-void CLogger::Log( const string & irString )
-{
 
+/**
+ * @brief 초기화 함수 일부 하위클래스에서만 사용한다. 
+ * 현재는 아무것도 안함. 
+ * @param irString 초기화를 위한 문자열
+ */
+void CLogger::Initialize(const string &irString)
+{
+    return;
+}
+
+
+void CLogger::Log(const string &irString)
+{
+    LogOut( irString );
 }
 
 /**
@@ -24,7 +36,7 @@ void CLogger::LogWithLevel( const NLog::LevelType iaLevel, const string & irStri
     {
     case NLog::NLevel::DDEBUG:
         aLevelString = L"[DEBUG] ";
-\        break;
+        break;
     case NLog::NLevel::DINFO:
         aLevelString = L"[INFO] ";
         break;
@@ -57,7 +69,7 @@ void CLogger::LogWithAllArg( const string & irSrcFile, const uint32 iaLine,
         const NLog::LevelType iaLevel, const string & irLogString )
 {
     string aString;
-    aString.Format( L"(%s, %d ) %s ", irSrcFile.c_str(), iaLine, irLogString );
+    aString.Format( L"(%s, %d ) %s ", irSrcFile.c_str(), iaLine, irLogString.c_str() );
 
     LogWithLevel( iaLevel, aString );
 }

@@ -4,7 +4,7 @@
 
 using namespace JMLib;
 
-class CFileLogger
+class CFileLogger : public CLogger 
 {
     private:
     CFile maFileOut;

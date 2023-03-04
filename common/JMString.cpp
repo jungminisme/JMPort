@@ -11,7 +11,7 @@ string::string( const wchar_t * ipString ) : maString( ipString )
 
 }
 
-string::string( string & irString ) : maString( irString.maString) 
+string::string( const string & irString ) : maString( irString.maString) 
 {
 
 }
@@ -148,9 +148,14 @@ bool string::operator == ( const string & irString ) const
     return maString == irString.maString;
 }
 
+bool JMLib::string::operator < (const string & irString) const
+{
+    return ( maString < irString.maString );
+}
+
 /// @brief 문자열 좌우의 여백을 제거한다. 
 /// @param irDel 제거할 여백의 종류
-void string::Trim( const string & irDel = L"\t\n\v" )
+void string::Trim( const string & irDel )
 {
     maString.erase( maString.find_last_not_of(irDel.maString) + 1);
     maString.erase( maString.find_first_not_of(irDel.maString ));

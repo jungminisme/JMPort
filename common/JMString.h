@@ -23,7 +23,7 @@ namespace JMLib
         public:
         string();
         string( const wchar_t * ipString ) ;
-        string( string & irString );
+        string( const string & irString );
         int32 Compare( const string & irString );
         bool IsEmpty() const ;
         uint32 Size() const ;
@@ -40,6 +40,7 @@ namespace JMLib
         string & operator = ( const string & irString );
         string & operator = ( const wchar_t * ipString );
         bool operator == ( const string & irString ) const ;
+        bool operator < ( const string & irString ) const;
         void Trim( const string & irDel = L"\t\n\v" );
         bool operator != ( const string & irString ) const ;
         int32 ToInt() const;

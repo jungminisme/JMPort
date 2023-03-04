@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcommon.a CMakeFiles/common.dir/ConsoleLogger.cpp.o CMakeFiles/common.dir/FileLogger.cpp.o CMakeFiles/common.dir/ILogger.cpp.o CMakeFiles/common.dir/JMFile.cpp.o CMakeFiles/common.dir/JMString.cpp.o CMakeFiles/common.dir/Logger.cpp.o CMakeFiles/common.dir/LogManager.cpp.o
+/usr/bin/ranlib libcommon.a

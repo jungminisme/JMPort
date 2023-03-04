@@ -1,1 +1,1 @@
-/usr/bin/g++ -g -rdynamic CMakeFiles/JMPort.dir/main.cpp.o -o JMPort 
+/usr/bin/g++ -g -rdynamic CMakeFiles/JMPort.dir/main.cpp.o -o JMPort  common/libcommon.a 

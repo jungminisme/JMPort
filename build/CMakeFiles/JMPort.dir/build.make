@@ -92,6 +92,7 @@ JMPort_EXTERNAL_OBJECTS =
 
 JMPort: CMakeFiles/JMPort.dir/main.cpp.o
 JMPort: CMakeFiles/JMPort.dir/build.make
+JMPort: common/libcommon.a
 JMPort: CMakeFiles/JMPort.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ruso/dev/JMPort/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable JMPort"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/JMPort.dir/link.txt --verbose=$(VERBOSE)

@@ -3,6 +3,7 @@
 CFileLogger::CFileLogger() : maFileOut()
 {
 }
+
 CFileLogger::~CFileLogger()
 {
 

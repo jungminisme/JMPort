@@ -20,6 +20,7 @@ class CLogger : public ILogger{
     CLogger() {}
     virtual ~CLogger() = default;
 
+    virtual void Initialize( const string & irString );
     virtual void Log( const string & irString );
     virtual void LogWithLevel( const NLog::LevelType iaLevel, const string & irString );
     virtual void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 

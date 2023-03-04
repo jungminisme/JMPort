@@ -40,6 +40,7 @@ class ILogger
     ILogger() {}
     virtual ~ILogger() {}
 
+    virtual void Initialize( const string & irString ) = 0;
     virtual void Log( const string & irString ) = 0;
     virtual void LogWithLevel( const NLog::LevelType iaType, const string & irString ) = 0;
     virtual void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
@@ -51,15 +52,15 @@ typedef std::shared_ptr<ILogger> slogger;
 
 }
 
-void LOG_ERROR( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
-void LOG_TRACE( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
-void LOG_INFO( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
-void LOG_DEBUG( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
-void LOG_WARN( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+void LOG_ERROR( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+void LOG_TRACE( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+void LOG_INFO( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+void LOG_DEBUG( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
+void LOG_WARN( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
 
-void LOG_ERROR( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine,  wchar_t * ipFormat, ... );
-void LOG_TRACE( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine, wchar_t * ipFormat, ... );
-void LOG_INFO( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine, wchar_t * ipFormat, ... );
-void LOG_DEBUG( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine, wchar_t * ipFormat, ... );
-void LOG_WARN( const NLog::LogChannel & irChannel, wchar_t * ipFileName, int32 iaLine, wchar_t * ipFormat, ... );
-void LOG_FATAL(const NLog::LogChannel &irChannel, wchar_t *ipFileName, int32 iaLine, wchar_t *ipFormat, ...);
+void LOG_ERROR( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFileName, JMLib::int32 iaLine,  wchar_t * ipFormat, ... );
+void LOG_TRACE( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFileName, JMLib::int32 iaLine, wchar_t * ipFormat, ... );
+void LOG_INFO( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFileName, JMLib::int32 iaLine, wchar_t * ipFormat, ... );
+void LOG_DEBUG( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFileName, JMLib::int32 iaLine, wchar_t * ipFormat, ... );
+void LOG_WARN( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFileName, JMLib::int32 iaLine, wchar_t * ipFormat, ... );
+void LOG_FATAL(const JMLib::NLog::LogChannel &irChannel, wchar_t *ipFileName, JMLib::int32 iaLine, wchar_t *ipFormat, ...);

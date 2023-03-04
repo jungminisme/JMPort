@@ -31,7 +31,7 @@ public:
     void LogWithAllArg( const NLog::LogChannel & irChannel, string & irSrcFile, const uint32 iaLine, 
         const NLog::LevelType iaLevel, const string & irLogString );
 
-private:
-    CLogManager();
-    virtual ~CLogManager();
+public:
+    CLogManager(){}
+    ~CLogManager(){}
 };

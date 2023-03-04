@@ -12,7 +12,7 @@ using namespace JMLib;
  * @param ipFormat 로그 포멧, printf 의 포멧으로 출력한다. 
  * @param ...  포멧을 위한 추가 파라미터
  */
-void LOG_ERROR( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
+void LOG_ERROR( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
 {
     string aOutString;
     va_list aVarList;
@@ -32,7 +32,7 @@ void LOG_ERROR( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
  * @param ipFormat 로그 포멧, printf 의 포멧으로 출력한다. 
  * @param ...  포멧을 위한 추가 파라미터
  */
-void LOG_TRACE( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
+void LOG_TRACE( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
 {
     string aOutString;
     va_list aVarList;
@@ -113,7 +113,7 @@ void LOG_WARN( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
  * @param ipFormat 로그 포멧, printf 의 포멧으로 출력한다. 
  * @param ...  포멧을 위한 추가 파라미터
  */
-void LOG_WARN( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
+void LOG_FATAL( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
 {
     string aOutString;
     va_list aVarList;

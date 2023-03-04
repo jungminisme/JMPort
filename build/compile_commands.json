@@ -1,7 +1,42 @@
 [
 {
   "directory": "/home/ruso/dev/JMPort/build",
-  "command": "/usr/bin/g++   -g -o CMakeFiles/JMPort.dir/main.cpp.o -c /home/ruso/dev/JMPort/main.cpp",
+  "command": "/usr/bin/g++  -I/home/ruso/dev/JMPort/common -g -o CMakeFiles/JMPort.dir/main.cpp.o -c /home/ruso/dev/JMPort/main.cpp",
   "file": "/home/ruso/dev/JMPort/main.cpp"
+},
+{
+  "directory": "/home/ruso/dev/JMPort/build/common",
+  "command": "/usr/bin/g++  -I/home/ruso/dev/JMPort/common -g -Wall -Werror -o CMakeFiles/common.dir/ConsoleLogger.cpp.o -c /home/ruso/dev/JMPort/common/ConsoleLogger.cpp",
+  "file": "/home/ruso/dev/JMPort/common/ConsoleLogger.cpp"
+},
+{
+  "directory": "/home/ruso/dev/JMPort/build/common",
+  "command": "/usr/bin/g++  -I/home/ruso/dev/JMPort/common -g -Wall -Werror -o CMakeFiles/common.dir/FileLogger.cpp.o -c /home/ruso/dev/JMPort/common/FileLogger.cpp",
+  "file": "/home/ruso/dev/JMPort/common/FileLogger.cpp"
+},
+{
+  "directory": "/home/ruso/dev/JMPort/build/common",
+  "command": "/usr/bin/g++  -I/home/ruso/dev/JMPort/common -g -Wall -Werror -o CMakeFiles/common.dir/ILogger.cpp.o -c /home/ruso/dev/JMPort/common/ILogger.cpp",
+  "file": "/home/ruso/dev/JMPort/common/ILogger.cpp"
+},
+{
+  "directory": "/home/ruso/dev/JMPort/build/common",
+  "command": "/usr/bin/g++  -I/home/ruso/dev/JMPort/common -g -Wall -Werror -o CMakeFiles/common.dir/JMFile.cpp.o -c /home/ruso/dev/JMPort/common/JMFile.cpp",
+  "file": "/home/ruso/dev/JMPort/common/JMFile.cpp"
+},
+{
+  "directory": "/home/ruso/dev/JMPort/build/common",
+  "command": "/usr/bin/g++  -I/home/ruso/dev/JMPort/common -g -Wall -Werror -o CMakeFiles/common.dir/JMString.cpp.o -c /home/ruso/dev/JMPort/common/JMString.cpp",
+  "file": "/home/ruso/dev/JMPort/common/JMString.cpp"
+},
+{
+  "directory": "/home/ruso/dev/JMPort/build/common",
+  "command": "/usr/bin/g++  -I/home/ruso/dev/JMPort/common -g -Wall -Werror -o CMakeFiles/common.dir/Logger.cpp.o -c /home/ruso/dev/JMPort/common/Logger.cpp",
+  "file": "/home/ruso/dev/JMPort/common/Logger.cpp"
+},
+{
+  "directory": "/home/ruso/dev/JMPort/build/common",
+  "command": "/usr/bin/g++  -I/home/ruso/dev/JMPort/common -g -Wall -Werror -o CMakeFiles/common.dir/LogManager.cpp.o -c /home/ruso/dev/JMPort/common/LogManager.cpp",
+  "file": "/home/ruso/dev/JMPort/common/LogManager.cpp"
 }
 ]

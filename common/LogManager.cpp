@@ -13,7 +13,7 @@ CLogManager & CLogManager::GetInstance()
 {
     std::call_once( CLogManager::maOnce, []() 
     {
-        mpInstance.reset( new CLogManager());
+        mpInstance = std::make_unique< CLogManager >();
     });
     return * mpInstance;
 }
@@ -43,15 +43,12 @@ bool CLogManager::SetLogger( const NLog::LogChannel & irChannel, NLog::LogType i
             aLogger = std::make_shared<CConsoleLogger>();
             break;
         case NLog::NType::DFILE:
-            {
-                // 파일 로거의 경우, 파일 이름을 체널이름.log로 설정해 준다. 
-                std::shared_ptr<CFileLogger> aTempLogger = std::make_shared<CFileLogger>( );
-                string aTempString;
-                aTempString = irChannel;
-                aTempString << L".log";
-                aTempLogger->Initialize(aTempString);
-                aLogger = std::static_pointer_cast<JMLib::ILogger>( aTempLogger );
-            }
+        aLogger = std::make_shared<CFileLogger>();
+        {
+            string aTempString( irChannel );
+            aTempString << L".log";
+            aLogger->Initialize(aTempString);
+        }
             break;
         default:
             return false;
@@ -75,8 +72,6 @@ void CLogManager::RemoveLogger( const NLog::LogChannel & irChannel )
     logs::iterator aIt = maLogs.find( irChannel );
     if( aIt == maLogs.end() )
         return;
-    slogger aLog = aIt->second;
-    aLog->Finalize();
     maLogs.erase(aIt);
 }
 
@@ -87,9 +82,9 @@ void CLogManager::RemoveLogger( const NLog::LogChannel & irChannel )
  * @param iaChannel 출력될 로그의 채널
  * @param irString  출력할 로그
  */
-void CLogManager::Log( NLog::LogChannel iaChannel, const string & irString )
+void CLogManager::Log( const NLog::LogChannel & irChannel, const string & irString )
 {
-    LogWithLevel( iaChannel, NLog::NLevel::DDEBUG, irString );
+    LogWithLevel( irChannel, NLog::NLevel::DDEBUG, irString );
 }
 
 /**
@@ -99,10 +94,10 @@ void CLogManager::Log( NLog::LogChannel iaChannel, const string & irString )
  * @param iaLevel 로그레벨
  * @param irString 출력될 로그
  */
-void CLogManager::LogWithLevel( NLog::LogChannel iaChannel, NLog::LevelType iaLevel, const string & irString )
+void CLogManager::LogWithLevel( const NLog::LogChannel & irChannel, NLog::LevelType iaLevel, const string & irString )
 {
     lockguard aLG( maLock );
-    logs::iterator it = maLogs.find(iaChannel );
+    logs::iterator it = maLogs.find(irChannel );
     if( it == maLogs.end() )
         return;
     slogger aLog = it->second;
@@ -118,22 +113,14 @@ void CLogManager::LogWithLevel( NLog::LogChannel iaChannel, NLog::LevelType iaLe
  * @param iaLevel 로그 등급
  * @param irLogString 로그 내용
  */
-void CLogManager::LogWithAllArg( NLog::LogChannel iaChannel, string & irSrcFile, const uint32 iaLine, 
+void CLogManager::LogWithAllArg( const NLog::LogChannel & irChannel, string & irSrcFile, const uint32 iaLine, 
         const NLog::LevelType iaLevel, const string & irLogString )
 {
     lockguard aLG( maLock );
-    logs::iterator it = maLogs.find(iaChannel );
+    logs::iterator it = maLogs.find(irChannel );
     if( it == maLogs.end() )
         return;
     slogger aLog = it->second;
     aLog->LogWithAllArg(irSrcFile, iaLine, iaLevel, irLogString );
 }
 
-
-CLogManager::CLogManager()
-{
-}
-
-CLogManager::~CLogManager()
-{
-}

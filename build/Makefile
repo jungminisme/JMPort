@@ -523,6 +523,19 @@ JMPort/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/JMPort.dir/build.make CMakeFiles/JMPort.dir/build
 .PHONY : JMPort/fast
 
+#=============================================================================
+# Target rules for targets named common
+
+# Build rule for target.
+common: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common
+.PHONY : common
+
+# fast build rule for target.
+common/fast:
+	$(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/build
+.PHONY : common/fast
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -587,6 +600,7 @@ help:
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
 	@echo "... JMPort"
+	@echo "... common"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

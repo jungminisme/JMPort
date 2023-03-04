@@ -32,3 +32,9 @@
 /home/ruso/dev/JMPort/build/CMakeFiles/test.dir
 /home/ruso/dev/JMPort/build/CMakeFiles/edit_cache.dir
 /home/ruso/dev/JMPort/build/CMakeFiles/rebuild_cache.dir
+/home/ruso/dev/JMPort/build/common/CMakeFiles/common.dir
+/home/ruso/dev/JMPort/build/common/CMakeFiles/package.dir
+/home/ruso/dev/JMPort/build/common/CMakeFiles/package_source.dir
+/home/ruso/dev/JMPort/build/common/CMakeFiles/test.dir
+/home/ruso/dev/JMPort/build/common/CMakeFiles/edit_cache.dir
+/home/ruso/dev/JMPort/build/common/CMakeFiles/rebuild_cache.dir
