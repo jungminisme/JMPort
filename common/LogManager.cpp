@@ -9,13 +9,9 @@
  * 전체 시스템에서 로그 관련 관리자는 한개만 있으면 된다. 
  * @return CLogManager& 전역 로그 관리자 객체
  */
-CLogManager & CLogManager::GetInstance()
+CLogManager * CLogManager::GetInstance()
 {
-    std::call_once( CLogManager::maOnce, []() 
-    {
-        mpInstance = std::make_unique< CLogManager >();
-    });
-    return * mpInstance;
+    return & maInstance;
 }
 
 /**

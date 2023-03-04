@@ -15,13 +15,12 @@ private:
     typedef std::map<NLog::LogChannel, slogger> logs;
 
 private:
-    static std::unique_ptr<CLogManager> mpInstance;
-    static std::once_flag maOnce;
+    static CLogManager maInstance;
     logs maLogs;
     lock maLock;
 
 public:
-    static CLogManager & GetInstance();
+    static CLogManager * GetInstance();
 
     void  RemoveLogger( const NLog::LogChannel & irChannel );
     bool SetLogger( const NLog::LogChannel & irChannel, NLog::LogType iaType );
@@ -31,7 +30,7 @@ public:
     void LogWithAllArg( const NLog::LogChannel & irChannel, string & irSrcFile, const uint32 iaLine, 
         const NLog::LevelType iaLevel, const string & irLogString );
 
-public:
+private:
     CLogManager(){}
     ~CLogManager(){}
 };

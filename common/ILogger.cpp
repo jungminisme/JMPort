@@ -20,9 +20,9 @@ void LOG_ERROR( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, .
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
 
-    pLM.LogWithLevel( irChannel, NLog::NLevel::DERROR, aOutString );
+    pLM->LogWithLevel( irChannel, NLog::NLevel::DERROR, aOutString );
 }
 
 /**
@@ -40,9 +40,9 @@ void LOG_TRACE( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, .
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
 
-    pLM.LogWithLevel( irChannel, NLog::NLevel::DTRACE, aOutString );
+    pLM->LogWithLevel( irChannel, NLog::NLevel::DTRACE, aOutString );
 }
 
 
@@ -61,9 +61,9 @@ void LOG_INFO( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
 
-    pLM.LogWithLevel( irChannel, NLog::NLevel::DINFO, aOutString );
+    pLM->LogWithLevel( irChannel, NLog::NLevel::DINFO, aOutString );
 }
 
 /**
@@ -81,9 +81,9 @@ void LOG_DEBUG( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
 
-    pLM.LogWithLevel( irChannel, NLog::NLevel::DDEBUG, aOutString );
+    pLM->LogWithLevel( irChannel, NLog::NLevel::DDEBUG, aOutString );
 }
 
 /**
@@ -101,9 +101,9 @@ void LOG_WARN( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
 
-    pLM.LogWithLevel( irChannel, NLog::NLevel::DWARN, aOutString );
+    pLM->LogWithLevel( irChannel, NLog::NLevel::DWARN, aOutString );
 }
 
 /**
@@ -121,9 +121,9 @@ void LOG_FATAL( const NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
 
-    pLM.LogWithLevel( irChannel, NLog::NLevel::DFATAL, aOutString );
+    pLM->LogWithLevel( irChannel, NLog::NLevel::DFATAL, aOutString );
 }
 
 /**
@@ -143,9 +143,9 @@ void LOG_ERROR(const NLog::LogChannel &irChannel, wchar_t *ipFileName, int32 iaL
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
     string aFileName( ipFileName);
-    pLM.LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DERROR, aOutString );
+    pLM->LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DERROR, aOutString );
 }
 
 /**
@@ -165,9 +165,9 @@ void LOG_TRACE(const NLog::LogChannel &irChannel, wchar_t *ipFileName, int32 iaL
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
     string aFileName( ipFileName);
-    pLM.LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DTRACE, aOutString );
+    pLM->LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DTRACE, aOutString );
 }
 
 /**
@@ -187,9 +187,9 @@ void LOG_INFO(const NLog::LogChannel &irChannel, wchar_t *ipFileName, int32 iaLi
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
     string aFileName( ipFileName);
-    pLM.LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DINFO, aOutString );
+    pLM->LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DINFO, aOutString );
 }
 
 /**
@@ -209,9 +209,9 @@ void LOG_DEBUG(const NLog::LogChannel &irChannel, wchar_t *ipFileName, int32 iaL
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
     string aFileName( ipFileName);
-    pLM.LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DDEBUG, aOutString );
+    pLM->LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DDEBUG, aOutString );
 }
 
 /**
@@ -231,9 +231,9 @@ void LOG_WARN(const NLog::LogChannel &irChannel, wchar_t *ipFileName, int32 iaLi
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
     string aFileName( ipFileName);
-    pLM.LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DWARN, aOutString );
+    pLM->LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DWARN, aOutString );
 }
 
 /**
@@ -253,7 +253,7 @@ void LOG_FATAL(const NLog::LogChannel &irChannel, wchar_t *ipFileName, int32 iaL
     aOutString.FormatWithVAList( ipFormat, aVarList );
     va_end( aVarList);
 
-    CLogManager & pLM = CLogManager::GetInstance();
+    CLogManager * pLM = CLogManager::GetInstance();
     string aFileName( ipFileName);
-    pLM.LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DFATAL, aOutString );
+    pLM->LogWithAllArg( irChannel, aFileName, iaLine, NLog::NLevel::DFATAL, aOutString );
 }
