@@ -21,9 +21,6 @@
             }
         ]
     },
-    "gtest-adapter.debugConfig": [
-        "cppdebug",
-        "run test"
-    ],
-    "gtest-adapter.supportLocation": false
+    "gtest-adapter.supportLocation": true,
+    "gtest-adapter.debugConfig": "run test"
 }
