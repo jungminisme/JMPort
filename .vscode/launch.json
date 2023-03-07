@@ -8,7 +8,7 @@
             "name": "cppdebug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/JMPort)",
+            "program": "${workspaceFolder}/build/JMPort",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
