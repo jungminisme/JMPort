@@ -20,10 +20,10 @@
 				"$gcc"
 			],
 			"group": {
-				"kind": "build"
+				"kind": "build",
 				"isDefault": true
 			},
-			"detal" : "디버그 작업입니다."
+			"detail" : "디버그 작업입니다."
 		}
 	]
 }
