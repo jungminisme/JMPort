@@ -20,7 +20,5 @@
                 }
             }
         ]
-    },
-    "gtest-adapter.supportLocation": true,
-    "gtest-adapter.debugConfig": "run test"
+    }
 }
