@@ -33,7 +33,7 @@
             "name": "run test",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/build/test/hello_test",
+            "program": "${workspaceRoot}/build/test/common_test",
             "args": [],
             "stopAtEntry": false,
             "cwd":"${fileDirname}",
