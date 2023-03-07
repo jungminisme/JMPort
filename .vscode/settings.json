@@ -20,5 +20,9 @@
                 }
             }
         ]
-    }
+    },
+    "gtest-adapter.debugConfig": [
+        "cppdebug"
+    ],
+    "gtest-adapter.supportLocation": false
 }
