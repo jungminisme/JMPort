@@ -96,3 +96,56 @@ TEST(StringTest, Append )
     EXPECT_STREQ( aSam4.c_str(), L"My Name is Gilbert Grape");
 
 }
+
+TEST(StringTest, MiscTest)
+{
+    JMLib::string aSam1( L"Lonely Night");
+    JMLib::string aSam2( L"Puff" );
+    JMLib::string aSam3( aSam1 );
+
+    //Compare Test
+    EXPECT_NE( aSam1.Compare(aSam2), 0 );
+    EXPECT_EQ( aSam1.Compare(aSam3), 0 );
+
+    EXPECT_FALSE( aSam1 == aSam2 );
+    EXPECT_TRUE( aSam1 == aSam3 );
+
+    // != Test
+    EXPECT_TRUE( aSam1 != aSam2 );
+    EXPECT_FALSE( aSam1 != aSam3 );
+
+    //Empty Test
+    JMLib::string aSam4;
+    EXPECT_TRUE( aSam4.IsEmpty() );
+    EXPECT_FALSE( aSam2.IsEmpty() );
+
+    //Size Test
+    EXPECT_EQ( aSam4.Size(), 0 );
+    EXPECT_EQ( aSam2.Size(), 4 );
+
+    //Clear Test
+    aSam2.Clear();
+    EXPECT_EQ( aSam2.Size(), 0 );
+    EXPECT_STREQ( aSam2.c_str(), L"" );
+
+    JMLib::string aSam5( L"a" );
+    JMLib::string aSam6(L"b");
+    JMLib::string aSam7(L"ab");
+
+    // 부등호는 Dictionary order 를 따른다.  
+    EXPECT_TRUE( aSam5 < aSam6 );
+    EXPECT_TRUE( aSam5 < aSam7 );
+    EXPECT_FALSE( aSam6 < aSam7 );
+    EXPECT_FALSE( aSam5 < aSam5 );
+
+    /*
+    아래 내용 보고 테스트 구성한다. 
+        bool operator < ( const string & irString ) const;
+        void Trim( const string & irDel = L"\t\n\v" );
+        int32 ToInt() const;
+        float64 ToFloat() const;
+        string & Format( const wchar_t * ipFormat, ... );
+        string & FormatWithVAList( const wchar_t * ipFormat, va_list iaList );
+        */
+
+}
