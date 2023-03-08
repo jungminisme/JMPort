@@ -148,6 +148,14 @@ bool string::operator == ( const string & irString ) const
     return maString == irString.maString;
 }
 
+/**
+ * @brief 비교 연산자
+ * std::map 에 string이 key인 경우를 위해 제작한다
+ * Dictionary order를 따른다. 
+ * @param irString lhs value  *this < lsh
+ * @return true  lsh 보다 *this 가 작은 경우
+ * @return false lsh 보다 *this 가 작지 않은 경우, 같은 경우 포함
+ */
 bool JMLib::string::operator < (const string & irString) const
 {
     return ( maString < irString.maString );
@@ -158,7 +166,7 @@ bool JMLib::string::operator < (const string & irString) const
 void string::Trim( const string & irDel )
 {
     maString.erase( maString.find_last_not_of(irDel.maString) + 1);
-    maString.erase( maString.find_first_not_of(irDel.maString ));
+    maString.erase( 0, maString.find_first_not_of(irDel.maString ));
 }
 
 /// @brief 좌우가 같지 않은 문자열인지 비교

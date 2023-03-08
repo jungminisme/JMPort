@@ -41,7 +41,7 @@ namespace JMLib
         string & operator = ( const wchar_t * ipString );
         bool operator == ( const string & irString ) const ;
         bool operator < ( const string & irString ) const;
-        void Trim( const string & irDel = L"\t\n\v" );
+        void Trim( const string & irDel = L" \t\n\v" );
         bool operator != ( const string & irString ) const ;
         int32 ToInt() const;
         float64 ToFloat() const;

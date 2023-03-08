@@ -137,11 +137,26 @@ TEST(StringTest, MiscTest)
     EXPECT_TRUE( aSam5 < aSam7 );
     EXPECT_FALSE( aSam6 < aSam7 );
     EXPECT_FALSE( aSam5 < aSam5 );
+    EXPECT_TRUE( aSam2 < aSam5);
+
+    JMLib::string aSam8( L"  Whole new world   !   " );
+    JMLib::string aSam9( aSam8 );
+
+    EXPECT_TRUE( aSam8 == aSam9 );
+    aSam9.Trim();
+    EXPECT_TRUE( aSam8.Size() > aSam9.Size() );
+    EXPECT_STREQ( aSam9.c_str(), L"Whole new world   !" );
+
+    JMLib::string aSam10( L"213456");
+    EXPECT_EQ( aSam10.ToInt(), 213456 );
+    aSam10 = L"2145t345";
+    EXPECT_NE( aSam10.ToInt(), 2145345 );
+
+    JMLib::string aSam11( L"3.141592");
+    EXPECT_EQ( aSam11.ToFloat(), 3.141592 );
 
     /*
     아래 내용 보고 테스트 구성한다. 
-        bool operator < ( const string & irString ) const;
-        void Trim( const string & irDel = L"\t\n\v" );
         int32 ToInt() const;
         float64 ToFloat() const;
         string & Format( const wchar_t * ipFormat, ... );
