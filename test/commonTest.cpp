@@ -29,4 +29,10 @@ TEST(StringTest, Assign)
     JMLib::string aSam4;
     aSam4 = L" World";
     EXPECT_STREQ( aSam4.c_str(), L" World" );
+
+    JMLib::string aSam5 = L" World";
+    EXPECT_STREQ( aSam5.c_str(), L" World" );
+
+    JMLib::string aSam6 = aSam5;
+    EXPECT_STREQ( aSam6.c_str(), L" World" );
 }
