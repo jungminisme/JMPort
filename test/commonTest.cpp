@@ -155,12 +155,10 @@ TEST(StringTest, MiscTest)
     JMLib::string aSam11( L"3.141592");
     EXPECT_EQ( aSam11.ToFloat(), 3.141592 );
 
-    /*
-    아래 내용 보고 테스트 구성한다. 
-        int32 ToInt() const;
-        float64 ToFloat() const;
-        string & Format( const wchar_t * ipFormat, ... );
-        string & FormatWithVAList( const wchar_t * ipFormat, va_list iaList );
-        */
 
+    JMLib::string aSam12;
+    JMLib::string aTestString( L"Format Test");
+    //! string 출력시 %s 와 %S 는 많이 다르다. UNICODE는 %S만 쓴다. 
+    aSam12.Format(L"This is %S No. %d ", aTestString.c_str(), 1);
+    EXPECT_STREQ( aSam12.c_str(), L"This is Format Test No. 1 " );
 }
