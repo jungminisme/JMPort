@@ -15,7 +15,9 @@ TEST(FileTest, Open )
     aFile.Close();
     EXPECT_FALSE( aFile.IsOpen() );  // 닫았는데 열려있으면안된다. 
 
-    CFile aSam2( string(L"TestFile.txt", NFile::NMode::DWRITE ));
+    CFile aSam2( string(L"TestFile.txt"), NFile::NMode::DWRITE );
+    NFile::mode aMode = NFile::NMode::DREAD_WRITE;
+    EXPECT_FALSE( aFile.Open(L"TestFile.txt", aMode) );
     EXPECT_TRUE( aFile.IsOpen() );
     aSam2.Close();
 

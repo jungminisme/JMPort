@@ -11,7 +11,7 @@ CFile::CFile()
  * @param irFileName 열고 싶은 파일 이름
  * @param iaMode 열기 모드 
  */
-CFile::Cfile(const string &irFileName, NFile::mode iaMode)
+CFile::CFile(const string &irFileName, NFile::mode iaMode)
 {
     Open( irFileName, iaMode );
 }
