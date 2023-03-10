@@ -20,5 +20,6 @@
                 }
             }
         ]
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

@@ -2,15 +2,27 @@ enable_testing()
 
 
 add_executable(
-    common_test
-    commonTest.cpp
+    FileTest
+    FileTest.cpp
 )
-target_include_directories(common_test PUBLIC ${CMAKE_SOURCE_DIR}/common )
+target_include_directories(FileTest PUBLIC ${CMAKE_SOURCE_DIR}/common )
 target_link_libraries(
-    common_test
+    FileTest
+    GTest::gtest_main
+    common
+)
+
+add_executable(
+    StringTest
+    StringTest.cpp
+)
+target_include_directories(StringTest PUBLIC ${CMAKE_SOURCE_DIR}/common )
+target_link_libraries(
+    StringTest
     GTest::gtest_main
     common
 )
 
 include(GoogleTest)
-gtest_discover_tests(common_test)
+gtest_discover_tests(FileTest)
+gtest_discover_tests(StringTest)

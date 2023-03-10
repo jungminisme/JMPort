@@ -5,6 +5,17 @@ CFile::CFile()
 {
 }
 
+/**
+ * @brief Construct a new CFile::Cfile object
+ * 생성될때 파일을 연다.  코드를 줄이고 싶을때를 위한 서비스
+ * @param irFileName 열고 싶은 파일 이름
+ * @param iaMode 열기 모드 
+ */
+CFile::Cfile(const string &irFileName, NFile::mode iaMode)
+{
+    Open( irFileName, iaMode );
+}
+
 /** 
  * 파일 객체가 소멸할때는 무조건 파일 스트림을 닫는다. 
 */

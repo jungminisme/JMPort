@@ -30,6 +30,7 @@ class CFile
  
     public:
     CFile();
+    Cfile( const string & irFileName, NFile::mode iaMode  );
     ~CFile();
     bool Open( const string & irFileName, NFile::mode iaMode );
     int32 Append( const string & irString );
