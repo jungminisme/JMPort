@@ -3,6 +3,7 @@
 
 CFile::CFile() : maStatus( NFile::NStatus::DCLOSE )
 {
+    maStream.imbue( std::locale("ko_KR.UTF-8") );
 }
 
 /**
@@ -13,6 +14,7 @@ CFile::CFile() : maStatus( NFile::NStatus::DCLOSE )
  */
 CFile::CFile( const wchar_t * ipFileName, NFile::mode iaMode )
 {
+    maStream.imbue( std::locale("ko_KR.UTF-8") );
     Open( ipFileName, iaMode );
 }
 
@@ -24,6 +26,7 @@ CFile::CFile( const wchar_t * ipFileName, NFile::mode iaMode )
  */
 CFile::CFile(const string &irFileName, NFile::mode iaMode)
 {
+    maStream.imbue( std::locale("ko_KR.UTF-8") );
     Open( irFileName, iaMode );
 }
 

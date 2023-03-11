@@ -17,6 +17,7 @@ CFileLogger::~CFileLogger()
 void CFileLogger::LogOut( const string & irString )
 {
     maFileOut << irString ;
+    maFileOut.AppendNewLine();
 }
 
 /**
