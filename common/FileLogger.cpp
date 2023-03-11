@@ -26,5 +26,5 @@ void CFileLogger::LogOut( const string & irString )
  */
 void CFileLogger::Initialize( const string & irFileName )
 {
-    maFileOut.Open( irFileName, NFile::NMode::DWRITE);
+    maFileOut.Open( irFileName, NFile::NMode::DWRITE );
 }

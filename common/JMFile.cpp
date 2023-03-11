@@ -1,8 +1,19 @@
 #include "JMFile.h"
 #include <stdlib.h>
 
-CFile::CFile() 
+CFile::CFile() : maStatus( NFile::NStatus::DCLOSE )
 {
+}
+
+/**
+ * @brief Construct a new CFile::CFile object
+ * wchar_t 로 파일오픈 생성할때 사용
+ * @param ipFileName 오픈할 파일의 이름
+ * @param iaMode read, write, rw 중 선택
+ */
+CFile::CFile( const wchar_t * ipFileName, NFile::mode iaMode )
+{
+    Open( ipFileName, iaMode );
 }
 
 /**
@@ -25,6 +36,21 @@ CFile::~CFile()
 }
 
 /**
+ * @brief 텍스트 모드로 파일을 연다. 
+ * string 객체를 생성해서 Open하는 것이 귀찮아 만든 함수 
+ * string의 길이 문제로 인하여 내부에서는 Open( string &, mode )를 호출한다. 
+ * @param ipFileName open할 파일의 이름
+ * @param iaMode  read 모드 일지, write모드 일지 rw모드 일지 선택한다. 
+ * @return true 파일이 열린경우
+ * @return false 파일이 이미 열려있거나 다른 이유로 실패한경우 
+ */
+bool CFile::Open( const wchar_t * ipFileName, NFile::mode iaMode )
+{
+    string aString(ipFileName);
+    return Open( aString, iaMode );
+}
+
+/**
  * @brief 텍스트모드로 파일을 연다. 
  * JMLib은 JMString만을 사용하지만 파일은 char* 만 입력을 받는다. 
  * 문자열 변환은 우선 여기서만 사용하고, 다른 예외사항 발생하면 그때 관련 문자열 함수를 만든다. 
@@ -36,9 +62,9 @@ CFile::~CFile()
 bool CFile::Open( const string & irFileName,  NFile::mode iaMode)
 {
     // 이미 열려 있는지 확인한다. 
-    if(maStream.is_open() == true )
+    if( IsOpen() == true )
     {
-        //:TODO 이후 이곳에 Exception을 집어 넣는다. 
+        //TODO : 이후 이곳에 Exception을 집어 넣는다. 
         return false;
     }
     // 파일 이름이 너무 길지 않은지 확인 한다. 
@@ -51,12 +77,15 @@ bool CFile::Open( const string & irFileName,  NFile::mode iaMode)
     {
         case NFile::NMode::DREAD:
             maStream.open( aBuffer,  std::ios_base::in );
+            maStatus = NFile::NStatus::DOPEN_READ;
             break;
         case NFile::NMode::DWRITE:
             maStream.open( aBuffer, std::ios_base::out );
+            maStatus = NFile::NStatus::DOPEN_WRITE;
             break;
         case NFile::NMode::DREAD_WRITE:
             maStream.open( aBuffer, std::ios_base::in | std::ios_base::out );
+            maStatus = NFile::NStatus::DOPEN_RW;
             break;
         default:
             return false;
@@ -72,12 +101,45 @@ bool CFile::Open( const string & irFileName,  NFile::mode iaMode)
  */
 int32 CFile::Append( const string & irString )
 {
-    if( maStream.is_open() == false )
+    //! write or rw mode로 열려 있지 않으면 쓰지 못한다. 
+    if( maStatus != NFile::NStatus::DOPEN_WRITE && maStatus != NFile::NStatus::DOPEN_RW )
         return 0;
     int32 aBeforePos = maStream.tellg();
     maStream << irString.c_str() << std::endl;
     int32 aAfterPos = maStream.tellg();
     return (aAfterPos - aBeforePos);
+}
+
+/**
+ * @brief 문장을 라인단위로 추가 한다. 
+ * 입력 받은 문자열 끝에 개행을 넣는다. 
+ * @param irString 추가할 문자열
+ * @return int32 추가된 문자열을 길이 
+ */
+int32 CFile::AppendLine( const string & irString )
+{
+    uint32 aStringSize = irString.Size();
+    if( aStringSize < 1 )
+        return 0;
+    int32 aRet = Append( irString );
+    if( aRet < (int32) aStringSize )
+        return 0;
+    maStream << std::endl;
+    return ( aRet + 1 );
+}
+
+/**
+ * @brief 파일 내용에 줄바꿈을 한다. New Line
+ * 
+ * @return int32 추가된 문자열의 길이
+ */
+int32 CFile::AppendNewLine()
+{
+    //! write or rw mode로 열려 있지 않으면 쓰지 못한다. 
+    if( maStatus != NFile::NStatus::DOPEN_WRITE && maStatus != NFile::NStatus::DOPEN_RW )
+        return 0;
+    maStream << std::endl;
+    return 1;
 }
 
 /**
@@ -89,7 +151,9 @@ int32 CFile::Append( const string & irString )
  */
 int32 CFile::ReadLine( string & orString )
 {
-    
+    //! read or rw mode 로 열려있지 않으면 읽지 못한다. 
+    if( maStatus != NFile::NStatus::DOPEN_READ && maStatus != NFile::NStatus::DOPEN_RW )
+        return 0;   
     wchar_t aBuffer[DMAX_STRING_SIZE];
     maStream.getline( aBuffer, DMAX_STRING_SIZE);
     orString.Assign(aBuffer );
@@ -104,7 +168,9 @@ int32 CFile::ReadLine( string & orString )
  */
 bool CFile::IsOpen() const 
 {
-    return maStream.is_open();
+    if( maStatus == NFile::NStatus::DCLOSE )
+        return false;
+    return true;
 }
 
 /**
@@ -138,6 +204,7 @@ void CFile::Close()
 {
     if( maStream.is_open() == true )
         maStream.close();
+    maStatus = NFile::NStatus::DCLOSE;
 }
 
 /**
@@ -147,6 +214,8 @@ void CFile::Close()
  */
 int32 CFile::Size() 
 {
+    if( maStatus == NFile::NStatus::DCLOSE )
+        return 0;
     /// 현재 위치를 기억해 놓는다. 
     int32 aCur = maStream.tellg();
     if( aCur < 0 )
