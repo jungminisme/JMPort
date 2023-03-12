@@ -1,15 +1,14 @@
 #include <gtest/gtest.h>
+#include <stdio.h>
 
-#include <filesystem>
 #include "JMFile.h"
 using namespace JMLib;
 
 TEST(FileTest, Open )
 {
-
+    remove( "TestFile.txt");
     CFile aFile;
     string aFileName( L"TestFile.txt");
-//    std::filesystem::remove( "TestFile.txt" );
     EXPECT_FALSE( aFile.IsOpen() ); // 이름없이 생성했는데 파일이 열려 있으면 안된다. 
 
     aFile.Open( aFileName, NFile::NMode::DWRITE );
@@ -42,6 +41,8 @@ TEST( FileTest, Write )
     CFile aFile;
     string aFileName( L"TestFile.txt");
     aFile.Open( aFileName, NFile::NMode::DWRITE );
+    int32 aRet = aFile.Append( aLine1 );
+    EXPECT_GT( aRet, 0 );
     aFile << aLine1;
     EXPECT_TRUE( aFile.IsOpen() );
     EXPECT_EQ( aFile.Size(), aLine1.Size() );

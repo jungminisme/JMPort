@@ -57,6 +57,8 @@ bool CFile::Open( const wchar_t * ipFileName, NFile::mode iaMode )
  * @brief 텍스트모드로 파일을 연다. 
  * JMLib은 JMString만을 사용하지만 파일은 char* 만 입력을 받는다. 
  * 문자열 변환은 우선 여기서만 사용하고, 다른 예외사항 발생하면 그때 관련 문자열 함수를 만든다. 
+ * 쓰기 모드로 파일을 열때는. 현재 내용의 뒤로 추가할수 있는 모드로   //! TODO:
+ * 읽기 모드로 열때는 제일 앞에서 부터 읽을수 있도록 한다. 
  * @param irFileName open할 파일 이름 . 
  * @param iaMode  read 모드 일지, write모드 일지 rw모드 일지 선택한다. 
  * @return true 파일이 열린경우
@@ -83,7 +85,9 @@ bool CFile::Open( const string & irFileName,  NFile::mode iaMode)
             maStatus = NFile::NStatus::DOPEN_READ;
             break;
         case NFile::NMode::DWRITE:
+            //! TODO : 여기서 file Open mode를.. truncate ?? 로 바꾼다. 
             maStream.open( aBuffer, std::ios_base::out );
+            maStream.seekg( std::ios_base::end );
             maStatus = NFile::NStatus::DOPEN_WRITE;
             break;
         case NFile::NMode::DREAD_WRITE:
@@ -224,7 +228,7 @@ int32 CFile::Size()
     if( aCur < 0 )
         return aCur;
     /// 위치를 끝으로 보낸다. 
-    maStream.seekg( std::ios::end );
+    maStream.seekg( 0, std::ios::end );
     /// 시작점으로 부터끝까지의 상대거리를 찾는다. 
     int32 aSize = maStream.tellg();
     /// 위치를 다시 현재위치로 옮긴다. 
