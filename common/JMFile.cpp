@@ -57,7 +57,7 @@ bool CFile::Open( const wchar_t * ipFileName, NFile::mode iaMode )
  * @brief 텍스트모드로 파일을 연다. 
  * JMLib은 JMString만을 사용하지만 파일은 char* 만 입력을 받는다. 
  * 문자열 변환은 우선 여기서만 사용하고, 다른 예외사항 발생하면 그때 관련 문자열 함수를 만든다. 
- * 쓰기 모드로 파일을 열때는. 현재 내용의 뒤로 추가할수 있는 모드로   //! TODO:
+ * 쓰기 모드로 파일을 열때는. 현재 내용의 뒤로 추가할수 있는 모드로  std::io_base::app //append mode
  * 읽기 모드로 열때는 제일 앞에서 부터 읽을수 있도록 한다. 
  * @param irFileName open할 파일 이름 . 
  * @param iaMode  read 모드 일지, write모드 일지 rw모드 일지 선택한다. 
@@ -85,8 +85,7 @@ bool CFile::Open( const string & irFileName,  NFile::mode iaMode)
             maStatus = NFile::NStatus::DOPEN_READ;
             break;
         case NFile::NMode::DWRITE:
-            //! TODO : 여기서 file Open mode를.. truncate ?? 로 바꾼다. 
-            maStream.open( aBuffer, std::ios_base::out );
+            maStream.open( aBuffer, std::ios_base::app );
             maStream.seekg( std::ios_base::end );
             maStatus = NFile::NStatus::DOPEN_WRITE;
             break;
@@ -143,7 +142,7 @@ int32 CFile::AppendLine( const string & irString )
 int32 CFile::AppendNewLine()
 {
     //! write or rw mode로 열려 있지 않으면 쓰지 못한다. 
-    if( maStatus != NFile::NStatus::DOPEN_WRITE && maStatus != NFile::NStatus::DOPEN_RW )
+    if( ( maStatus != NFile::NStatus::DOPEN_WRITE ) && ( maStatus != NFile::NStatus::DOPEN_RW ) )
         return 0;
     maStream << std::endl;
     return 1;
@@ -159,7 +158,7 @@ int32 CFile::AppendNewLine()
 int32 CFile::ReadLine( string & orString )
 {
     //! read or rw mode 로 열려있지 않으면 읽지 못한다. 
-    if( maStatus != NFile::NStatus::DOPEN_READ && maStatus != NFile::NStatus::DOPEN_RW )
+    if( ( maStatus != NFile::NStatus::DOPEN_READ ) && ( maStatus != NFile::NStatus::DOPEN_RW ) )
         return 0;   
     wchar_t aBuffer[DMAX_STRING_SIZE];
     maStream.getline( aBuffer, DMAX_STRING_SIZE);

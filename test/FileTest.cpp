@@ -45,12 +45,38 @@ TEST( FileTest, Write )
     EXPECT_GT( aRet, 0 );
     aFile << aLine1;
     EXPECT_TRUE( aFile.IsOpen() );
-    EXPECT_EQ( aFile.Size(), aLine1.Size() );
+    EXPECT_GT( aFile.Size(), aRet );
     aFile << aLine2 << aLine3;
-    EXPECT_EQ( aFile.Size(), ( aLine1.Size() + aLine2.Size() + aLine3.Size() ) );
+    aRet += ( aLine2.Size() + aLine3.Size() );
+    EXPECT_GT( aFile.Size(), aRet );
     aFile.AppendNewLine();
-    EXPECT_EQ( aFile.Size(), ( aLine1.Size() + aLine2.Size() + aLine3.Size() + 1 ) );
+    EXPECT_GT( aFile.Size(), aRet + 1 );
     aFile << aLine4.c_str();
     aFile.AppendLine( aLine1 );
     aFile.Close();
+}
+
+TEST(FileTest, Read )
+{
+    string aStr1;
+    EXPECT_EQ( aStr1.Size(), 0 );
+    CFile aReadFile( L"TestFile.txt",NFile::NMode::DWRITE );
+    // ReadFile이 WriteMode로 열렸다. 읽히면 안됨. 
+    EXPECT_LE( aReadFile.ReadLine(aStr1), 0 );
+    EXPECT_TRUE( aReadFile.IsOpen() );
+    aReadFile.Close();
+
+    aReadFile.Open( L"TestFile.txt",NFile::NMode::DREAD );
+    EXPECT_TRUE( aReadFile.IsOpen() );
+    EXPECT_GT( aReadFile.ReadLine( aStr1 ), 0 );
+    EXPECT_GT( aStr1.Size(), 0 );
+    string aStr2, aStr3;
+    aReadFile >> aStr2 >> aStr3;
+    EXPECT_GT( aStr2.Size(), 0 );
+    EXPECT_GT( aStr3.Size(), 0 );
+    string aStr4, aStr5, aStr6;
+    aReadFile >> aStr4 >> aStr5 >> aStr6;
+    EXPECT_GT( aStr4.Size(), 0 );
+    EXPECT_GT( aStr5.Size(), 0 );
+    EXPECT_GT( aStr6.Size(), 0 );
 }
