@@ -6,6 +6,7 @@ using namespace JMLib;
 
 TEST(FileTest, Open )
 {
+
     remove( "TestFile.txt");
     CFile aFile;
     string aFileName( L"TestFile.txt");
