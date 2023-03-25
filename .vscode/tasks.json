@@ -9,6 +9,9 @@
 				"-std=c++17",
 				"-g",
 				"${file}",
+				"$(workspaceFoler}/common/libcommon.a",
+				"-I",
+				"${workspaceFolder}/common",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],
@@ -32,6 +35,7 @@
 				"-std=c++17",
 				"-g",
 				"${fileDirname}/*.cpp",
+				"$(workspaceFoler}/common/libcommon.a",
 				"-I",
 				"${workspaceFolder}/common",
 				"-o",
