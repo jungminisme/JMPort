@@ -1,5 +1,6 @@
 #include "ConsoleLogger.h"
 #include <iostream>
+using namespace JMLib;
 
 /**
  * @brief 로그를 출력한다. 

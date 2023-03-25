@@ -6,7 +6,6 @@
 			"label": "C/C++: g++-17 디버그",
 			"command": "/usr/bin/g++-11",
 			"args": [
-				"fdiagnostic-color-always",
 				"-std=c++17",
 				"-g",
 				"${file}",
@@ -24,6 +23,31 @@
 				"isDefault": true
 			},
 			"detail": "디버그 작업입니다."
+		},
+		{
+			"type": "cppbuild",
+			"label": "Rebuild all with debug mode",
+			"command": "/usr/bin/g++-11", 
+			"args": [
+				"-std=c++17",
+				"-g",
+				"${fileDirname}/*.cpp",
+				"-I",
+				"${workspaceFolder}/common",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "테스트의 디버그 빌드 입니다. "
 		}
 	]
 }

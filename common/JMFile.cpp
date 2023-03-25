@@ -77,7 +77,8 @@ bool CFile::Open( const string & irFileName,  NFile::mode iaMode)
     if( ( aNameLength > JMLib::DMAX_STRING_SIZE ) || ( aNameLength < 1 ) )
         return false;
     // 파일 이름을 char* 로 변환한다. 
-    char aBuffer[JMLib::DMAX_STRING_SIZE] = {0, ... };
+    char aBuffer[JMLib::DMAX_STRING_SIZE];
+    memset( aBuffer, 0, JMLib::DMAX_STRING_SIZE );
     wcstombs(aBuffer, irFileName.c_str(), aNameLength );
     aBuffer[ aNameLength -1] = 0;
     switch(iaMode)
