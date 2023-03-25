@@ -2,11 +2,8 @@
 #include <stdio.h>
 
 #include "JMFile.h"
-#include "ConsoleLogger.h"
 
 using namespace JMLib;
-
-static JMLib::CConsoleLogger gLogger;
 
 TEST(FileTest, Open )
 {
@@ -16,8 +13,6 @@ TEST(FileTest, Open )
     string aFileName( L"TestFile.txt");
     EXPECT_FALSE( aFile.IsOpen() ); // 이름없이 생성했는데 파일이 열려 있으면 안된다. 
     
-    gLogger.LogOut( JMLib::string( L"TestFile Name is ") + aFileName );
-
     aFile.Open( aFileName, NFile::NMode::DWRITE );
     EXPECT_TRUE( aFile.IsOpen() );
 

@@ -34,7 +34,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build/test/FileTest",
-            "preLaunchTask": "cpp debug build",
+            "preLaunchTask": "build for googletest",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
