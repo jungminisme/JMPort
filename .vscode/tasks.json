@@ -34,7 +34,8 @@
 			"args": [
 				"-std=c++17",
 				"-g",
-				"${file}",
+				"${fileDirname}/*.cpp",
+//				"${file}",
 				"${workspaceFolder}/build/common/libcommon.a",
 				"${workspaceFolder}/build/lib/libgtest.a",
 				"${workspaceFolder}/build/lib/libgtest_main.a",

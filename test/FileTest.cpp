@@ -56,6 +56,7 @@ TEST( FileTest, Write )
     aFile << aLine4.c_str();
     aFile.AppendLine( aLine1 );
     aFile.Close();
+    EXPECT_FALSE( aFile.IsOpen()  );
 }
 
 TEST(FileTest, Read )
@@ -83,4 +84,7 @@ TEST(FileTest, Read )
     // 다섯번째 라인은  공백이다. 읽은 문자열은 없음. 
     EXPECT_EQ( aStr5.Size(), 0 );
     EXPECT_GT( aStr6.Size(), 0 );
+
+    // 모든 테스트가 끝났으면 테스트에 사용한 파일은 지운다. 
+    remove( "TestFile.txt");
 }
