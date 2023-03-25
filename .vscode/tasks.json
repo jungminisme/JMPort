@@ -8,12 +8,12 @@
 			"args": [
 				"-std=c++17",
 				"-g",
-				"${file}",
+				"${fileDirname}/*.cpp",
 				"${workspaceFolder}/build/common/libcommon.a",
 				"-I",
 				"${workspaceFolder}/common",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}"
+				"${workspaceFolder}/build/${fileBasenameNoExtension}"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
@@ -35,14 +35,13 @@
 				"-std=c++17",
 				"-g",
 				"${fileDirname}/*.cpp",
-//				"${file}",
 				"${workspaceFolder}/build/common/libcommon.a",
 				"${workspaceFolder}/build/lib/libgtest.a",
 				"${workspaceFolder}/build/lib/libgtest_main.a",
 				"-I",
 				"${workspaceFolder}/common",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}"
+				"${workspaceFolder}/build/test/${fileBasenameNoExtension}"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
