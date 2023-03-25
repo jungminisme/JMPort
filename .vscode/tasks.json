@@ -3,7 +3,7 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: g++-17 디버그",
+			"label": "cpp debug build",
 			"command": "/usr/bin/g++-11",
 			"args": [
 				"-std=c++17",

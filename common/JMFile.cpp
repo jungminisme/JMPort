@@ -15,6 +15,7 @@ CFile::CFile() : maStatus( NFile::NStatus::DCLOSE )
 CFile::CFile( const wchar_t * ipFileName, NFile::mode iaMode )
 {
     maStream.imbue( std::locale("ko_KR.UTF-8") );
+    maStatus = NFile::NStatus::DCLOSE;
     Open( ipFileName, iaMode );
 }
 
@@ -27,6 +28,7 @@ CFile::CFile( const wchar_t * ipFileName, NFile::mode iaMode )
 CFile::CFile(const string &irFileName, NFile::mode iaMode)
 {
     maStream.imbue( std::locale("ko_KR.UTF-8") );
+    maStatus = NFile::NStatus::DCLOSE;
     Open( irFileName, iaMode );
 }
 
@@ -80,7 +82,7 @@ bool CFile::Open( const string & irFileName,  NFile::mode iaMode)
     char aBuffer[JMLib::DMAX_STRING_SIZE];
     memset( aBuffer, 0, JMLib::DMAX_STRING_SIZE );
     wcstombs(aBuffer, irFileName.c_str(), aNameLength );
-    aBuffer[ aNameLength -1] = 0;
+    aBuffer[ aNameLength ] = 0;
     switch(iaMode)
     {
         case NFile::NMode::DREAD:

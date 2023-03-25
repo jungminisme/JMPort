@@ -84,6 +84,8 @@ TEST(FileTest, Read )
     string aStr4, aStr5, aStr6;
     aReadFile >> aStr4 >> aStr5 >> aStr6;
     EXPECT_GT( aStr4.Size(), 0 );
-    EXPECT_GT( aStr5.Size(), 0 );
+
+    // 다섯번째 라인은  공백이다. 읽은 문자열은 없음. 
+    EXPECT_EQ( aStr5.Size(), 0 );
     EXPECT_GT( aStr6.Size(), 0 );
 }
