@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
         {
             "name": "cppdebug",
             "type": "cppdbg",
@@ -33,12 +34,12 @@
             "name": "run test",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/build/test/common_test",
+            "program": "${workspaceRoot}/build/test/FileTest",
             "args": [],
             "stopAtEntry": false,
             "cwd":"${fileDirname}",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": true,
             "MIMode": "gdb"
         }
 

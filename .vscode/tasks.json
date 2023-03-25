@@ -2,8 +2,8 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type":"cppbuild",
-			"label": "C/C++: g++-11 디버그",
+			"type": "cppbuild",
+			"label": "C/C++: g++-17 디버그",
 			"command": "/usr/bin/g++-11",
 			"args": [
 				"fdiagnostic-color-always",
@@ -23,7 +23,7 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"detail" : "디버그 작업입니다."
+			"detail": "디버그 작업입니다."
 		}
 	]
 }

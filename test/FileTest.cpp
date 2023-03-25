@@ -2,7 +2,11 @@
 #include <stdio.h>
 
 #include "JMFile.h"
+#include "ConsoleLogger.h"
+
 using namespace JMLib;
+
+static JMLib::CConsoleLogger gLogger;
 
 TEST(FileTest, Open )
 {
@@ -11,6 +15,8 @@ TEST(FileTest, Open )
     CFile aFile;
     string aFileName( L"TestFile.txt");
     EXPECT_FALSE( aFile.IsOpen() ); // 이름없이 생성했는데 파일이 열려 있으면 안된다. 
+    
+    gLogger.LogOut( JMLib::string( "TestFile Name is ") + aFileName );
 
     aFile.Open( aFileName, NFile::NMode::DWRITE );
     EXPECT_TRUE( aFile.IsOpen() );
@@ -21,7 +27,7 @@ TEST(FileTest, Open )
     CFile aSam2( aFileName, NFile::NMode::DWRITE );
     EXPECT_TRUE( aSam2.IsOpen() );      // 이름주고 생성했으면 열려있어야 한다. 
     NFile::mode aMode = NFile::NMode::DWRITE;
-    EXPECT_FALSE( aSam2.Open(aFileName.c_str(), aMode) ); // 열려 잇는데 또 열면 실패 
+    EXPECT_FALSE( aSam2.Open(aFileName.c_str(), aMode) ); // 열려 있는데 또 열면 실패 
     EXPECT_TRUE( aSam2.IsOpen() );  // 원래 열려 있던 파일 계속 유지 
     aSam2.Close();
 
