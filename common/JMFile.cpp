@@ -1,6 +1,8 @@
 #include "JMFile.h"
 #include <stdlib.h>
 
+using namespace JMLib;
+
 CFile::CFile() : maStatus( NFile::NStatus::DCLOSE )
 {
     maStream.imbue( std::locale("ko_KR.UTF-8") );

@@ -1,5 +1,7 @@
 #include "FileLogger.h"
 
+using namespace JMLib;
+
 CFileLogger::CFileLogger() : maFileOut()
 {
 }
@@ -16,8 +18,7 @@ CFileLogger::~CFileLogger()
  */
 void CFileLogger::LogOut( const string & irString )
 {
-    maFileOut << irString ;
-    maFileOut.AppendNewLine();
+    maFileOut.AppendLine( irString );
 }
 
 /**

@@ -19,7 +19,7 @@ void CLogger::Log(const string &irString)
 }
 
 /**
- * @brief Level에 맞는 cooment 를 붙여 로그를 남긴다. 
+ * @brief Level에 맞는 coment 를 붙여 로그를 남긴다. 
  * 입력된 레벨이 현재 로거의 로그 레벨보다 작으면 남기지 않는다. 
  * @param iaLevel 로그의 등급 
  * @param irString 로그 내용

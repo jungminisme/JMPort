@@ -4,6 +4,8 @@
 #include "FileLogger.h"
 #include <memory>
 
+using namespace JMLib;
+
 /**
  * @brief 싱글톤 패턴을 위한 함수 
  * 전체 시스템에서 로그 관련 관리자는 한개만 있으면 된다. 

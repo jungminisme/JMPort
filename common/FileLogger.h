@@ -2,17 +2,23 @@
 #include "Logger.h"
 #include "JMFile.h"
 
-using namespace JMLib;
-
-class CFileLogger : public CLogger 
+namespace JMLib 
 {
-    private:
-    CFile maFileOut;
-    public:
-    CFileLogger();
-    ~CFileLogger();
+    /**
+     * @brief 파일 저장을 위한 로거 
+     * 저장할 파일의 이름을 초기화 시에 지정한다. 
+     */
+    class CFileLogger : public CLogger 
+    {
+        private:
+        CFile maFileOut;
+        public:
+        CFileLogger();
+        ~CFileLogger();
 
-    void LogOut( const string & irString );
+        void LogOut( const string & irString );
 
-    void Initialize( const string & irFileName );
-};
+        void Initialize( const string & irFileName );
+    };
+
+}
