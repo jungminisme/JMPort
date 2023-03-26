@@ -12,7 +12,19 @@ using namespace JMLib;
  * @param ipFormat 로그 포멧, printf 의 포멧으로 출력한다. 
  * @param ...  포멧을 위한 추가 파라미터
  */
-void LOG_ERROR( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... )
+void LOG_ERROR(wchar_t *ipFormat, ...)
+{
+    string aOutString;
+    va_list aVarList;
+    va_start( aVarList, ipFormat );
+    aOutString.FormatWithVAList( ipFormat, aVarList );
+    va_end( aVarList );
+    CLogManager * pLM =CLogManager::GetInstance();
+    pLM->LogWithLevel();
+}
+
+
+void LOG_ERROR(const JMLib::NLog::LogChannel &irChannel, wchar_t *ipFormat, ...)
 {
     string aOutString;
     va_list aVarList;

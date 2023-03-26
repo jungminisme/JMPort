@@ -1,5 +1,15 @@
 enable_testing()
 
+add_executable(
+    LoggerTest
+    LoggerTest.cpp
+)
+target_include_directories(LoggerTest PUBLIC ${CMAKE_SOURCE_DIR}/common )
+target_link_libraries(
+    LoggerTest
+    GTest::gtest_main
+    common
+)
 
 add_executable(
     FileTest
@@ -26,3 +36,4 @@ target_link_libraries(
 include(GoogleTest)
 gtest_discover_tests(FileTest)
 gtest_discover_tests(StringTest)
+gtest_discover_tests(LoggerTest)

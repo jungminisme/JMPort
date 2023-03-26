@@ -27,10 +27,11 @@ namespace JMLib
 
         namespace NType
         {
-            const static LogType DNONE = 0;
-            const static LogType DCONSOLE = 1;
-            const static LogType DFILE = 2;
-            const static LogType DXML = 3;
+            const static LogType DNONE = 0;         //! 아무것도 하지 않는 로거
+            const static LogType DCONSOLE = 1;      //! 화면 출력 로거
+            const static LogType DFILE = 2;         //! 파일 출력 로거
+            const static LogType DXML = 3;          //! XML 출력 로거       // 추후 구현
+            const static LogType DNETWORK = 4;      //! 네트워크 출력 로거  // 추후 구현
         }
     }
 
@@ -51,6 +52,12 @@ namespace JMLib
     typedef std::shared_ptr<ILogger> slogger;
 
 }
+
+void LOG_ERROR( wchar_t * ipFormat, ... );
+void LOG_TRACE( wchar_t * ipFormat, ... );
+void LOG_INFO( wchar_t * ipFormat, ... );
+void LOG_DEBUG( wchar_t * ipFormat, ... );
+void LOG_WARN(  wchar_t * ipFormat, ... );
 
 void LOG_ERROR( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
 void LOG_TRACE( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
