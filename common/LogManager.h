@@ -16,20 +16,19 @@ namespace JMLib
         typedef std::map<NLog::LogChannel, slogger> logs;
 
     private:
-        static CLogManager maInstance;
         logs maLogs;
         lock maLock;
         NLog::LogChannel maDefaultChannel;
 
     public:
-        static CLogManager * GetInstance();
+        static CLogManager & GetInstance();
 
         static void Finalize();
 
-        void RemoveLogger( const NLog::LogChannel & irChannel );
+        bool RemoveLogger( const NLog::LogChannel & irChannel );
         bool AddLogger( const NLog::LogChannel & irChannel, NLog::LogType iaType );
 
-        bool SetDefaultChannel( const NLog::LogChannel & irChannel );
+        void SetDefaultChannel( const NLog::LogChannel & irChannel );
 
         bool IsExist( const NLog::LogChannel & irChannel );
 
@@ -46,4 +45,5 @@ namespace JMLib
 
         void RemoveAllLogger();
     };
+
 }

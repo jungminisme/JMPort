@@ -53,18 +53,21 @@ namespace JMLib
 
 }
 
+//* 기본 채널에 로그를 남길때 
 void LOG_ERROR( wchar_t * ipFormat, ... );
 void LOG_TRACE( wchar_t * ipFormat, ... );
 void LOG_INFO( wchar_t * ipFormat, ... );
 void LOG_DEBUG( wchar_t * ipFormat, ... );
 void LOG_WARN(  wchar_t * ipFormat, ... );
 
+//* 원하는 채널에 로그를 남길때 
 void LOG_ERROR( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
 void LOG_TRACE( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
 void LOG_INFO( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
 void LOG_DEBUG( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
 void LOG_WARN( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFormat, ... );
 
+//* 원하는 채널에 파일 이름과 라인 번호를 가지고 로그를 남길때 
 void LOG_ERROR( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFileName, JMLib::int32 iaLine,  wchar_t * ipFormat, ... );
 void LOG_TRACE( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFileName, JMLib::int32 iaLine, wchar_t * ipFormat, ... );
 void LOG_INFO( const JMLib::NLog::LogChannel & irChannel, wchar_t * ipFileName, JMLib::int32 iaLine, wchar_t * ipFormat, ... );

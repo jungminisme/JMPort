@@ -11,19 +11,21 @@ using namespace JMLib;
  * 전체 시스템에서 로그 관련 관리자는 한개만 있으면 된다. 
  * @return CLogManager& 전역 로그 관리자 객체
  */
-CLogManager * CLogManager::GetInstance()
+CLogManager & CLogManager::GetInstance()
 {
-    return & maInstance;
+    static CLogManager aInstance;
+    return aInstance;
 }
 
 /**
  * @brief 싱글톤 객체를 정리 하고, 다시 사용할수 있는 상태로 만든다. 
  * 
  */
-void JMLib::CLogManager::Finalize()
+void CLogManager::Finalize()
 {
-    maInstance.RemoveAllLogger();
-    maInstance.maDefaultChannel.Clear();
+    CLogManager & aInstance = GetInstance();
+    aInstance.RemoveAllLogger();
+    aInstance.maDefaultChannel.Clear();
 }
 
 /**
@@ -40,7 +42,6 @@ void JMLib::CLogManager::Finalize()
  */
 bool CLogManager::AddLogger( const NLog::LogChannel & irChannel, NLog::LogType iaType )
 {
-    lockguard aLG(maLock );
     // 이전에 같은 이름으로 등록된 로거가 있다면 추가 하지 않는다. 
     if( IsExist( irChannel ) )
         return false;
@@ -65,9 +66,21 @@ bool CLogManager::AddLogger( const NLog::LogChannel & irChannel, NLog::LogType i
         default:
             return false;
     }
+    lockguard aLG(maLock );
     std::pair<logs::iterator, bool > aRet;
     aRet = maLogs.insert( logs::value_type(irChannel, aLogger ));
     return aRet.second;
+}
+
+/**
+ * @brief 기본 채널을 설정한다. 
+ * 현재 등록된 채널중 기본 채널이 없어도 등록해 준다. 
+ * 어차피 로그 출력할때 다시 다 찾는다. 
+ * @param irChannel 기본으로 설정할 채널 이름 
+ */
+void CLogManager::SetDefaultChannel(const NLog::LogChannel &irChannel)
+{
+    maDefaultChannel = irChannel;
 }
 
 /**
@@ -77,11 +90,11 @@ bool CLogManager::AddLogger( const NLog::LogChannel & irChannel, NLog::LogType i
  * @return true 이미 등록된 로거가 있음
  * @return false 아직 로거가 등록되지 않았음. 
  */
-bool JMLib::CLogManager::IsExist(const NLog::LogChannel &irChannel)
+bool CLogManager::IsExist(const NLog::LogChannel &irChannel)
 {
-    std::pair<logs::iterator, bool > aRet;
-    aRet = maLogs.find(irChannel );
-    if( aRet == maLogs.end() )
+    lockguard aLG( maLock );
+    logs::iterator aIt = maLogs.find( irChannel );
+    if( aIt == maLogs.end() )
         return false;
     return true;
 }
@@ -151,11 +164,11 @@ void CLogManager::LogWithLevel( const NLog::LogChannel & irChannel, NLog::LevelT
  * @param iaLevel 로그레벨 
  * @param irString 로그 메시지
  */
-void JMLib::CLogManager::LogWithLevelForDefaultChannel(NLog::LevelType iaLevel, const string &irString)
+void CLogManager::LogWithLevelForDefaultChannel(NLog::LevelType iaLevel, const string & irString)
 {
     if( maDefaultChannel.Size() < 1)
         return;
-    LogWithLevel( maDefaultChannel, ialevel, irString );
+    LogWithLevel( maDefaultChannel, iaLevel, irString );
 }
 
 /**

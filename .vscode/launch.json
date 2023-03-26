@@ -4,6 +4,7 @@
     // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "cppdebug",
             "type": "cppdbg",
@@ -34,6 +35,23 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build/test/FileTest",
+            "preLaunchTask": "build for googletest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "logging": {
+                "programOutput": true,
+                "trace": true
+            },
+            "externalConsole": false,
+            "MIMode": "gdb"
+        },
+        {
+            "name": "Log test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/build/test/LoggerTest",
             "preLaunchTask": "build for googletest",
             "args": [],
             "stopAtEntry": false,
