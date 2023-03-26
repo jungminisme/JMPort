@@ -26,7 +26,9 @@ namespace JMLib
         static void Finalize();
 
         bool RemoveLogger( const NLog::LogChannel & irChannel );
-        bool AddLogger( const NLog::LogChannel & irChannel, NLog::LogType iaType );
+        bool AddLogger( const NLog::LogChannel & irChannel, const NLog::LogType iaType, 
+            NLog::LevelType iaLevel = NLog::NLevel::DALL );
+        bool SetLevel( const NLog::LogChannel & irChannel, const NLog::LevelType iaLevel );
 
         void SetDefaultChannel( const NLog::LogChannel & irChannel );
 

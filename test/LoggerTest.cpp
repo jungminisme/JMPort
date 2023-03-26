@@ -57,11 +57,65 @@ TEST( LoggerTest, Initialize )
     aBoolRet = aLogManager.RemoveLogger( aCh4 );
     EXPECT_TRUE( aBoolRet );
 
+    // 다음 테스트를 위해 로그매니저를 정리 한다. 
+    // 모든 로거를 다 삭제 한다. 
     aLogManager.Finalize();
+    // 확인했을때 로거들이 존재한다고 나오면 안됨. 
     EXPECT_FALSE( aLogManager.IsExist( aChannel ));
     EXPECT_FALSE( aLogManager.IsExist( aCh2 ));
     EXPECT_FALSE( aLogManager.IsExist( aCh3 ));
     EXPECT_FALSE( aLogManager.IsExist( aCh4 ));
     EXPECT_FALSE( aLogManager.IsExist( aCh5 ));
     EXPECT_FALSE( aLogManager.IsExist( aCh6 ));
+}
+
+TEST( LoggerTest, ConsoleLogger )
+{
+    CLogManager & aLM = CLogManager::GetInstance();
+    string aCh1 = L"LoggerTest";
+    EXPECT_TRUE( aLM.AddLogger( aCh1, NLog::NType::DCONSOLE ) );
+
+    string aString1( L"This is First String ");
+    string aString2( L"이것은 한글 ");
+    aLM.Log( aCh1, aString1 );
+    aLM.Log( aCh1, aString2 );
+
+    LOG_DEBUG( aCh1, L"This is First Log String" );
+    LOG_ERROR( aCh1, L"이것은 첫번째 한글 로그" );
+
+    aLM.Finalize();
+    EXPECT_FALSE( aLM.IsExist(aCh1) );
+}
+
+TEST(LoggerTest, FileLogger )
+{
+
+    CLogManager & aLM = CLogManager::GetInstance();
+    string aCh1 = L"LoggerTest";
+    EXPECT_TRUE( aLM.AddLogger( aCh1, NLog::NType::DCONSOLE ) );
+
+    aLM.Finalize();
+    EXPECT_FALSE( aLM.IsExist(aCh1) );
+}
+
+TEST( LoggerTest, NonLogger )
+{
+
+    CLogManager & aLM = CLogManager::GetInstance();
+    string aCh1 = L"LoggerTest";
+    EXPECT_TRUE( aLM.AddLogger( aCh1, NLog::NType::DCONSOLE ) );
+
+    aLM.Finalize();
+    EXPECT_FALSE( aLM.IsExist(aCh1) );
+}
+
+TEST( LoggerTest, DefaultChannel )
+{
+    CLogManager & aLM = CLogManager::GetInstance();
+    string aCh1 = L"LoggerTest";
+    EXPECT_TRUE( aLM.AddLogger( aCh1, NLog::NType::DCONSOLE ) );
+
+    // default 를 LoggerTest 로 하고 테스트 해본다. 
+    aLM.SetDefaultChannel( aCh1 );
+    // default 를 Test 로 하고 해본다. 이건 동작 안해야 한다. 
 }

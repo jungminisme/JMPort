@@ -2,7 +2,7 @@
 
 using namespace JMLib;
 
-CFileLogger::CFileLogger() : maFileOut()
+CFileLogger::CFileLogger( NLog::LevelType iaLevel ) : CLogger( iaLevel ), maFileOut()
 {
 }
 
@@ -26,7 +26,8 @@ void CFileLogger::LogOut( const string & irString )
  * 입력된 파일내임으로 파일을 열어 적을 준비를 한다. 
  * @param irFileName 열릴 파일 이름
  */
-void CFileLogger::Initialize( const string & irFileName )
+void CFileLogger::Initialize( const string & irFileName, NLog::LevelType iaLevel )
 {
+    CLogger::SetLevel( iaLevel );
     maFileOut.Open( irFileName, NFile::NMode::DWRITE );
 }

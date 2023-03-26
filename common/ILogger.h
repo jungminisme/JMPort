@@ -21,7 +21,7 @@ namespace JMLib
             const static LevelType DFATAL = 6;
 
             /// @brief Log Filtering 시에만 사용하는 레벨
-            const static LevelType DNONNE = 7;      //! 로그를 남기지 않음 
+            const static LevelType DNONE = 7;      //! 로그를 남기지 않음 
             const static LevelType DALL = 0;        //! 모든 로그를 남김
         }
 
@@ -41,7 +41,9 @@ namespace JMLib
         ILogger() {}
         virtual ~ILogger() {}
 
-        virtual void Initialize( const string & irString ) = 0;
+        virtual void Initialize( const string & irString, 
+            const NLog::LevelType iaLevel = NLog::NLevel::DALL ) = 0;
+        virtual void SetLevel( const NLog::LevelType iaLevel ) = 0;
         virtual void Log( const string & irString ) = 0;
         virtual void LogWithLevel( const NLog::LevelType iaType, const string & irString ) = 0;
         virtual void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 

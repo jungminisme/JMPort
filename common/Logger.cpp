@@ -3,15 +3,28 @@
 using namespace JMLib;
 
 /**
+ * @brief Construct a new JMLib::CLogger::CLogger object
+ */
+JMLib::CLogger::CLogger(NLog::LevelType iaLevel ) : maLevel( iaLevel )
+{
+}
+
+/**
  * @brief 초기화 함수 일부 하위클래스에서만 사용한다. 
  * 현재는 아무것도 안함. 
  * @param irString 초기화를 위한 문자열
+ * @param iaLevel 표시할 로그 레벨 
  */
-void CLogger::Initialize(const string &irString)
+void CLogger::Initialize(const string &irString, NLog::LevelType iaLevel )
 {
+    maLevel = iaLevel;
     return;
 }
 
+void CLogger::SetLevel(const NLog::LevelType iaLevel)
+{
+    maLevel = iaLevel;
+}
 
 void CLogger::Log(const string &irString)
 {

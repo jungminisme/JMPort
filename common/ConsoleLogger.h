@@ -10,7 +10,7 @@ namespace JMLib
     class CConsoleLogger : public CLogger
     {
         public:
-        CConsoleLogger() {}
+        CConsoleLogger(NLog::LevelType iaLevel = NLog::NLevel::DALL) : CLogger( iaLevel ) {}
         ~CConsoleLogger() {}
 
         void LogOut( const string & irString );

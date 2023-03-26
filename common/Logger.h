@@ -17,10 +17,11 @@ namespace JMLib
         lock maLock;
 
         public:
-        CLogger() {}
+        CLogger( NLog::LevelType iaLevel = NLog::NLevel::DALL );
         virtual ~CLogger() = default;
 
-        virtual void Initialize( const string & irString );
+        virtual void Initialize( const string & irString, const NLog::LevelType iaLevel = NLog::NLevel::DALL );
+        virtual void SetLevel( const NLog::LevelType iaLevel );
         virtual void Log( const string & irString );
         virtual void LogWithLevel( const NLog::LevelType iaLevel, const string & irString );
         virtual void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 

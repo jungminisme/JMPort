@@ -11,18 +11,24 @@ namespace JMLib
     class CNoneLogger : public CLogger
     {
         public:
-        CNoneLogger() {}
+        CNoneLogger( NLog::LevelType iaLevel = NLog::NLevel::DNONE) : CLogger( NLog::NLevel::DNONE) {}
         ~CNoneLogger() {}
 
         void Log( const string & irString )
         {}
 
+        void SetLevel( const NLog::LevelType iaLevel ) 
+        { 
+            CLogger::SetLevel( NLog::NLevel::DNONE ); 
+        }
+        
         void LogWithLevel( const NLog::LevelType iaType, const string & irString )
         {}
         void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
             const NLog::LevelType iaLevel, const string & irLogString )
         {}
 
+        private:
         void LogOut( const string & irString )
         {
             return;

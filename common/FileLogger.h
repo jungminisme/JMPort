@@ -13,12 +13,12 @@ namespace JMLib
         private:
         CFile maFileOut;
         public:
-        CFileLogger();
+        CFileLogger( NLog::LevelType iaLevel = NLog::NLevel::DALL );
         ~CFileLogger();
 
         void LogOut( const string & irString );
 
-        void Initialize( const string & irFileName );
+        void Initialize( const string & irFileName, const NLog::LevelType iaLevel = NLog::NLevel::DALL );
     };
 
 }

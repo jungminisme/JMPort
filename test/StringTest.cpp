@@ -161,4 +161,7 @@ TEST(StringTest, MiscTest)
     //! string 출력시 %s 와 %S 는 많이 다르다. UNICODE는 %S만 쓴다. 
     aSam12.Format(L"This is %S No. %d ", aTestString.c_str(), 1);
     EXPECT_STREQ( aSam12.c_str(), L"This is Format Test No. 1 " );
+
+    JMLib::string aSam13;
+    aSam13.Format( L"여기에 그냥 나열을 해요 다른 파라미터 없어요. ");
 }

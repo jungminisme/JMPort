@@ -40,7 +40,7 @@ void CLogManager::Finalize()
  * @return true 로거 등록에 성공
  * @return false  같은 이름이 있거나, 로거 타입을 정확히 못적은 경우 실패 
  */
-bool CLogManager::AddLogger( const NLog::LogChannel & irChannel, NLog::LogType iaType )
+bool CLogManager::AddLogger( const NLog::LogChannel & irChannel, const NLog::LogType iaType, NLog::LevelType iaLevel )
 {
     // 이전에 같은 이름으로 등록된 로거가 있다면 추가 하지 않는다. 
     if( IsExist( irChannel ) )
@@ -50,17 +50,17 @@ bool CLogManager::AddLogger( const NLog::LogChannel & irChannel, NLog::LogType i
     switch( iaType )
     {
         case NLog::NType::DNONE:
-            aLogger = std::make_shared<CNoneLogger>();
+            aLogger = std::make_shared<CNoneLogger>( iaLevel );
             break;
         case NLog::NType::DCONSOLE:
-            aLogger = std::make_shared<CConsoleLogger>();
+            aLogger = std::make_shared<CConsoleLogger>( iaLevel );
             break;
         case NLog::NType::DFILE:
         aLogger = std::make_shared<CFileLogger>();
         {
             string aTempString( irChannel );
             aTempString << L".log";
-            aLogger->Initialize(aTempString);
+            aLogger->Initialize( aTempString, iaLevel );
         }
             break;
         default:
@@ -70,6 +70,26 @@ bool CLogManager::AddLogger( const NLog::LogChannel & irChannel, NLog::LogType i
     std::pair<logs::iterator, bool > aRet;
     aRet = maLogs.insert( logs::value_type(irChannel, aLogger ));
     return aRet.second;
+}
+
+/**
+ * @brief channel 의 LogLevel을 변경한다. 
+ * 
+ * 실행중 실시간으로 LogLevel을 변경시킬 필요가 있을때 사용한다. 
+ * @param irChannel 변경을 시키고 싶은 채널
+ * @param iaLevel 변경할 로그 레벨
+ * @return true 레벨변경에 성공
+ * @return false 레벨 변경에 실패
+ */
+bool CLogManager::SetLevel(const NLog::LogChannel &irChannel, const NLog::LevelType iaLevel)
+{
+    lockguard aLG( maLock );
+    logs::iterator aIt = maLogs.find( irChannel );
+    if( aIt == maLogs.end() ) 
+        return false;
+    slogger aLog = aIt->second;
+    aLog->SetLevel( iaLevel );
+    return true;
 }
 
 /**
