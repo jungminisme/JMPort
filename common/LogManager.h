@@ -19,20 +19,31 @@ namespace JMLib
         static CLogManager maInstance;
         logs maLogs;
         lock maLock;
+        NLog::LogChannel maDefaultChannel;
 
     public:
         static CLogManager * GetInstance();
 
-        void  RemoveLogger( const NLog::LogChannel & irChannel );
-        bool SetLogger( const NLog::LogChannel & irChannel, NLog::LogType iaType );
+        static void Finalize();
+
+        void RemoveLogger( const NLog::LogChannel & irChannel );
+        bool AddLogger( const NLog::LogChannel & irChannel, NLog::LogType iaType );
+
+        bool SetDefaultChannel( const NLog::LogChannel & irChannel );
+
+        bool IsExist( const NLog::LogChannel & irChannel );
 
         void Log( const NLog::LogChannel & irChannel, const string & irString );
+        void LogDefault( const string & irString );
         void LogWithLevel( const NLog::LogChannel & irChannel, NLog::LevelType iaLevel, const string & irString );
+        void LogWithLevelForDefaultChannel( NLog::LevelType iaLevel, const string & irString );
         void LogWithAllArg( const NLog::LogChannel & irChannel, string & irSrcFile, const uint32 iaLine, 
             const NLog::LevelType iaLevel, const string & irLogString );
 
     private:
-        CLogManager(){}
-        ~CLogManager(){}
+        CLogManager();
+        ~CLogManager();
+
+        void RemoveAllLogger();
     };
 }
