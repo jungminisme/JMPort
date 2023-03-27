@@ -9,5 +9,6 @@ using namespace JMLib;
  */
 void CConsoleLogger::LogOut( const string & irString )
 {
+    std::wcout.imbue(std::locale(""));
     std::wcout << irString.c_str() << std::endl;
 }
