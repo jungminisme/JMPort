@@ -1,59 +1,26 @@
 {
-	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "cppbuild",
-			"label": "cpp debug build",
-			"command": "/usr/bin/g++-11",
-			"args": [
-				"-std=c++17",
-				"-g",
-				"${fileDirname}/*.cpp",
-				"${workspaceFolder}/build/common/libcommon.a",
-				"-I",
-				"${workspaceFolder}/common",
-				"-o",
-				"${workspaceFolder}/build/${fileBasenameNoExtension}"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
+			"type": "cmake",
+			"label": "CMake: configure",
+			"command": "configure",
+			"problemMatcher": [],
+			"detail": "CMake template configure task",
+			"group": "build"
+		},
+		{
+			"type": "cmake",
+			"label": "CMake: build",
+			"command": "build",
+			"targets": [
+				"all"
 			],
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			},
-			"detail": "디버그 작업입니다."
-		},
-		{
-			"type": "cppbuild",
-			"label": "build for googletest",
-			"command": "/usr/bin/g++-11", 
-			"args": [
-				"-std=c++17",
-				"-g",
-				"${fileDirname}/*.cpp",
-				"${workspaceFolder}/build/common/libcommon.a",
-				"${workspaceFolder}/build/lib/libgtest.a",
-				"${workspaceFolder}/build/lib/libgtest_main.a",
-				"-I",
-				"${workspaceFolder}/common",
-				"-o",
-				"${workspaceFolder}/build/test/${fileBasenameNoExtension}"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": false
-			},
-			"detail": "테스트의 디버그 빌드 입니다. "
+			"problemMatcher": [],
+			"detail": "CMake template build task"
 		}
 	]
 }

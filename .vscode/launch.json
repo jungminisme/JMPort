@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/JMPort",
             "args": [],
-            "preLaunchTask": "cpp debug build",
+            "preLaunchTask": "CMake: build",
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
@@ -34,25 +34,8 @@
             "name": "run test",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/build/test/StringTest",
-            "preLaunchTask": "build for googletest",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "logging": {
-                "programOutput": true,
-                "trace": true
-            },
-            "externalConsole": false,
-            "MIMode": "gdb"
-        },
-        {
-            "name": "Log test",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceRoot}/build/test/LoggerTest",
-            "preLaunchTask": "build for googletest",
+            "program": "${workspaceRoot}/build/test/JMTest",
+            "preLaunchTask": "CMake: build",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -64,6 +47,5 @@
             "externalConsole": false,
             "MIMode": "gdb"
         }
-
     ]
 }
