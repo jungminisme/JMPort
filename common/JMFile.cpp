@@ -118,9 +118,20 @@ int32 CFile::Append( const string & irString )
     if( maStatus != NFile::NStatus::DOPEN_WRITE && maStatus != NFile::NStatus::DOPEN_RW )
         return 0;
     int32 aBeforePos = maStream.tellg();
-    maStream << irString.c_str() << std::endl;
+    maStream << irString.c_str();
     int32 aAfterPos = maStream.tellg();
-    return (aAfterPos - aBeforePos);
+    return ( aAfterPos - aBeforePos );
+}
+
+/**
+ * @brief wchar_t 를 인자로 받는 파일에 쓰기 
+ * string을 만들어서 받으려니 귀찮다. 
+ * @param ipString 파일에 쓰고 싶은 문자열
+ * @return int32 문자열이 적힌 크기 / 꼭 문자열 길이와 같지 않을 수도 있다. 
+ */
+int32 CFile::Append(const wchar_t *ipString)
+{
+    return Append( string( ipString ) );
 }
 
 /**
@@ -135,10 +146,21 @@ int32 CFile::AppendLine( const string & irString )
     if( aStringSize < 1 )
         return 0;
     int32 aRet = Append( irString );
-    if( aRet < (int32) aStringSize )
+    if( aRet < 1 )
         return 0;
     maStream << std::endl;
     return ( aRet + 1 );
+}
+
+/**
+ * @brief wchar_t 를 인자로 받는 라인단위로 쓰기 
+ * 
+ * @param ipString 추가할 문자열
+ * @return int32 문자열이 추가된 파일이 커진양 / 꼭 문자열 길이와 같지 않을 수도 있다. 
+ */
+int32 CFile::AppendLine( const wchar_t * ipString )
+{
+    return AppendLine( string( ipString ) );
 }
 
 /**
@@ -209,6 +231,19 @@ CFile & CFile::operator << ( const string & irString )
     Append( irString );
     return * this;
 }
+
+/**
+ * @brief 파일에 문자열을 저장한다. 
+ * File << string << L".." << string << L"\n";을 지원한다. 
+ * @param ipString 저장할 문자열
+ * @return CFile& 현재 파일
+ */
+CFile & CFile::operator << ( const wchar_t * ipString )
+{
+    Append( string( ipString ) );
+    return * this;
+}
+
 /**
  * @brief 파일을 닫는다. 
  * 

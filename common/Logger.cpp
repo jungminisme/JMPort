@@ -54,7 +54,7 @@ void CLogger::LogWithLevel( const NLog::LevelType iaLevel, const string & irStri
         aLevelString = L"[INFO] ";
         break;
     case NLog::NLevel::DWARN:
-        aLevelString = L"[INFO] ";
+        aLevelString = L"[WARN] ";
         break;
     case NLog::NLevel::DERROR :
         aLevelString = L"[ERROR] ";
@@ -71,18 +71,4 @@ void CLogger::LogWithLevel( const NLog::LevelType iaLevel, const string & irStri
 
     aOutString = aLevelString + irString;
     LogOut( aOutString );
-}
-
-/// @brief 디버그를 위하여 파일명과 라인을 남기는 로그
-/// @param irSrcFile 로그가 남겨진 소스파일
-/// @param iaLine 로그가 있는 라인
-/// @param iaLevel 로그의 등급
-/// @param irLogString  로그 내용
-void CLogger::LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
-        const NLog::LevelType iaLevel, const string & irLogString )
-{
-    string aString;
-    aString.Format( L"(%s, %d ) %s ", irSrcFile.c_str(), iaLine, irLogString.c_str() );
-
-    LogWithLevel( iaLevel, aString );
 }

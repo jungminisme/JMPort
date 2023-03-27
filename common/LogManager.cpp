@@ -191,26 +191,6 @@ void CLogManager::LogWithLevelForDefaultChannel(NLog::LevelType iaLevel, const s
     LogWithLevel( maDefaultChannel, iaLevel, irString );
 }
 
-/**
- * @brief 소스파일이름, 라인등 모든 정보를 포함한 로그를 날린다. 
- * 
- * @param iaChannel 출력할 로그체널
- * @param irSrcFile 로그가 발생한 소스파일
- * @param iaLine  로그 발생 소스 라인
- * @param iaLevel 로그 등급
- * @param irLogString 로그 내용
- */
-void CLogManager::LogWithAllArg( const NLog::LogChannel & irChannel, string & irSrcFile, const uint32 iaLine, 
-        const NLog::LevelType iaLevel, const string & irLogString )
-{
-    lockguard aLG( maLock );
-    logs::iterator it = maLogs.find(irChannel );
-    if( it == maLogs.end() )
-        return;
-    slogger aLog = it->second;
-    aLog->LogWithAllArg(irSrcFile, iaLine, iaLevel, irLogString );
-}
-
 JMLib::CLogManager::CLogManager()
 {
     maLogs.clear();

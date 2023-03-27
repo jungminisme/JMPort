@@ -49,10 +49,13 @@ namespace JMLib
         bool Open( const wchar_t * ipFileName, NFile::mode iaMode );
 
         int32 Append( const string & irString );
+        int32 Append( const wchar_t * ipString );
         int32 AppendLine( const string & irString );
+        int32 AppendLine( const wchar_t * ipString );
         int32 AppendNewLine( );
         int32 ReadLine( string & orString );
         CFile & operator << ( const string & irString );
+        CFile & operator << ( const wchar_t * ipString );
         CFile & operator >> ( string & orString );
 
         bool IsOpen() const;

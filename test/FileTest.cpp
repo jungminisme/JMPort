@@ -45,15 +45,15 @@ TEST( FileTest, Write )
     aFile.Open( aFileName, NFile::NMode::DWRITE );
     int32 aRet = aFile.Append( aLine1 );
     EXPECT_GT( aRet, 0 );
-    aFile << aLine1;
+    aFile << L"\n" << aLine1 << L"\n";
     EXPECT_TRUE( aFile.IsOpen() );
     EXPECT_GT( aFile.Size(), aRet );
-    aFile << aLine2 << aLine3;
+    aFile << aLine2 << L"\n" << aLine3 << L"\n";
     aRet += ( aLine2.Size() + aLine3.Size() );
     EXPECT_GT( aFile.Size(), aRet );
     aFile.AppendNewLine();
     EXPECT_GT( aFile.Size(), aRet + 1 );
-    aFile << aLine4.c_str();
+    aFile << aLine4.c_str() << L"\n";
     aFile.AppendLine( aLine1 );
     aFile.Close();
     EXPECT_FALSE( aFile.IsOpen()  );

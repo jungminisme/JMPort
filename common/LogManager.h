@@ -38,8 +38,6 @@ namespace JMLib
         void LogDefault( const string & irString );
         void LogWithLevel( const NLog::LogChannel & irChannel, NLog::LevelType iaLevel, const string & irString );
         void LogWithLevelForDefaultChannel( NLog::LevelType iaLevel, const string & irString );
-        void LogWithAllArg( const NLog::LogChannel & irChannel, string & irSrcFile, const uint32 iaLine, 
-            const NLog::LevelType iaLevel, const string & irLogString );
 
     private:
         CLogManager();

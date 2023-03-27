@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "LogManager.h"
+#include "JMFile.h"
 
 using namespace JMLib;
 
@@ -67,6 +68,8 @@ TEST( LoggerTest, Initialize )
     EXPECT_FALSE( aLogManager.IsExist( aCh4 ));
     EXPECT_FALSE( aLogManager.IsExist( aCh5 ));
     EXPECT_FALSE( aLogManager.IsExist( aCh6 ));
+
+    remove("common.log");
 }
 
 TEST( LoggerTest, ConsoleLogger )
@@ -75,13 +78,43 @@ TEST( LoggerTest, ConsoleLogger )
     string aCh1 = L"LoggerTest";
     EXPECT_TRUE( aLM.AddLogger( aCh1, NLog::NType::DCONSOLE ) );
 
-    string aString1( L"This is First String ");
-    string aString2( L"이것은 한글 ");
-    aLM.Log( aCh1, aString1 );
-    aLM.Log( aCh1, aString2 );
+    string aLog1 = L"Error Log ";
+    string aLog2 = L"Trace Log ";
+    string aLog3 = L"Info Log ";
+    string aLog4 = L"Debug Log ";
+    string aLog5 = L"Warning Log ";
 
-    LOG_DEBUG( aCh1, L"This is First Log String" );
-    LOG_ERROR( aCh1, L"이것은 첫번째 한글 로그" );
+    //! Level 없이 Log 출력
+    aLM.Log( aCh1, aLog1 );
+    aLM.Log( aCh1, aLog2 );
+    aLM.Log( aCh1, aLog3 );
+    aLM.Log( aCh1, aLog4 );
+    aLM.Log( aCh1, aLog5 );
+
+    //! 레벨에 맞는 Log 출력
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DERROR, aLog1 );
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DTRACE, aLog2 );
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DINFO, aLog3 );
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DDEBUG, aLog4 );
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DWARN, aLog5 );
+
+    //! 로그 매니저를 통하지 않는 로그 출력 함수 직접 호출
+    LOG_ERROR( aCh1, L"LogString is %S", aLog1.c_str() );
+    LOG_TRACE( aCh1, L"LogString is %S", aLog2.c_str() );
+    LOG_INFO( aCh1, L"LogString is %S", aLog3.c_str() );
+    LOG_DEBUG( aCh1, L"LogString is %S", aLog4.c_str() );
+    LOG_WARN( aCh1, L"LogString is %S", aLog5.c_str() );
+
+    //! 잘못된 채널에 로그 남길때 테스트 
+    string aCh2 = L"Channel2";
+    string aLogCh2 = L"Channel2 Log Message! This must not print to console!!";
+    aLM.Log( aCh2, aLogCh2 );
+    aLM.LogWithLevel( aCh2, NLog::NLevel::DERROR, aLogCh2 );
+    LOG_ERROR( aCh2, L"LogString is %S, %S", aLogCh2.c_str(), aLog1.c_str() );
+    LOG_TRACE( aCh2, L"LogString is %S, %S", aLogCh2.c_str(), aLog2.c_str() );
+    LOG_INFO( aCh2, L"LogString is %S, %S", aLogCh2.c_str(), aLog3.c_str() );
+    LOG_DEBUG( aCh2, L"LogString is %S, %S", aLogCh2.c_str(), aLog4.c_str() );
+    LOG_WARN( aCh2, L"LogString is %S, %S", aLogCh2.c_str(), aLog5.c_str() );
 
     aLM.Finalize();
     EXPECT_FALSE( aLM.IsExist(aCh1) );
@@ -92,10 +125,76 @@ TEST(LoggerTest, FileLogger )
 
     CLogManager & aLM = CLogManager::GetInstance();
     string aCh1 = L"LoggerTest";
-    EXPECT_TRUE( aLM.AddLogger( aCh1, NLog::NType::DCONSOLE ) );
+    EXPECT_TRUE( aLM.AddLogger( aCh1, NLog::NType::DFILE ) );
+
+    string aLog1 = L"Error Log ";
+    string aLog2 = L"Trace Log ";
+    string aLog3 = L"Info Log ";
+    string aLog4 = L"Debug Log ";
+    string aLog5 = L"Warning Log ";
+
+    //! Level 없이 Log 출력
+    aLM.Log( aCh1, aLog1 );
+    aLM.Log( aCh1, aLog2 );
+    aLM.Log( aCh1, aLog3 );
+    aLM.Log( aCh1, aLog4 );
+    aLM.Log( aCh1, aLog5 );
+
+    //! 레벨에 맞는 Log 출력
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DERROR, aLog1 );
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DTRACE, aLog2 );
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DINFO, aLog3 );
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DDEBUG, aLog4 );
+    aLM.LogWithLevel( aCh1, NLog::NLevel::DWARN, aLog5 );
+
+    //! 로그 매니저를 통하지 않는 로그 출력 함수 직접 호출
+    LOG_ERROR( aCh1, L"LogString is %S", aLog1.c_str() );
+    LOG_TRACE( aCh1, L"LogString is %S", aLog2.c_str() );
+    LOG_INFO( aCh1, L"LogString is %S", aLog3.c_str() );
+    LOG_DEBUG( aCh1, L"LogString is %S", aLog4.c_str() );
+    LOG_WARN( aCh1, L"LogString is %S", aLog5.c_str() );
+
+    //! 로거를 삭제 한다. 그럼 File또한 Close 되어야 한다. 
+    aLM.RemoveLogger( aCh1 );
+
+    //! File을 열어 내용을 확인한다. 
+    string aFileName = aCh1;
+    aFileName << L".log";
+    JMLib::CFile aFile( aFileName, NFile::NMode::DREAD );
+    EXPECT_TRUE( aFile.IsOpen() );
+
+    //! 파일에서 15줄 읽는다. 
+    string aReadLine[15];
+    for( int i = 0; i < 15; i++ )
+    {
+        aFile >> aReadLine[i];
+    }
+    aFile.Close();
+
+    //! 읽은 각 줄의 내용은 아래와 같아야 한다. 
+    EXPECT_STREQ( aReadLine[0].c_str(), L"[DEBUG] Error Log ");
+    EXPECT_STREQ( aReadLine[1].c_str(), L"[DEBUG] Trace Log ");
+    EXPECT_STREQ( aReadLine[2].c_str(), L"[DEBUG] Info Log ");
+    EXPECT_STREQ( aReadLine[3].c_str(), L"[DEBUG] Debug Log ");
+    EXPECT_STREQ( aReadLine[4].c_str(), L"[DEBUG] Warning Log ");
+
+    EXPECT_STREQ( aReadLine[5].c_str(), L"[ERROR] Error Log ");
+    EXPECT_STREQ( aReadLine[6].c_str(), L"[TRACE] Trace Log ");
+    EXPECT_STREQ( aReadLine[7].c_str(), L"[INFO] Info Log ");
+    EXPECT_STREQ( aReadLine[8].c_str(), L"[DEBUG] Debug Log ");
+    EXPECT_STREQ( aReadLine[9].c_str(), L"[WARN] Warning Log ");
+
+    EXPECT_STREQ( aReadLine[10].c_str(), L"[ERROR] LogString is Error Log ");
+    EXPECT_STREQ( aReadLine[11].c_str(), L"[TRACE] LogString is Trace Log ");
+    EXPECT_STREQ( aReadLine[12].c_str(), L"[INFO] LogString is Info Log ");
+    EXPECT_STREQ( aReadLine[13].c_str(), L"[DEBUG] LogString is Debug Log ");
+    EXPECT_STREQ( aReadLine[14].c_str(), L"[WARN] LogString is Warning Log ");
 
     aLM.Finalize();
     EXPECT_FALSE( aLM.IsExist(aCh1) );
+
+    //! 모든 테스트가 끝난후 로그 파일을 삭제 한다. 
+    remove("LoggerTest.log");
 }
 
 TEST( LoggerTest, NonLogger )
@@ -103,7 +202,7 @@ TEST( LoggerTest, NonLogger )
 
     CLogManager & aLM = CLogManager::GetInstance();
     string aCh1 = L"LoggerTest";
-    EXPECT_TRUE( aLM.AddLogger( aCh1, NLog::NType::DCONSOLE ) );
+    EXPECT_TRUE( aLM.AddLogger( aCh1, NLog::NType::DNONE ) );
 
     aLM.Finalize();
     EXPECT_FALSE( aLM.IsExist(aCh1) );

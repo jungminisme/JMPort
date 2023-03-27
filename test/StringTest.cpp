@@ -62,6 +62,7 @@ TEST(StringTest, Append )
     // 주의 한다. 수식과는 다르다. 
     EXPECT_STREQ( aSam2.c_str(), L"My Name is Gilbert Grape");
 
+
     // 아래 append 는 안된다. 
     // aSam4 = L"My Name is " + aSam3;
 

@@ -24,9 +24,6 @@ namespace JMLib
         virtual void SetLevel( const NLog::LevelType iaLevel );
         virtual void Log( const string & irString );
         virtual void LogWithLevel( const NLog::LevelType iaLevel, const string & irString );
-        virtual void LogWithAllArg( const string & irSrcFile, const uint32 iaLine, 
-            const NLog::LevelType iaLevel, const string & irLogString );
-
         private:
         virtual void LogOut( const string & irString ) = 0;
 
