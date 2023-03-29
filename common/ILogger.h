@@ -54,11 +54,12 @@ namespace JMLib
 }
 
 //* 기본 채널에 로그를 남길때 
-void LOG_ERROR( const wchar_t * ipFormat, ... );
-void LOG_TRACE( const wchar_t * ipFormat, ... );
-void LOG_INFO( const wchar_t * ipFormat, ... );
-void LOG_DEBUG( const wchar_t * ipFormat, ... );
-void LOG_WARN(  const wchar_t * ipFormat, ... );
+void LOG_ERROR_D( const wchar_t * ipFormat, ... );
+void LOG_TRACE_D( const wchar_t * ipFormat, ... );
+void LOG_INFO_D( const wchar_t * ipFormat, ... );
+void LOG_DEBUG_D( const wchar_t * ipFormat, ... );
+void LOG_WARN_D(  const wchar_t * ipFormat, ... );
+void LOG_FATAL_D( const wchar_t * ipFormat, ... );
 
 //* 원하는 채널에 로그를 남길때 
 void LOG_ERROR( const JMLib::NLog::LogChannel & irChannel, const wchar_t * ipFormat, ... );
@@ -66,3 +67,4 @@ void LOG_TRACE( const JMLib::NLog::LogChannel & irChannel, const wchar_t * ipFor
 void LOG_INFO( const JMLib::NLog::LogChannel & irChannel, const wchar_t * ipFormat, ... );
 void LOG_DEBUG( const JMLib::NLog::LogChannel & irChannel, const wchar_t * ipFormat, ... );
 void LOG_WARN( const JMLib::NLog::LogChannel & irChannel, const wchar_t * ipFormat, ... );
+void LOG_FATAL( const JMLib::NLog::LogChannel & irChannel, const wchar_t * ipFormat, ... );
