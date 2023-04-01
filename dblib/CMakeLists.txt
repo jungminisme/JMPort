@@ -1,5 +1,8 @@
-file(GLOB SOURCES "*.cpp")
-add_library(dblib STATIC ${SOURCES} )
+add_library(dblib STATIC 
+    DBManager.cpp 
+    MySQLDB.cpp 
+    MySQLResult.cpp 
+)
 
 target_include_directories(dblib 
 PUBLIC
