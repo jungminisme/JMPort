@@ -1,4 +1,7 @@
 #pragma once
+#include "IDB.h"
+#include <cppconn/exception.h>
+#include <cppconn/resultset.h>
 
 namespace JMLib::DBLib
 {
