@@ -24,6 +24,7 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "*.tcc": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "string": "cpp"
     }
 }

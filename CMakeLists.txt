@@ -15,12 +15,15 @@ FetchContent_MakeAvailable(googletest)
 include_directories( ${CMAKE_SOURCE_DIR}/common )
 add_subdirectory(common)
 add_subdirectory(test)
+add_subdirectory(dblib)
 
 include(CTest)
 enable_testing()
 
 add_executable(JMPort main.cpp)
-target_link_libraries(JMPort common)  
+target_link_libraries( JMPort common dblib )  
+
+add_dependencies( dblib common )
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
