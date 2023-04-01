@@ -7,10 +7,11 @@ namespace JMLib::DBLib
 {
     class CMySQLResult : public IResult
     {
+    public:
         CMySQLResult();
         ~CMySQLResult();
 
         bool FetchNext();
         int GetData( const string & irkey, string & orOutVal );
-    }
+    };
 }

@@ -18,9 +18,9 @@ namespace JMLib::DBLib
         db maDB;
 
         public:
-        CDBManager & GetInstance();
+        static CDBManager & GetInstance();
 
         bool Connect( const string & irAddr, const string & irName, const string & irPass );
-        result & ExecuteStatement( const string & irString );
+        int ExecuteStatement( const string & irString, result & orResult );
     };
 }

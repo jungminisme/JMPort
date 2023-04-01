@@ -15,7 +15,7 @@ bool CDBManager::Connect(const string & irAddr, const string & irName, const str
     return false;
 }
 
-result & CDBManager::ExecuteStatement(const string & irString)
+int  CDBManager::ExecuteStatement(const string & irString, result & orResult)
 {
-    return maDB->ExecuteStatement( irString );
+    return maDB->ExecuteStatement( irString, orResult );
 }

@@ -33,7 +33,7 @@ namespace JMLib::DBLib
 
         virtual bool IsConnect() = 0;
         virtual bool Connect( const string & irAddr, const string & irName, const string & irPass ) = 0;
-        virtual result & ExecuteStatement( const string & irString ) = 0; 
+        virtual int ExecuteStatement( const string & irString, result & orRet ) = 0; 
     };
 
     typedef std::shared_ptr< IDB > db;

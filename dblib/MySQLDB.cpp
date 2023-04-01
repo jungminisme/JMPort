@@ -1,4 +1,5 @@
 #include "MySQLDB.h"
+#include "MySQLResult.h"
 
 using namespace JMLib::DBLib;
 CMySQLDB::CMySQLDB()
@@ -22,6 +23,8 @@ bool CMySQLDB::Connect( const string & irAddr, const string & irName, const stri
     return false;   
 }
 
-result & CMySQLDB::ExecuteStatement( const string & irString )
+int CMySQLDB::ExecuteStatement( const string & irString, result & orRet )
 {
+    orRet = std::make_shared<CMySQLResult>();
+    return 0;
 }

@@ -7,14 +7,15 @@ namespace JMLib::DBLib
 {
     class CMySQLDB : public IDB 
     {
-        private:
+    private:
         sql::Driver * driver;
-        public:
+    
+    public:
         CMySQLDB();
         ~CMySQLDB();
 
         bool IsConnect();
         bool Connect( const string & irAddr, const string & irName, const string & irPass );
-        result & ExecuteStatement( const string & irString ); 
-    }
+        int ExecuteStatement( const string & irString, result & orRet ); 
+    };
 }

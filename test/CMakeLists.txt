@@ -1,7 +1,10 @@
 enable_testing()
-file( GLOB SOURCES "*.cpp")
-
-add_executable( JMTest ${SOURCES} )
+add_executable( JMTest 
+    FileTest.cpp
+    LoggerTest.cpp
+    StringTest.cpp
+    DBTest.cpp
+)
 
 target_include_directories( 
     JMTest PUBLIC 
