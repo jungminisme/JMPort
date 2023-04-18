@@ -228,4 +228,22 @@ string & string::FormatWithVAList( const wchar_t * ipFormat, va_list iaList )
     return * this;
 }
 
+/**
+ * @brief char * 형태의 문자열을 쓸수 있도록 반환한다. 
+ * File 과 Database때문에 만든다. 
+ * @return std::string 현재 문자열을 복사한 MBCS 
+ */
+std::string string::WstrToStr() const
+{
+    return std::string().assign(maString.begin(), maString.end() );
+}
 
+/**
+ * @brief std::string으로부터 문자열을 생성
+ * File 과 Database때문에 만든다. 
+ * @param irStr 입력 문자열
+ */
+void string::StrToWstr(const std::string &irStr)
+{
+    maString.assign( irStr.begin(), irStr.end() );
+}

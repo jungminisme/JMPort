@@ -17,6 +17,7 @@ target_link_libraries(
     GTest::gtest_main
     common
     dblib
+    mysqlcppconn
 )
 
 include(GoogleTest)

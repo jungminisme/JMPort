@@ -47,6 +47,8 @@ namespace JMLib
         float64 ToFloat() const;
         string & Format( const wchar_t * ipFormat, ... );
         string & FormatWithVAList( const wchar_t * ipFormat, va_list iaList );
+        std::string WstrToStr( ) const;
+        void StrToWstr( const std::string & irStr );
     };
 
 }

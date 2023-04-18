@@ -7,8 +7,11 @@ namespace JMLib::DBLib
 {
     class CMySQLResult : public IResult
     {
-    public:
-        CMySQLResult();
+        private:
+        sql::ResultSet * mpResult;
+
+        public:
+        CMySQLResult(sql::ResultSet * ipResult );
         ~CMySQLResult();
 
         bool FetchNext();

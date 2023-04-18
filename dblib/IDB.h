@@ -4,6 +4,12 @@
 
 namespace JMLib::DBLib
 {
+    /// @brief 
+    namespace NError
+    {
+        const static int16 DNOT_CONNECT  = -1;
+    } // namespace NError
+    
     /**
      * @brief DB result set에 대한 Interface class
      * 다수의 결과를 return 해야할 필요가 있기에 FetchNext를 만든다. 
@@ -32,7 +38,8 @@ namespace JMLib::DBLib
         ~IDB() = default;
 
         virtual bool IsConnect() = 0;
-        virtual bool Connect( const string & irAddr, const string & irName, const string & irPass ) = 0;
+        virtual bool Connect( const string & irAddr, const string & irName, 
+            const string & irPass, const string & irDBName ) = 0;
         virtual int ExecuteStatement( const string & irString, result & orRet ) = 0; 
     };
 

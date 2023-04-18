@@ -25,6 +25,7 @@
     "files.associations": {
         "*.tcc": "cpp",
         "filesystem": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "fstream": "cpp"
     }
 }

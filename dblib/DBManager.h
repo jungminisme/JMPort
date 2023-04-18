@@ -20,7 +20,8 @@ namespace JMLib::DBLib
         public:
         static CDBManager & GetInstance();
 
-        bool Connect( const string & irAddr, const string & irName, const string & irPass );
+        bool Connect( const string & irAddr, const string & irName, 
+            const string & irPass, const string & irDBName );
         int ExecuteStatement( const string & irString, result & orResult );
     };
 }

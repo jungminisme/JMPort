@@ -59,8 +59,6 @@ bool CFile::Open( const wchar_t * ipFileName, NFile::mode iaMode )
 
 /**
  * @brief 텍스트모드로 파일을 연다. 
- * JMLib은 JMString만을 사용하지만 파일은 char* 만 입력을 받는다. 
- * 문자열 변환은 우선 여기서만 사용하고, 다른 예외사항 발생하면 그때 관련 문자열 함수를 만든다. 
  * 쓰기 모드로 파일을 열때는. 현재 내용의 뒤로 추가할수 있는 모드로  std::io_base::app //append mode
  * 읽기 모드로 열때는 제일 앞에서 부터 읽을수 있도록 한다. 
  * @param irFileName open할 파일 이름 . 
@@ -76,28 +74,20 @@ bool CFile::Open( const string & irFileName,  NFile::mode iaMode)
         //TODO : 이후 이곳에 Exception을 집어 넣는다. 
         return false;
     }
-    uint aNameLength = irFileName.Size();
-    // 파일 이름이 너무 길지 않은지 확인 한다. 
-    if( ( aNameLength > JMLib::DMAX_STRING_SIZE ) || ( aNameLength < 1 ) )
-        return false;
-    // 파일 이름을 char* 로 변환한다. 
-    char aBuffer[JMLib::DMAX_STRING_SIZE];
-    memset( aBuffer, 0, JMLib::DMAX_STRING_SIZE );
-    wcstombs(aBuffer, irFileName.c_str(), aNameLength );
-    aBuffer[ aNameLength ] = 0;
+    std::string aSFileName = irFileName.WstrToStr();
     switch(iaMode)
     {
         case NFile::NMode::DREAD:
-            maStream.open( aBuffer,  std::ios_base::in );
+            maStream.open( aSFileName.c_str(),  std::ios_base::in );
             maStatus = NFile::NStatus::DOPEN_READ;
             break;
         case NFile::NMode::DWRITE:
-            maStream.open( aBuffer, std::ios_base::app );
+            maStream.open( aSFileName.c_str(), std::ios_base::app );
             maStream.seekg( std::ios_base::end );
             maStatus = NFile::NStatus::DOPEN_WRITE;
             break;
         case NFile::NMode::DREAD_WRITE:
-            maStream.open( aBuffer, std::ios_base::in | std::ios_base::out );
+            maStream.open( aSFileName.c_str(), std::ios_base::in | std::ios_base::out );
             maStatus = NFile::NStatus::DOPEN_RW;
             break;
         default:

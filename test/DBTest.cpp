@@ -6,11 +6,12 @@ using namespace JMLib::DBLib;
 TEST( DBLibTest, Connect )
 {
     CDBManager & aDM = CDBManager::GetInstance();
-    JMLib::string aAddr = L"127.0.0.1";
-    JMLib::string aUser = L"TestUser";
-    JMLib::string aPass = L"TestPass";
+    JMLib::string aAddr = L"192.168.35.203";
+    JMLib::string aUser = L"db_master";
+    JMLib::string aPass = L"master";
+    JMLib::string aDBName = L"world";
 
-    EXPECT_TRUE( aDM.Connect( aAddr, aUser, aPass ) );
+    EXPECT_TRUE( aDM.Connect( aAddr, aUser, aPass, aDBName ) );
 
     //! 우선 test case만을 작성해 놓음. db에 user 추가하고 privilige 설정해 놓아야 함. 
 
