@@ -1,6 +1,6 @@
 #pragma once
 #include "IDB.h"
-#include <cppconn/driver.h>
+#include <cppconn/connection.h>
 #include <cppconn/exception.h>
 
 namespace JMLib::DBLib

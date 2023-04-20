@@ -6,7 +6,7 @@ using namespace JMLib::DBLib;
 TEST( DBLibTest, Connect )
 {
     CDBManager & aDM = CDBManager::GetInstance();
-    JMLib::string aAddr = L"192.168.35.203";
+    JMLib::string aAddr = L"tcp://192.168.35.203:3306";
     JMLib::string aUser = L"db_master";
     JMLib::string aPass = L"master";
     JMLib::string aDBName = L"world";

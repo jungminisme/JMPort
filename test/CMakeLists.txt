@@ -11,6 +11,7 @@ target_include_directories(
     ${CMAKE_SOURCE_DIR}/common 
     ${CMAKE_SOURCE_DIR}/dblib 
 )
+link_directories(/usr/local/lib/)
 
 target_link_libraries(
     JMTest
@@ -18,6 +19,8 @@ target_link_libraries(
     common
     dblib
     mysqlcppconn
+    mysqlclient
+    mysqlcppconn-static
 )
 
 include(GoogleTest)

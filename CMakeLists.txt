@@ -13,6 +13,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 include_directories( ${CMAKE_SOURCE_DIR}/common )
+link_directories(/usr/local/lib/)
 add_subdirectory(common)
 add_subdirectory(test)
 add_subdirectory(dblib)
@@ -21,7 +22,7 @@ include(CTest)
 enable_testing()
 
 add_executable(JMPort main.cpp)
-target_link_libraries( JMPort common dblib )  
+target_link_libraries( JMPort common dblib mysqlcppconn mysqlclient mysqlcppconn-static )  
 
 add_dependencies( dblib common )
 
