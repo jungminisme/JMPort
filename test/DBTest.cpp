@@ -12,6 +12,7 @@ TEST( DBLibTest, Connect )
     JMLib::string aDBName = L"world";
 
     EXPECT_TRUE( aDM.Connect( aAddr, aUser, aPass, aDBName ) );
+    aDM.Close();
 
     //! 우선 test case만을 작성해 놓음. db에 user 추가하고 privilige 설정해 놓아야 함. 
 

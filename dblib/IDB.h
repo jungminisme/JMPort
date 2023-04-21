@@ -22,7 +22,18 @@ namespace JMLib::DBLib
         ~IResult() = default;
 
         virtual bool FetchNext() = 0;
-        virtual int GetData( const string & irKey, string & orOutVal ) = 0;
+        virtual string GetString( const string & irKey ) const = 0;
+        virtual bool GetBoolean( const string & irKey ) const = 0;
+        virtual int32 GetInt( const string & irKey ) const = 0;
+        virtual uint32 GetUInt( const string & irKey ) const = 0;
+        virtual float64 GetFloat64( const string & irKey ) const = 0;
+        virtual string GetString( const uint32 iaIndex ) const = 0;
+        virtual bool GetBoolean( const uint32 iaIndex ) const = 0;
+        virtual int32 GetInt( const uint32 iaIndex ) const = 0;
+        virtual uint32 GetUInt( const uint32 iaIndex ) const = 0;
+        virtual float64 GetFloat64( const uint32 iaIndex ) const = 0;
+        virtual bool IsFirst() const = 0;
+        virtual bool IsLast() const = 0;
     };
     typedef std::shared_ptr< IResult > result;
 
@@ -40,7 +51,8 @@ namespace JMLib::DBLib
         virtual bool IsConnect() = 0;
         virtual bool Connect( const string & irAddr, const string & irName, 
             const string & irPass, const string & irDBName ) = 0;
-        virtual int ExecuteStatement( const string & irString, result & orRet ) = 0; 
+        virtual result ExecuteStatement( const string & irString  ) = 0; 
+        virtual bool Close() = 0;
     };
 
     typedef std::shared_ptr< IDB > db;

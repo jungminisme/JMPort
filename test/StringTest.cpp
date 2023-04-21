@@ -98,6 +98,19 @@ TEST(StringTest, Append )
 
 }
 
+TEST(StringTest, STR_WSTR )
+{
+    JMLib::string aWStr( L"oh My GoD!" );
+    std::string aStr( "oh My GoD!" );
+
+    EXPECT_STREQ( aStr.c_str(), aWStr.WstrToStr().c_str() );
+    JMLib::string aTemp( aStr );
+    EXPECT_STREQ( aTemp.c_str() , aWStr.c_str() );
+    JMLib::string aTemp2;
+    aTemp2.StrToWstr( aStr );
+    EXPECT_STREQ( aWStr.c_str() , aTemp2.c_str() );
+}
+
 TEST(StringTest, MiscTest)
 {
     JMLib::string aSam1( L"Lonely Night");

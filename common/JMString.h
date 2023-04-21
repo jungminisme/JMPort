@@ -24,6 +24,7 @@ namespace JMLib
         string();
         string( const wchar_t * ipString ) ;
         string( const string & irString );
+        string( const std::string & irString );
         int32 Compare( const string & irString );
         bool IsEmpty() const ;
         uint32 Size() const ;

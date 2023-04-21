@@ -1,5 +1,6 @@
 #include "MySQLDB.h"
 #include "MySQLResult.h"
+#include "NullResult.h"
 #include "ILogger.h"
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
@@ -19,7 +20,7 @@ CMySQLDB::CMySQLDB()
  */
 CMySQLDB::~CMySQLDB()
 {
-    if( IsConnect() ) 
+    if( mpConn != NULL )
     {
         mpConn->close();
     }
@@ -62,7 +63,7 @@ bool CMySQLDB::Connect( const string & irAddr, const string & irName,
     } 
     catch( sql::SQLException & e ) 
     {
-        LOG_ERROR( L"dblist", L"Connection Error : %d", e.getErrorCode() );
+        LOG_ERROR( L"dblib", L"Connection Error : %d", e.getErrorCode() );
         return false;
     }
     return true;
@@ -75,20 +76,36 @@ bool CMySQLDB::Connect( const string & irAddr, const string & irName,
  * @param orRet 결과 set, DBResult의 형태로 반환한다. Output parameter이다. 
  * @return int 에러 여부 
  */
-int CMySQLDB::ExecuteStatement( const string & irString, result & orRet )
+result CMySQLDB::ExecuteStatement( const string & irString )
 {
     try {
         if( IsConnect() == false )
-            return NError::DNOT_CONNECT;
+            return result( std::make_shared<CNullResult>( CNullResult() ) );
         sql::Statement * pStatement =  mpConn->createStatement();
-        orRet = std::make_shared<CMySQLResult>(
+        result aRet  = std::make_shared<CMySQLResult>(
             pStatement->executeQuery( sql::SQLString( irString.WstrToStr() ) )) ;
         delete pStatement;
+        return aRet;
     }
     catch ( sql::SQLException & e ) 
     {
-        LOG_ERROR( L"dblist", L"Connection Error : %d", e.getErrorCode() );
-        return e.getErrorCode();
+        LOG_ERROR( L"dblib", L"Connection Error : %d", e.getErrorCode() );
+        return result( std::make_shared<CNullResult>( CNullResult() ) );
     }
-    return 0;
+    return result( std::make_shared<CNullResult>( CNullResult() ) );
+}
+
+/**
+ * @brief DB 연결을 닫는다. 
+ * mpConn이 있다면 기존에 열려있었는지 판단 안하고 그냥 닫는다. 
+ * 최종 상태는 어쨋건 닫혀있는거다. 
+ * @return true DB 연결이 닫힘
+ * @return false DB가 연결조차 안되어 있었음. 
+ */
+bool CMySQLDB::Close() 
+{
+    if( mpConn == NULL )
+        return false;
+    mpConn->close();
+    return true;
 }

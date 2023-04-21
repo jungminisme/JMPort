@@ -16,6 +16,11 @@ string::string( const string & irString ) : maString( irString.maString)
 
 }
 
+string::string( const std::string & irString ) 
+{
+    StrToWstr( irString );
+}
+
 /// @brief 문자열 비교 함수 
 /// @param irString , 비교를 원하는 문자열
 /// @return  입력된 문자열보다 현재 문자열이 순서상 앞인경우 음수, 같으면 0, 순서상 뒤는 양수
