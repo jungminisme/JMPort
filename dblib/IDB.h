@@ -22,16 +22,21 @@ namespace JMLib::DBLib
         ~IResult() = default;
 
         virtual bool FetchNext() = 0;
+
+        virtual bool IsNull( const string & irKey ) const = 0;
         virtual string GetString( const string & irKey ) const = 0;
         virtual bool GetBoolean( const string & irKey ) const = 0;
         virtual int32 GetInt( const string & irKey ) const = 0;
         virtual uint32 GetUInt( const string & irKey ) const = 0;
         virtual float64 GetFloat64( const string & irKey ) const = 0;
+
+        virtual bool IsNull( const uint32 iaIndex ) const = 0;
         virtual string GetString( const uint32 iaIndex ) const = 0;
         virtual bool GetBoolean( const uint32 iaIndex ) const = 0;
         virtual int32 GetInt( const uint32 iaIndex ) const = 0;
         virtual uint32 GetUInt( const uint32 iaIndex ) const = 0;
         virtual float64 GetFloat64( const uint32 iaIndex ) const = 0;
+
         virtual bool IsFirst() const = 0;
         virtual bool IsLast() const = 0;
     };

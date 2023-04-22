@@ -28,6 +28,18 @@ bool CMySQLResult::FetchNext()
 }
 
 /**
+ * @brief Key에 해당하는 컬럼이 존재하는지 반환한다. 
+ * 
+ * @param irKey 찾으려는 컬럼의 키
+ * @return true 컬럼이 있는 경우
+ * @return false 컬럼이 존재하지 않는경우
+ */
+bool CMySQLResult::IsNull( const string & irKey ) const
+{
+    return mpResult->isNull( irKey.WstrToStr() );
+}
+
+/**
  * @brief 키로 컬럼을 찾아 문자열을 반환
  * 
  * @param irKey 찾으려는 컬럼의 label 
@@ -83,6 +95,18 @@ JMLib::uint32 CMySQLResult::GetUInt( const string & irKey ) const
 JMLib::float64 CMySQLResult::GetFloat64( const string & irKey ) const
 {
     return mpResult->getDouble( irKey.WstrToStr() );
+}
+
+/**
+ * @brief 인덱스에 해당하는 컬럼이 존재하는지 반환
+ * 
+ * @param iaIndex 찾으려는 인덱스
+ * @return true 컬럼이 존재하는 경우
+ * @return false 컬럼이 존재하지 않는 경우 
+ */
+bool CMySQLResult::IsNull( const JMLib::uint32 iaIndex ) const 
+{
+    return mpResult->isNull( iaIndex );
 }
 
 /**

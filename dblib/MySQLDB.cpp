@@ -10,7 +10,7 @@
 using namespace JMLib::DBLib;
 CMySQLDB::CMySQLDB()
 {
-    
+    mpConn = NULL;   
 }
 
 
@@ -23,6 +23,7 @@ CMySQLDB::~CMySQLDB()
     if( mpConn != NULL )
     {
         mpConn->close();
+        delete mpConn;
     }
 }
 
@@ -53,6 +54,8 @@ bool CMySQLDB::IsConnect()
 bool CMySQLDB::Connect( const string & irAddr, const string & irName, 
     const string & irPass, const string & irDBname )
 {
+    if( IsConnect() )       //! 이미 붙어 있었다면 기존의 접속은 끊는다. 
+        Close();
     try {
         sql::Driver * aDriver = get_driver_instance();
         if( aDriver == NULL )
@@ -73,8 +76,7 @@ bool CMySQLDB::Connect( const string & irAddr, const string & irName,
  * @brief 입력받은 쿼리를 실행하고 결과를 반환한다. 
  * 
  * @param irString 쿼리 문장
- * @param orRet 결과 set, DBResult의 형태로 반환한다. Output parameter이다. 
- * @return int 에러 여부 
+ * @return result MySQL resultset 반환 fetch를 해가면서 사용한다. 
  */
 result CMySQLDB::ExecuteStatement( const string & irString )
 {
@@ -82,8 +84,9 @@ result CMySQLDB::ExecuteStatement( const string & irString )
         if( IsConnect() == false )
             return result( std::make_shared<CNullResult>( CNullResult() ) );
         sql::Statement * pStatement =  mpConn->createStatement();
-        result aRet  = std::make_shared<CMySQLResult>(
-            pStatement->executeQuery( sql::SQLString( irString.WstrToStr() ) )) ;
+        std::string aQuery = irString.WstrToStr();
+        sql::ResultSet * pRetSet = pStatement->executeQuery( aQuery );
+        result aRet  = std::make_shared<CMySQLResult>( pRetSet ) ;
         delete pStatement;
         return aRet;
     }
@@ -107,5 +110,7 @@ bool CMySQLDB::Close()
     if( mpConn == NULL )
         return false;
     mpConn->close();
+    delete mpConn;
+    mpConn = NULL;
     return true;
 }

@@ -111,6 +111,21 @@ TEST(StringTest, STR_WSTR )
     EXPECT_STREQ( aWStr.c_str() , aTemp2.c_str() );
 }
 
+TEST(StringTest, Array )
+{
+    JMLib::string aStrs[10] = {L"1",L"2",L"3",L"4",L"5",L"6",L"7",L"8", L"9", L"10" };
+    EXPECT_STREQ( aStrs[0].c_str(), L"1" );
+    EXPECT_STREQ( aStrs[1].c_str(), L"2" );
+    EXPECT_STREQ( aStrs[2].c_str(), L"3" );
+    EXPECT_STREQ( aStrs[3].c_str(), L"4" );
+    EXPECT_STREQ( aStrs[4].c_str(), L"5" );
+    EXPECT_STREQ( aStrs[5].c_str(), L"6" );
+    EXPECT_STREQ( aStrs[6].c_str(), L"7" );
+    EXPECT_STREQ( aStrs[7].c_str(), L"8" );
+    EXPECT_STREQ( aStrs[8].c_str(), L"9" );
+    EXPECT_STREQ( aStrs[9].c_str(), L"10" );
+}
+
 TEST(StringTest, MiscTest)
 {
     JMLib::string aSam1( L"Lonely Night");
