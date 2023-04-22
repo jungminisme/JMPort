@@ -43,7 +43,7 @@ TEST( DBLibTest, ResultSet )
     aQueryBase = L"SELECT ID, Name, CountryCode, District, Population FROM city ";
     JMLib::string aQueryWhere = L"WHERE ID = 1";
     aQuery.Clear();
-    aQuery << aQueryBase << aQueryBase;
+    aQuery << aQueryBase << aQueryWhere;
     {
         result aRet = aDM.ExecuteStatement( aQuery );
         while( aRet->FetchNext() ) 
