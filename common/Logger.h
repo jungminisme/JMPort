@@ -9,7 +9,8 @@ namespace JMLib
      * @brief 각종 Logger들의 superclass
      *  LogOut을 제외한 모든 공통 작업들은 수행한다. 
      */
-    class CLogger : public ILogger{
+    class CLogger : public ILogger
+    {
         private:
         /// @brief maLevel 이하의 Log는 출력하지 않는다. 
         uint8 maLevel;

@@ -84,4 +84,6 @@ TEST( DBLibTest, ResultSet )
     }
 
     EXPECT_TRUE( aDM.Close() );
+
+    //! TODO : 이후  bool, Float64, int32 등등 의 data type  return test를 만든다. 
 }

@@ -17,14 +17,16 @@ link_directories(/usr/local/lib/)
 add_subdirectory(common)
 add_subdirectory(test)
 add_subdirectory(dblib)
+add_subdirectory(netlib)
 
 include(CTest)
 enable_testing()
 
 add_executable(JMPort main.cpp)
-target_link_libraries( JMPort common dblib mysqlcppconn mysqlclient mysqlcppconn-static )  
+target_link_libraries( JMPort common dblib mysqlcppconn mysqlclient netlib )  
 
-add_dependencies( dblib common )
+#add_dependencies( dblib common )
+#add_dependencies( netlib common )
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

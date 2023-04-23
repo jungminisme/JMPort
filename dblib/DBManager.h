@@ -12,9 +12,6 @@ namespace JMLib::DBLib
     class CDBManager
     {
         private:
-        CDBManager() = default;
-        ~CDBManager() = default;
-
         db maDB;
 
         public:
@@ -24,5 +21,9 @@ namespace JMLib::DBLib
             const string & irPass, const string & irDBName );
         result ExecuteStatement( const string & irString );
         bool Close();
+
+        private:
+        CDBManager() = default;
+        ~CDBManager() = default;
     };
 }

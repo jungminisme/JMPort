@@ -10,6 +10,7 @@ target_include_directories(
     JMTest PUBLIC 
     ${CMAKE_SOURCE_DIR}/common 
     ${CMAKE_SOURCE_DIR}/dblib 
+    ${CMAKE_SOURCE_DIR}/netlib 
 )
 link_directories(/usr/local/lib/)
 
@@ -18,9 +19,8 @@ target_link_libraries(
     GTest::gtest_main
     common
     dblib
+    netlib
     mysqlcppconn
-    mysqlclient
-    mysqlcppconn-static
 )
 
 include(GoogleTest)
