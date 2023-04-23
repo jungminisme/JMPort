@@ -4,9 +4,11 @@
 #include "IPacket.h"
 namespace JMLib
 {
+
     namespace NetLib 
     {
-
+        typedef int32 fd;
+        
         class IServer 
         {
             public:

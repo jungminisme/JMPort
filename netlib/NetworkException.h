@@ -12,12 +12,16 @@ namespace JMLib
             string maMessage;
 
             public:
-            CNetworkException() = default;
             ~CNetworkException() = default;
-
             CNetworkException( NError::Level iaLevel, const string & irString );
+            
             NError::Level GetErrorLevel() const;
             const string & GetErrorMessage() const;
+
+            const char * what() const noexcept override;
+
+            private:
+            CNetworkException() = default;
         };
     }
 }

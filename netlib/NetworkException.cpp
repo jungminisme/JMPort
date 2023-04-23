@@ -15,3 +15,8 @@ const JMLib::string & CNetworkException::GetErrorMessage() const
 {
     return maMessage;
 }
+
+const char * CNetworkException::what() const noexcept 
+{
+    return maMessage.WstrToStr().c_str();
+}

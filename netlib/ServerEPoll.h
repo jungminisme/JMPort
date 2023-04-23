@@ -1,10 +1,10 @@
 #pragma once
 #include "ICallback.h"
 #include "IServer.h"
+#include "ListenSocketEPoll.h"
 
 namespace JMLib::NetLib
 {
-    typedef int32 fd;
     /**
      * @brief Epoll 방식으로 동작하는 서버 
      * 
@@ -12,14 +12,11 @@ namespace JMLib::NetLib
     class CServerEPoll : public IServer 
     {
         private:
-        const static int32 DMAX_BACKLOG = 10; //! 최대 Listen backlog 갯수
-
-        private:
-        fd maListenFD;
+        CListenSocketEPoll maListener;
 
         public:
-        CServerEPoll() = default;
-        ~CServerEPoll() = default;
+        CServerEPoll();
+        ~CServerEPoll();
 
         bool Init( const uint16 iaPort, const ICallback & irCallback );
         int32 Send( const IPacket & irPacket ) const;

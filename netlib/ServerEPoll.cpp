@@ -1,13 +1,19 @@
-#include <sys/epoll.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <netinet/ip.h>
 #include "ServerEPoll.h"
 #include "NetworkException.h"
+#include "ILogger.h"
 
 
 using namespace JMLib::NetLib;
+
+CServerEPoll::CServerEPoll() : maListener( * this )
+{
+
+}
+
+CServerEPoll::~CServerEPoll()
+{
+    maListener.Close();
+}
 
 /**
  * @brief Epoll 방식으로 서버를 가동한다. 
@@ -21,20 +27,13 @@ using namespace JMLib::NetLib;
  */
 bool CServerEPoll::Init( const uint16 iaPort, const ICallback & irCallback ) 
 {
-    maListenFD = socket(AF_INET, SOCK_STREAM, 0 );
-    if( maListenFD < 1 )
-        throw CNetworkException( NError::NLevel::DERROR, L"socket() fuction Fail" );
-    struct sockaddr_in aServerAddr;
-    bzero( &aServerAddr, sizeof(aServerAddr));
-    aServerAddr.sin_family = AF_INET;
-    aServerAddr.sin_addr.s_addr = htonl( INADDR_ANY);
-    aServerAddr.sin_port = htons( iaPort );
-    int aRet = bind( maListenFD, (struct sockaddr * ) &aServerAddr, sizeof(aServerAddr) );
-    if( aRet < 0 )
-        throw CNetworkException( NError::NLevel::DERROR, L"bind() fuction Fail" );
-    aRet = listen(maListenFD, DMAX_BACKLOG );
-    if( aRet < 0 )
-        throw CNetworkException( NError::NLevel::DERROR, L"listen() function fail");
+    try {
+        maListener.Init( iaPort );
+    }
+    catch( CNetworkException const & e ) {
+        LOG_ERROR( L"netlib", e.GetErrorMessage().c_str() );
+        return false;
+    }
     return true;
 }
 

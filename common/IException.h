@@ -1,5 +1,6 @@
 #pragma once
 #include "JMString.h"
+#include <exception>
 
 namespace JMLib
 {
@@ -17,7 +18,7 @@ namespace JMLib
         }
     }
 
-    class IException 
+    class IException : public std::exception
     {
         protected:
         IException() = default;
