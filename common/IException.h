@@ -26,5 +26,5 @@ namespace JMLib
         public:
         virtual const string & GetErrorMessage() const = 0;
         virtual NError::Level GetErrorLevel() const = 0;
-    }
+    };
 }

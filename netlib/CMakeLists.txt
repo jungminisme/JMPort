@@ -1,6 +1,7 @@
 add_library( netlib STATIC 
     NetworkManager.cpp
     ServerEPoll.cpp
+    NetworkException.cpp
 )
 
 target_include_directories(

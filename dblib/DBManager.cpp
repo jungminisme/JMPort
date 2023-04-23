@@ -4,6 +4,14 @@
 
 using namespace JMLib::DBLib;
 
+CDBManager::CDBManager() 
+{
+    maDB = std::make_shared<CMySQLDB>();
+    //! 로거를 설정한다. 
+    CLogManager & aLM = CLogManager::GetInstance();
+    aLM.AddLogger( L"dblib", JMLib::NLog::NType::DCONSOLE, JMLib::NLog::NLevel::DALL );
+}
+
 CDBManager & CDBManager::GetInstance()
 {
     static CDBManager saInstance;
@@ -22,12 +30,6 @@ CDBManager & CDBManager::GetInstance()
 bool CDBManager::Connect(const string & irAddr, const string & irName, 
     const string & irPass, const string & irDBName )
 {
-    if( maDB.use_count() == 0 ) {
-        maDB = std::make_shared<CMySQLDB>();
-        //! 로거를 설정한다. 
-        CLogManager & aLM = CLogManager::GetInstance();
-        aLM.AddLogger( L"dblib", JMLib::NLog::NType::DCONSOLE, JMLib::NLog::NLevel::DALL );
-    }
     return maDB->Connect(irAddr, irName, irPass, irDBName );
 }
 

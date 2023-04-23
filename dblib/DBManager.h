@@ -23,7 +23,7 @@ namespace JMLib::DBLib
         bool Close();
 
         private:
-        CDBManager() = default;
+        CDBManager();
         ~CDBManager() = default;
     };
 }
