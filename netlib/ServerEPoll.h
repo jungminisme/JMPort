@@ -1,7 +1,7 @@
 #pragma once
 #include "ICallback.h"
 #include "IServer.h"
-#include "ListenSocketEPoll.h"
+#include "SocketEPoll.h"
 
 namespace JMLib::NetLib
 {
@@ -12,13 +12,25 @@ namespace JMLib::NetLib
     class CServerEPoll : public IServer 
     {
         private:
-        CListenSocketEPoll maListener;
+        const static int32 DMAX_EPOLL_EVENT     = 1024;
+        const static int32 DEPOLL_TIME_OUT      = -1;
+
+        private:
+        std::map< fd, esock > maSockets;
+        fd maEPollFD;
 
         public:
         CServerEPoll();
         ~CServerEPoll();
 
-        bool Init( const uint16 iaPort, const ICallback & irCallback );
+        bool Init( const port iaPort, ICallback & irCallback );
         int32 Send( const IPacket & irPacket ) const;
+        void OnConnect( esock iaSock );
+
+        int32 CheckSockets();
+
+        private:
+        void CreateEPoll( esock iaListener );
+        void InsertSock( esock iaSock );
     };
 }
