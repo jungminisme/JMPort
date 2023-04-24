@@ -2,6 +2,9 @@ add_library( netlib STATIC
     NetworkManager.cpp
     ServerEPoll.cpp
     NetworkException.cpp
+    SocketEPoll.cpp 
+    ListenSocketEPoll.cpp 
+    CommSocketEPoll.cpp 
 )
 
 target_include_directories(
