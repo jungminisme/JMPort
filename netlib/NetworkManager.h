@@ -22,7 +22,7 @@ namespace JMLib
 
             bool Init( const port iaPort, ICallback & irCallback );
 
-            int32 Send ( const IPacket & irPacket ) const;
+            int32 Send ( IPacket & irPacket ) const;
 
             private:
             CNetworkManager();

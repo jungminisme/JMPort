@@ -20,7 +20,11 @@ namespace JMLib::NetLib
         ~CCommSocketEPoll();
 
         int32 OnEvent() const;
-        int32 Send( const IPacket & irPacket ) const;
+        int32 Send( IPacket & irPacket ) const;
         void Init( fd iaFD, port iaPort, uint32 iaAddr );
+
+        private:
+        void OnClose() const;
+        void onRecvError() const;
     };
 }

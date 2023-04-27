@@ -7,19 +7,35 @@ namespace JMLib
      * @brief callback과의 통신을 위한 데이터 저장 객체 
      * 대부분의 확률로 stream 형태의 객체가 될듯 하다. 
      * netlib쪽에서는 recvPacket을 주로 구현하고, game쪽에서는 sendPacket을 주로 구현한다. 
+     * 
+     * Packet Header : 아래의 값들은 모든 Packet에 항상 붙어 있어야 한다. 
+     * 1. Identifier    : 2Btye     //! 적절한 Packet이 붙었는지 확인 
+     * 2. Command       : 2Byte     //! Packet parsing을 위한 번호
+     * 3. PacketSize    : 2Byte     //! 패킷의 크기 
+     * 
+     * Packet별로 fingerprint같은거 뒀다가 읽을때 검증하고 싶지만. 
+     * 너무 불편하고 runtime에서 overhead도 심할것으로 예상됨. 
+     * 할거면 쓸때도 읽을때도 다 검사해야지.. 여튼 그래서 안한다. 
      */
     class IPacket 
     {
+        public:
+        const static uint16 DMAX_PACKET_SIZE    = 4096;     //! 패킷의 최대 길이
+        const static uint16 DHEADER_SIZE        = 6;        //! 해더의 크기 
+        const static uint16 DPACKET_IDENTIFIER  = 38571;    //! 내 패킷인지 확인하는데 씀
+
         protected:
         IPacket() = default;
         ~IPacket() = default;
 
         public:
-        virtual int32 ID() const = 0;                   //! fd를 사용한다. 
+        virtual int32 Owner() const = 0;                //! fd를 사용한다. 
+        virtual uint16 Command() const = 0;             //! Packet 명령어 종류
         virtual uint32 Size() const = 0;                //! Send할 전체 크기
-        virtual const char * GetBuffer() const = 0;     //! databuffer의 시작점
+        virtual char * GetBuffer() = 0;     //! databuffer의 시작점
 
         //! Packet에 data를 넣을때는 이렇게 넣는 것이 많이 편하다. 
+        //! 변수를 개별로 넣는 Append( string ... ) 이런 함수는 나중에 필요하면 만든다. 
         virtual IPacket & operator << ( const string & irVal ) = 0;
         virtual IPacket & operator << ( const uint8 iaVal ) = 0;
         virtual IPacket & operator << ( const uint16 iaVal ) = 0;
@@ -31,16 +47,16 @@ namespace JMLib
         virtual IPacket & operator << ( const float32 iaVal ) = 0;
         virtual IPacket & operator << ( const float64 iaVal ) = 0;
 
-        //! Packet으로 부터 Data를 얻을때는. .. 중간에 data byte가 어긋나는 경우 체크를 하자. 
-        virtual string GetString() = 0;
-        virtual uint8 GetUInt8() = 0;
-        virtual uint16 GetUInt16() = 0;
-        virtual uint32 GetUInt32() = 0;
-        virtual int8 Getnt8() = 0;
-        virtual int16 GetInt16() = 0;
-        virtual int32 GetInt32() = 0;
-        virtual bool GetBoolean() = 0;
-        virtual float32 GetFloat32() = 0;
-        virtual float64 GetFloat64() = 0;
+        //! 변수를 개별로 리턴받는 GetString ... 이런 함수들은 나중에 필요하면 만든다. 
+        virtual IPacket & operator >> ( string & irVal ) = 0;
+        virtual IPacket & operator >> ( uint8 iaVal ) = 0;
+        virtual IPacket & operator >> ( uint16 iaVal ) = 0;
+        virtual IPacket & operator >> ( uint32 iaVal ) = 0;
+        virtual IPacket & operator >> ( int8 iaVal ) = 0;
+        virtual IPacket & operator >> ( int16 iaVal ) = 0;
+        virtual IPacket & operator >> ( int32 iaVal ) = 0;
+        virtual IPacket & operator >> ( bool iaVal ) = 0;
+        virtual IPacket & operator >> ( float32 iaVal ) = 0;
+        virtual IPacket & operator >> ( float64 iaVal ) = 0;
     };
 }

@@ -64,7 +64,7 @@ JMLib::int32 CListenSocketEPoll::OnEvent() const
     if( aClientFD < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"accept() fuction Fail" );
     std::shared_ptr<CCommSocketEPoll> aClientSock = std::make_shared<CCommSocketEPoll>( mrCallback );
-    aClientSock->Init( aClientFD );
+    aClientSock->Init( aClientFD, aClientAddr.sin_port, aClientAddr.sin_addr.s_addr );
     mrServer.OnConnect( aClientSock );
     return 0;
 }
@@ -75,7 +75,7 @@ JMLib::int32 CListenSocketEPoll::OnEvent() const
  * @param irPacket 전송될 패킷. 무시된다. 
  * @return JMLib::int32 -1 반환. 그전에 exception이 날라가므로 의미 없다. 
  */
-JMLib::int32 CListenSocketEPoll::Send(const IPacket &irPacket) const
+JMLib::int32 CListenSocketEPoll::Send( IPacket &irPacket) const
 {
     throw CNetworkException( NError::NLevel::DWARN, L"You sent data to Listen socket");
     return -1;

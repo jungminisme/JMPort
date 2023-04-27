@@ -13,6 +13,7 @@ namespace JMLib
         ICallback() = default;
         ~ICallback() = default;
 
+        public:
         virtual int32 Post( const IPacket & irPacket ) const = 0;
     };
 }

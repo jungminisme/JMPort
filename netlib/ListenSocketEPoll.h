@@ -22,7 +22,7 @@ namespace JMLib::NetLib
 
         void Init( const port iaPort );
         int32 OnEvent() const;
-        int32 Send( const IPacket & irPacket ) const;
+        int32 Send( IPacket & irPacket ) const;
 
         private:
         void Create();

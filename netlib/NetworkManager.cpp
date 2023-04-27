@@ -48,7 +48,7 @@ bool CNetworkManager::Init( const port iaPort, ICallback & irCallback )
  * @param irPacket 전송할 패킷
  * @return JMLib::int32 전송된 data의 양
  */
-JMLib::int32 CNetworkManager::Send( const IPacket & irPacket ) const
+JMLib::int32 CNetworkManager::Send( IPacket & irPacket ) const
 {
     return mpServer->Send( irPacket );
 }

@@ -19,7 +19,7 @@ namespace JMLib
         {
             public:
             virtual bool Init( const port iaPort, ICallback & irCallback ) = 0;
-            virtual int32 Send( const IPacket & irPacket ) const = 0;
+            virtual int32 Send( IPacket & irPacket ) const = 0;
 
             protected:
             IServer() = default;

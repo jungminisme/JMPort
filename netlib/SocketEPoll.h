@@ -16,7 +16,7 @@ namespace JMLib::NetLib
 
         public:
         virtual int32 OnEvent() const = 0;
-        virtual int32 Send( const IPacket & irPacket ) const = 0;
+        virtual int32 Send( IPacket & irPacket ) const = 0;
         const fd GetFD() const;
         void Close();
         

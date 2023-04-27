@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include "CommSocketEPoll.h"
 #include "NetworkException.h"
+#include "RecvPacket.h"
 
 using namespace JMLib::NetLib;
 
@@ -25,8 +26,35 @@ CCommSocketEPoll::~CCommSocketEPoll()
  */
 JMLib::int32 CCommSocketEPoll::OnEvent() const
 {
-    //! TODO
-    return 0;
+    CRecvPacket aPacket(maFD);
+    //! 우선 읽어 본다. 
+    int aReadSize = read( maFD, aPacket.GetBuffer(), IPacket::DMAX_PACKET_SIZE );
+    if( aReadSize == 0 ) {      //! 연결이 끊어짐
+        OnClose();
+        return 0;
+    }
+    if( aReadSize < 0 ) {       //! 에러가 발생함
+        onRecvError();
+        return aReadSize;
+    }
+    aPacket.SetRead(aReadSize);
+    int aSizeToRead = (int) aPacket.Size();
+    while( aReadSize < aSizeToRead ) {      //! 읽은양이 읽어야할 양보다 작은경우 
+        int aRemain = aSizeToRead - aReadSize;
+        //! 다시 읽는다. 
+        int aTemp = read( maFD, aPacket.GetBuffer() + aReadSize, aRemain );
+        if( aTemp == 0 ) {      //! 다시 읽는중 끊어짐
+            OnClose();
+            return 0;
+        }
+        if( aTemp < 0 ) {       //! 다시 읽는중 에러발생
+            onRecvError();
+            return aTemp;
+        }
+        aReadSize += aTemp;
+    }
+    mrCallback.Post( aPacket ); //! 읽은 패킷을 Callback 에 전달한다. 
+    return (int32) aPacket.Size();
 }
 
 /**
@@ -36,7 +64,7 @@ JMLib::int32 CCommSocketEPoll::OnEvent() const
  * @param irPacket 전송할 패킷 정보
  * @return JMLib::int32 전송된 Data의 양 . 
  */
-JMLib::int32 CCommSocketEPoll::Send(const IPacket &irPacket) const
+JMLib::int32 CCommSocketEPoll::Send( IPacket &irPacket) const
 {
     //! TODO
     int32 aRet = write( maFD, irPacket.GetBuffer(), irPacket.Size() );
@@ -61,4 +89,12 @@ void CCommSocketEPoll::Init( fd iaFD, port iaPort, uint32 iaAddr )
     int aRet = fcntl( maFD, F_SETFL, aFlag );
     if( aRet < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"fcntl() fuction Fail" );
+}
+
+void CCommSocketEPoll::OnClose() const
+{
+}
+
+void CCommSocketEPoll::onRecvError() const
+{
 }

@@ -18,7 +18,7 @@ CServerEPoll::CServerEPoll() :  maEPollFD( 0 )
 
 /**
  * @brief Destroy the CServerEPoll::CServerEPoll object
- * maSockets를 비워 전체 소켓을 삭제 한다. 소켓들은 지들이 알아서 close한다. 
+ * maSockets를 비워 전체 소켓을 삭제 한다. 소켓들은 지들이 알아서 fd를 close한다. 
  * 자기가 직접 가지고 있는 maEPollFD도 close한다. 
  */
 CServerEPoll::~CServerEPoll()
@@ -59,9 +59,9 @@ bool CServerEPoll::Init( const port iaPort, ICallback & irCallback )
  * @param irPacket 보내질 패킷
  * @return JMLib::int32 보내진 데이터 양, 소켓이 없다면 -1
  */
-JMLib::int32 CServerEPoll::Send( const IPacket & irPacket ) const
+JMLib::int32 CServerEPoll::Send( IPacket & irPacket ) const
 {
-    int32 aKey = irPacket.ID();
+    int32 aKey = irPacket.Owner();
     auto aIt =  maSockets.find( aKey );
     if( aIt == maSockets.end() )
         return -1;
@@ -87,8 +87,24 @@ void JMLib::NetLib::CServerEPoll::OnConnect(esock iaSock)
  * OnEvent에 대한 행동은 socket들이 알아서 잘하게 한다. 
  * @return int32 발견된 event의 갯수, listener가 망가지는등 sever가 동작 못하면 -1
  */
-int32 JMLib::NetLib::CServerEPoll::CheckSockets()
+JMLib::int32 JMLib::NetLib::CServerEPoll::CheckSockets()
 {
+    struct epoll_event aEvents[DMAX_EPOLL_EVENT];
+    int32 aEventCount = 0;
+    aEventCount = epoll_wait( maEPollFD, aEvents, DMAX_EPOLL_EVENT, DEPOLL_TIME_OUT);
+    if( aEventCount < 0 ) {
+        string aErrString;
+        aErrString.StrToWstr( std::string( strerror(errno)));
+        throw CNetworkException( NError::NLevel::DERROR, aErrString );
+    }
+    for( int i = 0; i < aEventCount; i++ ) {
+        fd aFD = aEvents[i].data.fd;
+        auto aIT = maSockets.find( aFD );
+        if( aIT == maSockets.end() ) 
+            continue;
+        esock aCurSock = aIT->second;
+        aCurSock->OnEvent();
+    }
     return 0;
 }
 
