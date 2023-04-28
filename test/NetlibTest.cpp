@@ -168,7 +168,7 @@ TEST( NetLibTest, SysPacket )
     JMLib::float64 aOutVal;
     EXPECT_THROW( aSysPacket1 >> aOutVal, JMLib::NetLib::CNetworkException );
     EXPECT_THROW( aSysPacket1 << aStr, JMLib::NetLib::CNetworkException );
-    EXPECT_TRUE( aSysPacket1.Owner(), 32 );
-    EXPECT_TRUE( aSysPacket1.Command(), JMLib::Packet::Sys::DCONNECT );
+    EXPECT_EQ( aSysPacket1.Owner(), 335 );
+    EXPECT_EQ( aSysPacket1.Command(), JMLib::Packet::Sys::DCONNECT );
     EXPECT_EQ( aSysPacket1.Size(), JMLib::NetLib::DHEADER_SIZE );
 }
