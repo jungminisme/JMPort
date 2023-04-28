@@ -12,6 +12,11 @@ CRecvPacket::~CRecvPacket()
 
 }
 
+char * CRecvPacket::GetBuffer() 
+{
+    return maBuffer;
+}
+
 /**
  * @brief 읽혀진 양을 설정한다. 
  * dataBuffer에 이미 Data가 복사 되었다고 가정하고 시작하는 함수 

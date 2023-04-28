@@ -33,6 +33,11 @@ JMLib::uint32 CSysPacket::Size() const
     return DHEADER_SIZE;
 }
 
+/**
+ * @brief GetBuffer를 호출하지만 Syspacket은 Buffer를 가지고 있지 않다. 
+ * 에러 검출을 빠르게 하기 위해 코드를 넣어 둔다. 
+ * @return char*  NULL 반환이지만, Exception을 날리므로 의미 없다. 
+ */
 char * CSysPacket::GetBuffer()
 {
     throw CNetworkException( NError::NLevel::DWARN, L"Invalid call , this is syspacket!");

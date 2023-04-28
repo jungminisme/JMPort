@@ -1,4 +1,5 @@
 #include "JMString.h"
+#include <codecvt>
 
 using namespace JMLib;
 string::string() 
@@ -251,4 +252,26 @@ std::string string::WstrToStr() const
 void string::StrToWstr(const std::string &irStr)
 {
     maString.assign( irStr.begin(), irStr.end() );
+}
+
+/**
+ * @brief UTF8 문자열로 변환하여 반환한다. 
+ * 이기종간의 문자열 전송을 위해 사용한다. 
+ * @return std::string UTF8로 인코딩된 문자열
+ */
+std::string string::WstrToUTF8() const
+{
+    std::wstring_convert< std::codecvt_utf8_utf16<wchar_t>> aConv;
+    return aConv.to_bytes( maString );
+}
+
+/**
+ * @brief UTF8 문자열로부터 wchar_t 문자열을 생성한다. 
+ * 이기종 간의 문자열 전송을 위해 사용한다. 
+ * @param irStr UTF8 문자열
+ */
+void string::UTF8ToWstr( const std::string & irStr )
+{
+    std::wstring_convert< std::codecvt_utf8_utf16<wchar_t>> aConv;
+    maString = aConv.from_bytes( irStr );
 }

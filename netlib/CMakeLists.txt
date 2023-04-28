@@ -8,6 +8,7 @@ add_library( netlib STATIC
     Packet.cpp 
     RecvPacket.cpp 
     SysPacket.cpp 
+    SendPacket.cpp 
 )
 
 target_include_directories(

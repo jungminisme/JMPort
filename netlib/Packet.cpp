@@ -34,21 +34,19 @@ JMLib::uint32 CPacket::Size() const
     return (uint32) maSize;
 }
 
-char * CPacket::GetBuffer() 
-{
-    return maBuffer;
-}
-
 /**
  * @brief Packet에 문자열을 추가한다. 
  * 문자열의 길이는 따로 계산을 해서, null 을 포함한 길이 만큼 버퍼에 추가한다. 
+ * gcc는 wchar_t가 4byte 윈도우 2byte 이다. 
+ * UTF-8 로 변환하여 데이터를 보내고 받자. 
  * @param irVal 추가할 문자열
  * @return JMLib::IPacket&  *this 를 반환한다. Packet << data1 << data2 ; 이런 형태 지원
  */
 JMLib::IPacket & CPacket::operator << ( const string & irVal ) 
 {
-    uint16 aDataLength = irVal.Size() * sizeof( wchar_t );
-    AddToBuffer( (void * )irVal.c_str(), aDataLength );
+    std::string aSend = irVal.WstrToUTF8();
+    uint16 aDataLength = aSend.size();
+    AddToBuffer( (void * )aSend.c_str(), aDataLength );
     maBuffer[maSize++] = 0;        //! string null terminate해서 주고 받는다. 
     return * this;
 }
@@ -109,16 +107,18 @@ JMLib::IPacket & CPacket::operator << ( const float64 iaVal )
 
 /**
  * @brief 패킷으로 부터 문자열을 읽어온다. 
- * 문자열이 언제 끝날지 알수 없으니까. 문자열 읽기는 std::wstring을 믿는다. 
+ * 문자열이 언제 끝날지 알수 없으니까. 문자열 읽기는 std::string을 믿는다. 
  * 읽어놓고 나서 읽혀진 문자열의 길이 만큼 현재의 pos를 뒤로 밀어준다. 
- * @param orVal 반환할 문자열의 reference Output param 
+ * gcc와 Visual C 의 wchar_t 사이즈 차이를 고려하여 UTF-8 로 보내고 받는다. 
+ * @param orVal 반환받을 문자열의 reference. Output param 
  * @return JMLib::IPacket&  * this , Packet >> data1 >> data2; 의 형태를 지원
  */
 JMLib::IPacket & CPacket::operator >> ( string & orVal )
 {
     char * pStart = maBuffer + maPos;
-    orVal.Assign( (wchar_t * ) pStart );
-    uint8 aSize = orVal.Size() * sizeof( wchar_t) + 1;
+    std::string aStrOut = pStart;
+    orVal.UTF8ToWstr( aStrOut );
+    uint8 aSize = aStrOut.size() + 1;
     maPos += aSize;
     if( maPos > maSize )
         throw CNetworkException( NError::NLevel::DERROR, L"PacketSize underflow ");

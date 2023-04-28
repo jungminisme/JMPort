@@ -22,7 +22,7 @@ namespace JMLib::NetLib
         int32 Owner() const;                //! fd를 사용한다. 
         cmd Command() const;                //! Command . Packet parsing을 위한 구분자. 명령어 구분
         uint32 Size() const;                //! Send할 전체 크기
-        char * GetBuffer();                 //! databuffer의 시작점
+        virtual char * GetBuffer() = 0;                 //! databuffer의 시작점
 
         IPacket & operator << ( const string & irVal );
         IPacket & operator << ( const uint8 iaVal );

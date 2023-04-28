@@ -4,6 +4,7 @@ add_executable( JMTest
     LoggerTest.cpp
     StringTest.cpp
     DBTest.cpp
+    NetlibTest.cpp
 )
 
 target_include_directories( 
