@@ -6,6 +6,9 @@ namespace JMLib::NetLib
     /**
      * @brief Packet 기본 구현 
      * 데이터를 보내고 받기 할때의 기본구현
+     * string의 경우 wchar_t가 linux 4byte win 2byte로 달라 UTF-8 로 변환해서 주고 받는다
+     * int, float의 경우 둘다 amd64 architecture이므로 인코딩은 변경 안한다. 
+     * 향후 이코드로 RISC머신 혹은 대형 머신에서 돌릴 계획은 없다. 
      */
     class CPacket : public IPacket 
     {

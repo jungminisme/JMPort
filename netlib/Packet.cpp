@@ -4,7 +4,7 @@
 
 using namespace JMLib::NetLib;
 
-CPacket::CPacket(int32 iaOwner ) : maOwner(0), maPos(0), maSize(0), maCommand(0)
+CPacket::CPacket(int32 iaOwner ) : maOwner(iaOwner), maPos(0), maSize(0), maCommand(0)
 {
         bzero( maBuffer, DMAX_PACKET_SIZE );
 }
