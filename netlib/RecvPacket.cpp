@@ -28,6 +28,7 @@ void CRecvPacket::SetRead( uint16 iaSize )
 {
     if( iaSize < DHEADER_SIZE )     // HeaderSize보다 읽힌 양이 적으면 안된다. 
         throw CNetworkException( NError::NLevel::DERROR, L"Invalid data size ");
+    maSize = iaSize;
     maPos = 0;
     uint16 aIdentifier;
     ReadFromBuffer( &aIdentifier, sizeof( uint16 ) );
@@ -35,4 +36,6 @@ void CRecvPacket::SetRead( uint16 iaSize )
         throw CNetworkException( NError::NLevel::DERROR, L"It is not JMPort Packet!");
     ReadFromBuffer( &maCommand, sizeof(uint16));
     ReadFromBuffer( &maSize, sizeof( uint16 ));
+    if( maSize != iaSize ) 
+        throw CNetworkException( NError::NLevel::DERROR, L"Read size mismatch! ");
 }
