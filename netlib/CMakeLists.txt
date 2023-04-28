@@ -7,6 +7,7 @@ add_library( netlib STATIC
     CommSocketEPoll.cpp 
     Packet.cpp 
     RecvPacket.cpp 
+    SysPacket.cpp 
 )
 
 target_include_directories(

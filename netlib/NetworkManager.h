@@ -1,7 +1,4 @@
 #pragma once
-#include "JMDataType.h"
-#include "ICallback.h"
-#include "IPacket.h"
 #include "IServer.h"
 
 namespace JMLib

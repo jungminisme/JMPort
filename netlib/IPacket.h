@@ -1,5 +1,5 @@
 #pragma once
-#include "JMString.h"
+#include "NetCommon.h"
 
 namespace JMLib 
 {
@@ -20,9 +20,6 @@ namespace JMLib
     class IPacket 
     {
         public:
-        const static uint16 DMAX_PACKET_SIZE    = 4096;     //! 패킷의 최대 길이
-        const static uint16 DHEADER_SIZE        = 6;        //! 해더의 크기 
-        const static uint16 DPACKET_IDENTIFIER  = 38571;    //! 내 패킷인지 확인하는데 씀
 
         protected:
         IPacket() = default;
@@ -30,9 +27,9 @@ namespace JMLib
 
         public:
         virtual int32 Owner() const = 0;                //! fd를 사용한다. 
-        virtual uint16 Command() const = 0;             //! Packet 명령어 종류
+        virtual cmd Command() const = 0;                //! Packet 명령어 종류
         virtual uint32 Size() const = 0;                //! Send할 전체 크기
-        virtual char * GetBuffer() = 0;     //! databuffer의 시작점
+        virtual char * GetBuffer() = 0;                 //! databuffer의 시작점
 
         //! Packet에 data를 넣을때는 이렇게 넣는 것이 많이 편하다. 
         //! 변수를 개별로 넣는 Append( string ... ) 이런 함수는 나중에 필요하면 만든다. 
@@ -48,15 +45,15 @@ namespace JMLib
         virtual IPacket & operator << ( const float64 iaVal ) = 0;
 
         //! 변수를 개별로 리턴받는 GetString ... 이런 함수들은 나중에 필요하면 만든다. 
-        virtual IPacket & operator >> ( string & irVal ) = 0;
-        virtual IPacket & operator >> ( uint8 iaVal ) = 0;
-        virtual IPacket & operator >> ( uint16 iaVal ) = 0;
-        virtual IPacket & operator >> ( uint32 iaVal ) = 0;
-        virtual IPacket & operator >> ( int8 iaVal ) = 0;
-        virtual IPacket & operator >> ( int16 iaVal ) = 0;
-        virtual IPacket & operator >> ( int32 iaVal ) = 0;
-        virtual IPacket & operator >> ( bool iaVal ) = 0;
-        virtual IPacket & operator >> ( float32 iaVal ) = 0;
-        virtual IPacket & operator >> ( float64 iaVal ) = 0;
+        virtual IPacket & operator >> ( string & orVal ) = 0;
+        virtual IPacket & operator >> ( uint8 & orVal ) = 0;
+        virtual IPacket & operator >> ( uint16 & orVal ) = 0;
+        virtual IPacket & operator >> ( uint32 & orVal ) = 0;
+        virtual IPacket & operator >> ( int8 & orVal ) = 0;
+        virtual IPacket & operator >> ( int16 & orVal ) = 0;
+        virtual IPacket & operator >> ( int32 & orVal ) = 0;
+        virtual IPacket & operator >> ( bool & orVal ) = 0;
+        virtual IPacket & operator >> ( float32 & orVal ) = 0;
+        virtual IPacket & operator >> ( float64 & orVal ) = 0;
     };
 }

@@ -3,6 +3,7 @@
 #include "CommSocketEPoll.h"
 #include "NetworkException.h"
 #include "RecvPacket.h"
+#include "SysPacket.h"
 
 using namespace JMLib::NetLib;
 
@@ -20,7 +21,7 @@ CCommSocketEPoll::~CCommSocketEPoll()
  * 1. socket에 data가 들어왔을때. 읽어서 callback에 Packet을 날린다. 
  * 2. socket의 연결이 끊어졌을때. CSocketClosePacket을 생성해 callback에 알리고, 
  * NetworkManager 에게 소켓 삭제를 요청한다. 
- * //이때도 thread pooling을 하는게 좋다. 읽는데 생각보다 시간이 많이 걸린다. 
+ * //TODO 이때도 thread pooling을 하는게 좋다. 읽는데 생각보다 시간이 많이 걸린다. 
  * // 다 읽고 나서 완료처리까지 해주는 IOCP가 그래서 좋다. 
  * @return JMLib::int32 data를 읽은 경우 읽은 양, 끊어진 경우 0, 에러인경우 음수
  */
@@ -28,7 +29,7 @@ JMLib::int32 CCommSocketEPoll::OnEvent() const
 {
     CRecvPacket aPacket(maFD);
     //! 우선 읽어 본다. 
-    int aReadSize = read( maFD, aPacket.GetBuffer(), IPacket::DMAX_PACKET_SIZE );
+    int aReadSize = read( maFD, aPacket.GetBuffer(), DMAX_PACKET_SIZE );
     if( aReadSize == 0 ) {      //! 연결이 끊어짐
         OnClose();
         return 0;
@@ -59,16 +60,37 @@ JMLib::int32 CCommSocketEPoll::OnEvent() const
 
 /**
  * @brief 클라이언트로 Data를 전송하는 부분 
- * //! TODO : 이후 이부분에 thread pooling을 한다. 보내는 건 오래 걸리는 일이다. 
- * 한가지더.. 패킷의 사이즈보다 보내진 양이 적다면. 다 보내질때까지 계속 보낸다. 
+ * 패킷의 사이즈보다 보내진 양이 적다면. 다 보내질때까지 계속 보낸다. 
+ * //TODO : 이후 이부분에 thread pooling을 한다. 보내는 건 오래 걸리는 일이다. 
  * @param irPacket 전송할 패킷 정보
  * @return JMLib::int32 전송된 Data의 양 . 
  */
 JMLib::int32 CCommSocketEPoll::Send( IPacket &irPacket) const
 {
-    //! TODO
-    int32 aRet = write( maFD, irPacket.GetBuffer(), irPacket.Size() );
-    return aRet;
+    int aSizeToWrite = (int) irPacket.Size();
+    int aWriteCount = write( maFD, irPacket.GetBuffer(), aSizeToWrite );
+    if( aWriteCount < 0 ) {
+        string aErrString;
+        aErrString.StrToWstr( strerror( errno ) );
+        throw CNetworkException( NError::NLevel::DERROR, aErrString );
+    }
+    int aRetryCount = 0;
+    //! 최대 5번까지만 write 해본다. 에러는 아니지만 0바이트를 적는 경우가 있다. 
+    while(  aWriteCount < aSizeToWrite ) { 
+        int aRemain = aSizeToWrite - aWriteCount;
+        int aRet = write( maFD, irPacket.GetBuffer() + aWriteCount, aRemain );
+        if( aRet < 0 ) {
+            string aErrString;
+            aErrString.StrToWstr( strerror( errno ) );
+            throw CNetworkException( NError::NLevel::DERROR, aErrString );
+        }
+        aWriteCount += aRet;
+        aRetryCount++;
+        if( aRetryCount >= 4 ) {
+            throw CNetworkException( NError::NLevel::DERROR, L"Write retry cout over!" );
+        }
+    }
+    return aWriteCount;
 }
 
 /**
@@ -93,8 +115,10 @@ void CCommSocketEPoll::Init( fd iaFD, port iaPort, uint32 iaAddr )
 
 void CCommSocketEPoll::OnClose() const
 {
+    mrCallback.Post( CSysPacket( maFD, Packet::Sys::DCLOSE ) );
 }
 
 void CCommSocketEPoll::onRecvError() const
 {
+    mrCallback.Post( CSysPacket( maFD, Packet::Sys::DERROR ) );
 }

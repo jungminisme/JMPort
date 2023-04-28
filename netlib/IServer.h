@@ -1,5 +1,5 @@
 #pragma once
-#include "JMDataType.h"
+#include "NetCommon.h"
 #include "ICallback.h"
 #include "IPacket.h"
 namespace JMLib
@@ -7,8 +7,6 @@ namespace JMLib
 
     namespace NetLib 
     {
-        typedef int32 fd;
-        typedef uint16 port;
         
         /**
          * @brief Server Interface 

@@ -1,28 +1,28 @@
-#pragma once 
+#pragma once
 #include "IPacket.h"
 
 namespace JMLib::NetLib
 {
     /**
-     * @brief Packet 기본 구현 
-     * 데이터를 보내고 받기 할때의 기본구현
+     * @brief System 내부 사용을 위한 Packet 
+     * Owner와 Command만을 사용한다. 
+     * DataSetting을 위한 모든 함수는 Exception을 던진다. 
      */
-    class CPacket : public IPacket 
+    class CSysPacket : public IPacket 
     {
-
-        protected:
+        private:
+        cmd maCommand;
         int32 maOwner;
-        int16 maPos;
-        int16 maSize;
-        uint16 maCommand;
-        char maBuffer[DMAX_PACKET_SIZE];
-
+        
         public:
+        CSysPacket( int32 iaOwner = 0, cmd iaCmd = 0 );
+        ~CSysPacket();
+
         void SetOwner( int32 iaOwner );
         int32 Owner() const;                //! fd를 사용한다. 
         cmd Command() const;                //! Command . Packet parsing을 위한 구분자. 명령어 구분
-        uint32 Size() const;                //! Send할 전체 크기
-        char * GetBuffer();                 //! databuffer의 시작점
+        uint32 Size() const;                //! Send할 전체 크기 // HeaderSize
+        char * GetBuffer();                 //! databuffer의 시작점 // 사용하지 않음
 
         IPacket & operator << ( const string & irVal );
         IPacket & operator << ( const uint8 iaVal );
@@ -45,11 +45,5 @@ namespace JMLib::NetLib
         IPacket & operator >> ( bool & orVal );
         IPacket & operator >> ( float32 & orVal );
         IPacket & operator >> ( float64 & orVal );
-
-        protected: 
-        CPacket( int32 iaOwner = 0 );
-        ~CPacket();
-        void AddToBuffer( void * pData, uint16 iaLength );
-        void ReadFromBuffer( void * pData, uint16 iaLength );
     };
 }
