@@ -6,6 +6,8 @@ using namespace JMLib::NetLib;
 CSysPacket::CSysPacket(int32 iaOwner, cmd iaCmd ) 
     : maCommand( iaCmd ), maOwner( iaOwner )
 {
+    if( maCommand < JMLib::Packet::Sys::DSYS_START )
+        throw CNetworkException( NError::NLevel::DERROR, L"Invalid sys command ");
 }
 
 CSysPacket::~CSysPacket() 

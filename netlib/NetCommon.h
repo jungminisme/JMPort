@@ -19,9 +19,10 @@ namespace JMLib
     {
         namespace Sys           //! 통신이 아닌 시스템에서 사용해야 할 command 종류
         {
-            const static cmd DCONNECT           = 1;
-            const static cmd DCLOSE             = 2;
-            const static cmd DERROR             = 4;
+            const static cmd DSYS_START         = 65000;
+            const static cmd DCONNECT           = DSYS_START + 1;
+            const static cmd DCLOSE             = DSYS_START + 2;
+            const static cmd DERROR             = DSYS_START + 3;
         }
     }
 }
