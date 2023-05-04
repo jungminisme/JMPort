@@ -54,7 +54,7 @@ JMLib::int32 CCommSocketEPoll::OnEvent() const
         }
         aReadSize += aTemp;
     }
-    mrCallback.Post( aPacket ); //! 읽은 패킷을 Callback 에 전달한다. 
+    mrCallback( aPacket ); //! 읽은 패킷을 Callback 에 전달한다. 
     return (int32) aPacket.Size();
 }
 
@@ -115,10 +115,10 @@ void CCommSocketEPoll::Init( fd iaFD, port iaPort, uint32 iaAddr )
 
 void CCommSocketEPoll::OnClose() const
 {
-    mrCallback.Post( CSysPacket( maFD, Packet::Sys::DCLOSE ) );
+    mrCallback( CSysPacket( maFD, Packet::Sys::DCLOSE ) );
 }
 
 void CCommSocketEPoll::onRecvError() const
 {
-    mrCallback.Post( CSysPacket( maFD, Packet::Sys::DERROR ) );
+    mrCallback( CSysPacket( maFD, Packet::Sys::DERROR ) );
 }

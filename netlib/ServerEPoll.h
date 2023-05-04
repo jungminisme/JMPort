@@ -11,11 +11,11 @@ namespace JMLib::NetLib
      */
     class CServerEPoll : public IServer 
     {
-        private:
+        protected:
         const static int32 DMAX_EPOLL_EVENT     = 1024;
         const static int32 DEPOLL_TIME_OUT      = -1;
 
-        private:
+        protected:
         std::map< fd, esock > maSockets;
         fd maEPollFD;
 

@@ -3,6 +3,7 @@
 #include "SendPacket.h"
 #include "RecvPacket.h"
 #include "NetworkException.h"
+#include "ServerEPoll.h"
 
 TEST( NetLibTest, PacketTest )
 {
@@ -95,6 +96,20 @@ TEST( NetLibTest, PacketTest )
     EXPECT_EQ( aBoolean, aBooleanOut );
     EXPECT_EQ( aFloat32, aFloat32Out );
     EXPECT_EQ( aFloat64, aFloat64Out );
+
+
+
+    JMLib::NetLib::CSendPacket aPacket3( 75, 48 );
+    EXPECT_EQ( aPacket3.Owner(), 75);
+    EXPECT_EQ( aPacket3.Command(), 48);
+    EXPECT_EQ( aPacket3.Size(), 6);
+
+    for( int i = 0; i < 1022; i ++ ) {
+        aPacket3 << (JMLib::int32) i ;
+    }
+    
+    EXPECT_THROW( aPacket3 << (JMLib::int32) 2032, JMLib::NetLib::CNetworkException );
+    EXPECT_THROW( aPacket3 << (JMLib::int32) 2032, JMLib::NetLib::CNetworkException );
 }
 
 TEST( NetLibTest, SendPacket )
@@ -171,4 +186,38 @@ TEST( NetLibTest, SysPacket )
     EXPECT_EQ( aSysPacket1.Owner(), 335 );
     EXPECT_EQ( aSysPacket1.Command(), JMLib::Packet::Sys::DCONNECT );
     EXPECT_EQ( aSysPacket1.Size(), JMLib::NetLib::DHEADER_SIZE );
+}
+
+//! EPoll Server test용 class 
+class CServerEPollTest : public JMLib::NetLib::CServerEPoll
+{
+    public:
+    CServerEPollTest() {}
+    ~CServerEPollTest() {}
+
+    int GetSize() { return maSockets.size(); }
+    JMLib::NetLib::fd GetEPollFD() {  return maEPollFD; }
+};
+
+TEST( NetLibTest, EPollServer )
+{
+    CServerEPollTest aServer;
+    JMLib::ICallback aCallback =  [] ( const JMLib::IPacket & irPacket ) -> JMLib::int32 {
+        return 0;
+    };
+    EXPECT_EQ( aServer.GetEPollFD(), 0 );
+    EXPECT_EQ( aServer.GetSize(), 0 );
+    EXPECT_TRUE( aServer.Init( 6523, aCallback ) );
+    EXPECT_NE( aServer.GetEPollFD(), 0 );
+    EXPECT_EQ( aServer.GetSize(), 1 );
+
+    //! 외부에서 ListenerSocket의 Reference를 가지고 있는 상태로. 테스트 해본다. 
+    //! Listener Socket도. Test로 상속 받아서.. 테스트용으로 작성해 사용하면 편할듯. 
+
+    //! Connect모사해 본다. 
+    //Check Sockets는. 테스트 가능한가? 
+
+    //! Init정상 동작 하는지 확인 .. 해본다. Init 하고, socket 추가 되었는지 
+
+    //! Send Test 해본다. 예외상황 정확히 발생을 하는지. 
 }

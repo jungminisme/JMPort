@@ -67,7 +67,7 @@ JMLib::int32 CListenSocketEPoll::OnEvent() const
     std::shared_ptr<CCommSocketEPoll> aClientSock = std::make_shared<CCommSocketEPoll>( mrCallback );
     aClientSock->Init( aClientFD, aClientAddr.sin_port, aClientAddr.sin_addr.s_addr );
     mrServer.OnConnect( aClientSock ); // 서버에게 접속되었음을 알린다. 
-    mrCallback.Post( CSysPacket(maFD, Packet::Sys::DCLOSE) );   // Callback에도 접속됨을 알린다. 
+    mrCallback( CSysPacket(maFD, Packet::Sys::DCLOSE) );   // Callback에도 접속됨을 알린다. 
     return 0;
 }
 
