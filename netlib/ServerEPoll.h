@@ -31,6 +31,9 @@ namespace JMLib::NetLib
 
         private:
         void CreateEPoll( esock iaListener );
-        void InsertSock( esock iaSock );
+        virtual void InsertSock( esock iaSock );
+
+        protected:
+        virtual esock CreateListener( const port iaPort, ICallback & irCallback );
     };
 }

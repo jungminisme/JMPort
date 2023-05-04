@@ -21,12 +21,15 @@ namespace JMLib::NetLib
         ~CListenSocketEPoll();
 
         void Init( const port iaPort );
-        int32 OnEvent() const;
+        virtual int32 OnEvent() const;
         int32 Send( IPacket & irPacket ) const;
 
         private:
         void Create();
         void Bind( const port iaPort );
         void Listen();
+        
+        protected:
+        void OnAccept( esock iaSock ) const;
     };
 }

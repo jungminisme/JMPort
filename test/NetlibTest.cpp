@@ -4,6 +4,8 @@
 #include "RecvPacket.h"
 #include "NetworkException.h"
 #include "ServerEPoll.h"
+#include "CommSocketEPoll.h"
+#include "ListenSocketEPoll.h"
 
 TEST( NetLibTest, PacketTest )
 {
@@ -188,36 +190,77 @@ TEST( NetLibTest, SysPacket )
     EXPECT_EQ( aSysPacket1.Size(), JMLib::NetLib::DHEADER_SIZE );
 }
 
-//! EPoll Server test용 class 
-class CServerEPollTest : public JMLib::NetLib::CServerEPoll
+class CListenerMock : public JMLib::NetLib::CListenSocketEPoll
 {
     public:
-    CServerEPollTest() {}
-    ~CServerEPollTest() {}
+    CListenerMock( JMLib::NetLib::CServerEPoll & irServer, JMLib::ICallback & irCallback)
+        : JMLib::NetLib::CListenSocketEPoll( irServer, irCallback ) {}
+    ~CListenerMock() {}
+
+    JMLib::int32 OnEvent() const 
+    {
+        std::shared_ptr<JMLib::NetLib::CCommSocketEPoll> aClientSock 
+            = std::make_shared<JMLib::NetLib::CCommSocketEPoll>( mrCallback );
+        EXPECT_THROW( aClientSock->Init( 10, 54352, 321324 ), JMLib::NetLib::CNetworkException );
+        OnAccept( aClientSock );
+        return 0;
+    }
+
+};
+
+//! EPoll Server test용 class 
+class CServerEPollMock : public JMLib::NetLib::CServerEPoll
+{
+    public:
+    JMLib::NetLib::esock maListenerSock;
+    public:
+    CServerEPollMock() {}
+    ~CServerEPollMock() {}
 
     int GetSize() { return maSockets.size(); }
     JMLib::NetLib::fd GetEPollFD() {  return maEPollFD; }
+
+    JMLib::NetLib::esock CreateListener( 
+        const JMLib::NetLib::port iaPort, JMLib::ICallback & irCallBack ) 
+    {
+        std::shared_ptr<CListenerMock> aSock = std::make_shared< CListenerMock > ( *this, irCallBack );
+        aSock->Init( iaPort );
+        maListenerSock = aSock;
+        return maListenerSock;
+    }
+
+    void InsertSock( JMLib::NetLib::esock iaSock ) 
+    {
+        maSockets.emplace( iaSock->GetFD(), iaSock );
+    }
 };
 
 TEST( NetLibTest, EPollServer )
 {
-    CServerEPollTest aServer;
+    CServerEPollMock aServer;
     JMLib::ICallback aCallback =  [] ( const JMLib::IPacket & irPacket ) -> JMLib::int32 {
+        EXPECT_EQ( irPacket.Command() , JMLib::Packet::Sys::DCONNECT );
+        EXPECT_EQ( irPacket.Owner(), 10 );
+        EXPECT_EQ( irPacket.Size(), JMLib::NetLib::DHEADER_SIZE );
         return 0;
     };
     EXPECT_EQ( aServer.GetEPollFD(), 0 );
+    EXPECT_EQ( aServer.maListenerSock.use_count(), 0 );
     EXPECT_EQ( aServer.GetSize(), 0 );
     EXPECT_TRUE( aServer.Init( 6523, aCallback ) );
     EXPECT_NE( aServer.GetEPollFD(), 0 );
+    EXPECT_NE( aServer.maListenerSock->GetFD(), 0 );
     EXPECT_EQ( aServer.GetSize(), 1 );
 
-    //! 외부에서 ListenerSocket의 Reference를 가지고 있는 상태로. 테스트 해본다. 
-    //! Listener Socket도. Test로 상속 받아서.. 테스트용으로 작성해 사용하면 편할듯. 
+    aServer.maListenerSock->OnEvent();
+    EXPECT_EQ( aServer.GetSize(), 2 );
+
+    JMLib::NetLib::CSendPacket aPack1( 75, 48 );
+    EXPECT_TRUE( aServer.Send( aPack1 ) < 0 );
 
     //! Connect모사해 본다. 
     //Check Sockets는. 테스트 가능한가? 
-
-    //! Init정상 동작 하는지 확인 .. 해본다. Init 하고, socket 추가 되었는지 
-
     //! Send Test 해본다. 예외상황 정확히 발생을 하는지. 
+    //! Listener에게 send 해본다. 
+    //! CommSock에 Send 해본다. 
 }

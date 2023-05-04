@@ -66,8 +66,7 @@ JMLib::int32 CListenSocketEPoll::OnEvent() const
         throw CNetworkException( NError::NLevel::DERROR, L"accept() fuction Fail" );
     std::shared_ptr<CCommSocketEPoll> aClientSock = std::make_shared<CCommSocketEPoll>( mrCallback );
     aClientSock->Init( aClientFD, aClientAddr.sin_port, aClientAddr.sin_addr.s_addr );
-    mrServer.OnConnect( aClientSock ); // 서버에게 접속되었음을 알린다. 
-    mrCallback( CSysPacket(maFD, Packet::Sys::DCLOSE) );   // Callback에도 접속됨을 알린다. 
+    OnAccept( aClientSock );
     return 0;
 }
 
@@ -130,4 +129,16 @@ void CListenSocketEPoll::Listen()
     int aRet = listen( maFD, DMAX_BACKLOG );
     if( aRet < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"listen() function fail");
+}
+
+/**
+ * @brief Accept가 성공했을때 공통으로 해야 할 작업
+ * 1. 서버에게 생성된 Socket을 추가 한다. 
+ * 2. Callback 을 통해 시스템에 추가로 알린다. 
+ * @param iaSock 
+ */
+void CListenSocketEPoll::OnAccept( esock iaSock ) const
+{
+    mrServer.OnConnect( iaSock ); // 서버에게 접속되었음을 알린다. 
+    mrCallback( CSysPacket(iaSock->GetFD(), Packet::Sys::DCONNECT) );   // Callback에도 접속됨을 알린다. 
 }

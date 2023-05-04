@@ -41,10 +41,7 @@ CServerEPoll::~CServerEPoll()
 bool CServerEPoll::Init( const port iaPort, ICallback & irCallback ) 
 {
     try {
-        std::shared_ptr<CListenSocketEPoll> aListener 
-            = std::make_shared<CListenSocketEPoll>( *this, irCallback);
-        aListener->Init( iaPort );
-        CreateEPoll( aListener );
+        CreateEPoll( CreateListener( iaPort, irCallback ) );
     }
     catch( CNetworkException const & e ) {
         LOG_ERROR( L"netlib", e.GetErrorMessage().c_str() );
@@ -134,4 +131,19 @@ void CServerEPoll::InsertSock( esock iaSock )
     aEvent.data.fd = iaSock->GetFD();
     if( epoll_ctl( maEPollFD, EPOLL_CTL_ADD, iaSock->GetFD(), &aEvent ) < 0 ) 
         throw CNetworkException( NError::NLevel::DERROR, L"epoll_ctl() error");
+}
+
+/**
+ * @brief ListenerSocket을 생성하고 초기화 한다. 
+ * 
+ * @param iaPort Listen 소켓의 포트 번호
+ * @param irCallback callback 
+ * @return JMLib::NetLib::esock 생성된 소켓 
+ */
+JMLib::NetLib::esock CServerEPoll::CreateListener(const port iaPort, ICallback & irCallback)
+{
+    std::shared_ptr<CListenSocketEPoll> aListener 
+        = std::make_shared<CListenSocketEPoll>( *this, irCallback );
+    aListener->Init( iaPort );
+    return aListener;
 }
