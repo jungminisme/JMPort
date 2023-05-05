@@ -25,9 +25,9 @@ namespace JMLib::NetLib
         int32 OnEvent();
         int32 Send( IPacket & irPacket ) const;
         void Init( fd iaFD, port iaPort, uint32 iaAddr );
+        void OnClose();
 
         private:
-        void OnClose();
         void onRecvError() const;
     };
 }
