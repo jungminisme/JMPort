@@ -4,10 +4,12 @@
 #include "NetworkException.h"
 #include "RecvPacket.h"
 #include "SysPacket.h"
+#include "ServerEPoll.h"
 
 using namespace JMLib::NetLib;
 
-CCommSocketEPoll::CCommSocketEPoll( ICallback & irCallback ) : CSocketEPoll( irCallback )
+CCommSocketEPoll::CCommSocketEPoll( ICallback & irCallback, CServerEPoll & irServer ) 
+    : CSocketEPoll( irCallback ), mrServer( irServer )
 {
 }
 
@@ -25,7 +27,7 @@ CCommSocketEPoll::~CCommSocketEPoll()
  * // 다 읽고 나서 완료처리까지 해주는 IOCP가 그래서 좋다. 
  * @return JMLib::int32 data를 읽은 경우 읽은 양, 끊어진 경우 0, 에러인경우 음수
  */
-JMLib::int32 CCommSocketEPoll::OnEvent() const
+JMLib::int32 CCommSocketEPoll::OnEvent() 
 {
     CRecvPacket aPacket(maFD);
     //! 우선 읽어 본다. 
@@ -113,9 +115,15 @@ void CCommSocketEPoll::Init( fd iaFD, port iaPort, uint32 iaAddr )
         throw CNetworkException( NError::NLevel::DERROR, L"fcntl() fuction Fail" );
 }
 
-void CCommSocketEPoll::OnClose() const
+/**
+ * @brief Socket Close를 처리 한다. 
+ * FD를 close 하고, Server로부터 Socket Object를 제거 하도록 한다. 
+ */
+void CCommSocketEPoll::OnClose()
 {
+    mrServer.OnClose( maFD );
     mrCallback( CSysPacket( maFD, Packet::Sys::DCLOSE ) );
+    Close();
 }
 
 void CCommSocketEPoll::onRecvError() const

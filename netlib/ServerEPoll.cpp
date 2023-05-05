@@ -54,14 +54,14 @@ bool CServerEPoll::Init( const port iaPort, ICallback & irCallback )
  * @brief Packet을 전송한다. 어디에 전송할지는 Packet이 가지고 있는 거로 하자. 
  * 패킷이 가지고 있는 주소의 socket이 없다면 안보낸다. 
  * @param irPacket 보내질 패킷
- * @return JMLib::int32 보내진 데이터 양, 소켓이 없다면 -1
+ * @return JMLib::int32 보내진 데이터 양, 소켓이 없다면 Exception을 날린다. 
  */
 JMLib::int32 CServerEPoll::Send( IPacket & irPacket ) const
 {
     int32 aKey = irPacket.Owner();
     auto aIt =  maSockets.find( aKey );
     if( aIt == maSockets.end() )
-        return -1;
+        throw CNetworkException( NError::NLevel::DERROR, L"No such a socket!");
     esock aSock = aIt->second;
     return aSock->Send(irPacket);
 }
@@ -71,9 +71,21 @@ JMLib::int32 CServerEPoll::Send( IPacket & irPacket ) const
  * InsertSock에 모든 작업을 맡긴다. 
  * @param iaSock 추가될 socket
  */
-void JMLib::NetLib::CServerEPoll::OnConnect(esock iaSock)
+void CServerEPoll::OnConnect(esock iaSock)
 {
     InsertSock( iaSock );
+}
+
+/**
+ * @brief Socket Close가 발행했을때 해야할 동작들 
+ * epoll event에 등록된 소켓을 제거한다
+ * 소켓 객체를 Map에서 제거 
+ * @param iaSockFD Close된 소켓의 FileDescriptor 
+ */
+void CServerEPoll::OnClose( fd iaSockFD )
+{
+    epoll_ctl( maEPollFD, EPOLL_CTL_DEL, iaSockFD, NULL );
+    maSockets.erase( iaSockFD );
 }
 
 /**

@@ -15,7 +15,7 @@ namespace JMLib::NetLib
         ICallback & mrCallback;
 
         public:
-        virtual int32 OnEvent() const = 0;
+        virtual int32 OnEvent() = 0;
         virtual int32 Send( IPacket & irPacket ) const = 0;
         const fd GetFD() const;
         void Close();

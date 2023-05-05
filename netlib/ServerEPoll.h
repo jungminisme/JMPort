@@ -14,7 +14,7 @@ namespace JMLib::NetLib
         protected:
         const static int32 DMAX_EPOLL_EVENT     = 1024;
         const static int32 DEPOLL_TIME_OUT      = -1;
-
+        
         protected:
         std::map< fd, esock > maSockets;
         fd maEPollFD;
@@ -26,6 +26,7 @@ namespace JMLib::NetLib
         bool Init( const port iaPort, ICallback & irCallback );
         int32 Send( IPacket & irPacket ) const;
         void OnConnect( esock iaSock );
+        void OnClose( fd iaSockFD );
 
         int32 CheckSockets();
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "SocketEPoll.h"
+#include "ServerEPoll.h"
 
 namespace JMLib::NetLib
 {
@@ -15,16 +16,18 @@ namespace JMLib::NetLib
         uint32 maPublicAddr;            //! 공용 IP의 주소
         uint32 maPrivateAddr;           //! 사설 IP의 주소
 
+        CServerEPoll & mrServer;        //! 자신을 관리하는 Server
+
         public:
-        CCommSocketEPoll( ICallback & irCallback );
+        CCommSocketEPoll( ICallback & irCallback, CServerEPoll & irServer );
         ~CCommSocketEPoll();
 
-        int32 OnEvent() const;
+        int32 OnEvent();
         int32 Send( IPacket & irPacket ) const;
         void Init( fd iaFD, port iaPort, uint32 iaAddr );
 
         private:
-        void OnClose() const;
+        void OnClose();
         void onRecvError() const;
     };
 }

@@ -197,10 +197,10 @@ class CListenerMock : public JMLib::NetLib::CListenSocketEPoll
         : JMLib::NetLib::CListenSocketEPoll( irServer, irCallback ) {}
     ~CListenerMock() {}
 
-    JMLib::int32 OnEvent() const 
+    JMLib::int32 OnEvent()  
     {
         std::shared_ptr<JMLib::NetLib::CCommSocketEPoll> aClientSock 
-            = std::make_shared<JMLib::NetLib::CCommSocketEPoll>( mrCallback );
+            = std::make_shared<JMLib::NetLib::CCommSocketEPoll>( mrCallback, mrServer );
         EXPECT_THROW( aClientSock->Init( 10, 54352, 321324 ), JMLib::NetLib::CNetworkException );
         OnAccept( aClientSock );
         return 0;
@@ -255,12 +255,18 @@ TEST( NetLibTest, EPollServer )
     aServer.maListenerSock->OnEvent();
     EXPECT_EQ( aServer.GetSize(), 2 );
 
+    //! 접속되지 않은 FD로 Send하면 Throw 날려 준다. 
     JMLib::NetLib::CSendPacket aPack1( 75, 48 );
-    EXPECT_TRUE( aServer.Send( aPack1 ) < 0 );
+    EXPECT_THROW( aServer.Send( aPack1 ), JMLib::NetLib::CNetworkException );
 
-    //! Connect모사해 본다. 
-    //Check Sockets는. 테스트 가능한가? 
-    //! Send Test 해본다. 예외상황 정확히 발생을 하는지. 
-    //! Listener에게 send 해본다. 
+    JMLib::NetLib::fd aListenFD = aServer.maListenerSock->GetFD();
+    JMLib::NetLib::CSendPacket aPack2( aListenFD, 25 );
+    //! Listener Socket에 Send하면 Throw 날려준다. 
+    EXPECT_THROW( aServer.Send( aPack2 ), JMLib::NetLib::CNetworkException );
+
     //! CommSock에 Send 해본다. 
+    //! 아마도 정상적은 FD 가 아니라서 Send 중간에 에러가 나오지 않을까??
+    JMLib::NetLib::CSendPacket aPack3( 10, 25 );
+    aPack3 << L"This is Sample String ";
+    EXPECT_THROW( aServer.Send( aPack3), JMLib::NetLib::CNetworkException );
 }

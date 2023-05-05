@@ -13,15 +13,15 @@ namespace JMLib::NetLib
         private:
         const static int32 DMAX_BACKLOG = 10; //! 최대 Listen backlog 갯수
 
-        private:
-        CServerEPoll &  mrServer;
+        protected:
+        CServerEPoll & mrServer;
 
         public:
         CListenSocketEPoll( CServerEPoll & irServer, ICallback & irCallback );
         ~CListenSocketEPoll();
 
         void Init( const port iaPort );
-        virtual int32 OnEvent() const;
+        virtual int32 OnEvent();
         int32 Send( IPacket & irPacket ) const;
 
         private:
@@ -30,6 +30,6 @@ namespace JMLib::NetLib
         void Listen();
         
         protected:
-        void OnAccept( esock iaSock ) const;
+        void OnAccept( esock iaSock );
     };
 }

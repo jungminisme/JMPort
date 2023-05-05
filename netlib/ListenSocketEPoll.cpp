@@ -19,6 +19,7 @@ using namespace JMLib::NetLib;
  * NetworkManager를 받기에는 EPollSocket을 외부로 알리고 싶지 않아서 
  * CServerEPoll로 class 정보가 퍼지는 것을 막는다. 
  * 
+ * 
  * @param irServer connet시 호출될 server객체
  * @param irCallback callback은 client에게 초기화를 위해 받아 둔다. 
  */
@@ -56,7 +57,7 @@ void CListenSocketEPoll::Init( const port iaPort )
  * server에 연결되었음을 알려준다. 
  * @return JMLib::int32 0을 반환한다. 에러의 경우 exception을 날린다. 
  */
-JMLib::int32 CListenSocketEPoll::OnEvent() const
+JMLib::int32 CListenSocketEPoll::OnEvent() 
 {
     int32 aClientFD = 0;
     struct sockaddr_in aClientAddr;
@@ -64,7 +65,8 @@ JMLib::int32 CListenSocketEPoll::OnEvent() const
     aClientFD = accept( maFD, ( sockaddr * ) &aClientAddr, (socklen_t *) &aClientLength);
     if( aClientFD < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"accept() fuction Fail" );
-    std::shared_ptr<CCommSocketEPoll> aClientSock = std::make_shared<CCommSocketEPoll>( mrCallback );
+    std::shared_ptr<CCommSocketEPoll> aClientSock 
+        = std::make_shared<CCommSocketEPoll>( mrCallback, mrServer );
     aClientSock->Init( aClientFD, aClientAddr.sin_port, aClientAddr.sin_addr.s_addr );
     OnAccept( aClientSock );
     return 0;
@@ -137,7 +139,7 @@ void CListenSocketEPoll::Listen()
  * 2. Callback 을 통해 시스템에 추가로 알린다. 
  * @param iaSock 
  */
-void CListenSocketEPoll::OnAccept( esock iaSock ) const
+void CListenSocketEPoll::OnAccept( esock iaSock ) 
 {
     mrServer.OnConnect( iaSock ); // 서버에게 접속되었음을 알린다. 
     mrCallback( CSysPacket(iaSock->GetFD(), Packet::Sys::DCONNECT) );   // Callback에도 접속됨을 알린다. 

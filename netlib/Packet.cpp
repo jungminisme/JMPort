@@ -192,7 +192,7 @@ void CPacket::AddToBuffer( void * pData, uint16 iaLength )
 void CPacket::ReadFromBuffer( void * pData, uint16 iaLength )
 {
     if( (iaLength + maPos ) > maSize ) 
-        throw CNetworkException( NError::NLevel::DERROR, L"PacketSize underflow " );
+        throw CNetworkException( NError::NLevel::DERROR, L"Too much read " );
     char * pRead = maBuffer + maPos;
     memcpy( pData, pRead, (size_t) iaLength );
     maPos += iaLength;
