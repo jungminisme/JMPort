@@ -229,6 +229,12 @@ class CServerEPollMock : public JMLib::NetLib::CServerEPoll
         return maListenerSock;
     }
 
+    JMLib::NetLib::esock GetSocket( JMLib::NetLib::fd iaFD ) 
+    {
+        auto aIter = maSockets.find( iaFD );
+        return aIter->second;
+    }
+
     void InsertSock( JMLib::NetLib::esock iaSock ) 
     {
         maSockets.emplace( iaSock->GetFD(), iaSock );
@@ -239,9 +245,16 @@ TEST( NetLibTest, EPollServer )
 {
     CServerEPollMock aServer;
     JMLib::ICallback aCallback =  [] ( const JMLib::IPacket & irPacket ) -> JMLib::int32 {
-        EXPECT_EQ( irPacket.Command() , JMLib::Packet::Sys::DCONNECT );
-        EXPECT_EQ( irPacket.Owner(), 10 );
-        EXPECT_EQ( irPacket.Size(), JMLib::NetLib::DHEADER_SIZE );
+        if( irPacket.Command() == JMLib::Packet::Sys::DCONNECT ) {
+            EXPECT_EQ( irPacket.Command() , JMLib::Packet::Sys::DCONNECT );
+            EXPECT_EQ( irPacket.Owner(), 10 );
+            EXPECT_EQ( irPacket.Size(), JMLib::NetLib::DHEADER_SIZE );
+        }
+        if( irPacket.Command() == JMLib::Packet::Sys::DCLOSE ) {
+            EXPECT_EQ( irPacket.Command() , JMLib::Packet::Sys::DCLOSE );
+            EXPECT_EQ( irPacket.Owner(), 10 );
+            EXPECT_EQ( irPacket.Size(), JMLib::NetLib::DHEADER_SIZE );
+        }
         return 0;
     };
     EXPECT_EQ( aServer.GetEPollFD(), 0 );
@@ -269,4 +282,11 @@ TEST( NetLibTest, EPollServer )
     JMLib::NetLib::CSendPacket aPack3( 10, 25 );
     aPack3 << L"This is Sample String ";
     EXPECT_THROW( aServer.Send( aPack3), JMLib::NetLib::CNetworkException );
+
+    //! Close 해본다. 
+    JMLib::NetLib::esock aCommSock = aServer.GetSocket( 10 );
+    std::shared_ptr< JMLib::NetLib::CCommSocketEPoll > aSockPtr 
+        = std::dynamic_pointer_cast<JMLib::NetLib::CCommSocketEPoll>( aCommSock );
+    aSockPtr->OnClose();
+    EXPECT_EQ( aServer.GetSize(), 1 );
 }
