@@ -17,7 +17,7 @@ namespace JMLib::NetLib
         CServerEPoll & mrServer;
 
         public:
-        CListenSocketEPoll( CServerEPoll & irServer, ICallback & irCallback );
+        CListenSocketEPoll( CServerEPoll & irServer, CActionLauncher & irCallback );
         ~CListenSocketEPoll();
 
         void Init( const port iaPort );

@@ -19,7 +19,7 @@ namespace JMLib::NetLib
         CServerEPoll & mrServer;        //! 자신을 관리하는 Server
 
         public:
-        CCommSocketEPoll( ICallback & irCallback, CServerEPoll & irServer );
+        CCommSocketEPoll( CActionLauncher & irLauncher, CServerEPoll & irServer );
         ~CCommSocketEPoll();
 
         int32 OnEvent();

@@ -9,6 +9,7 @@ add_library( netlib STATIC
     RecvPacket.cpp 
     SysPacket.cpp 
     SendPacket.cpp 
+    ActionLauncher.cpp
 )
 
 target_include_directories(

@@ -33,13 +33,13 @@ CNetworkManager & CNetworkManager::GetInstance()
  * 아니면 network의 모든 구현이 contents쪽으로 들어가버리는 경우가 있어 복잡해진다. 
  * contents 와 library를 구분하기 위한 격벽으로 callback과 Interface를 둔다. 
  * @param iaPort open할 port번호
- * @param irCallback 외부와의 interface를 위한 callback
+ * @param irAssigner 외부와의 interface를 위한 callback집합체 . 작업 할당기 
  * @return true 서버가 기동되어 외부 접속을 기다림. 
  * @return false 서버 기동 실패
  */
-bool CNetworkManager::Init( const port iaPort, ICallback & irCallback ) 
+bool CNetworkManager::Init( const port iaPort, CActionLauncher & irLauncher ) 
 {
-    return mpServer->Init( iaPort, irCallback );
+    return mpServer->Init( iaPort, irLauncher );
 }
 
 /**

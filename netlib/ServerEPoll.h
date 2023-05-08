@@ -23,7 +23,7 @@ namespace JMLib::NetLib
         CServerEPoll();
         ~CServerEPoll();
 
-        bool Init( const port iaPort, ICallback & irCallback );
+        bool Init( const port iaPort, CActionLauncher & irLauncher );
         int32 Send( IPacket & irPacket ) const;
         void OnConnect( esock iaSock );
         void OnClose( fd iaSockFD );
@@ -35,6 +35,6 @@ namespace JMLib::NetLib
         virtual void InsertSock( esock iaSock );
 
         protected:
-        virtual esock CreateListener( const port iaPort, ICallback & irCallback );
+        virtual esock CreateListener( const port iaPort, CActionLauncher & irLauncher );
     };
 }

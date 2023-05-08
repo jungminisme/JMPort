@@ -12,7 +12,7 @@ namespace JMLib::NetLib
     {
         protected:
         fd maFD;
-        ICallback & mrCallback;
+        CActionLauncher & mrLauncher;
 
         public:
         virtual int32 OnEvent() = 0;
@@ -21,7 +21,7 @@ namespace JMLib::NetLib
         void Close();
         
         protected:
-        CSocketEPoll( ICallback & irCallback );
+        CSocketEPoll( CActionLauncher & irLauncher );
         virtual ~CSocketEPoll();
     };
 

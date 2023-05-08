@@ -9,7 +9,7 @@ using namespace JMLib::NetLib;
  * fd가 열려 있는지 확인 하기 위하여 0으로 초기화 한다. 
  * @param irCallback event 발생시를 위한 callback 
  */
-CSocketEPoll::CSocketEPoll( ICallback & irCallback ) : maFD( 0 ), mrCallback( irCallback )
+CSocketEPoll::CSocketEPoll( CActionLauncher & irLauncher ) : maFD( 0 ), mrLauncher( irLauncher )
 {
 
 }

@@ -23,7 +23,7 @@ using namespace JMLib::NetLib;
  * @param irServer connet시 호출될 server객체
  * @param irCallback callback은 client에게 초기화를 위해 받아 둔다. 
  */
-CListenSocketEPoll::CListenSocketEPoll( CServerEPoll & irServer, ICallback & irCallback ) 
+CListenSocketEPoll::CListenSocketEPoll( CServerEPoll & irServer, CActionLauncher & irCallback ) 
     :  CSocketEPoll(irCallback), mrServer( irServer )
 {
 }
@@ -66,7 +66,7 @@ JMLib::int32 CListenSocketEPoll::OnEvent()
     if( aClientFD < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"accept() fuction Fail" );
     std::shared_ptr<CCommSocketEPoll> aClientSock 
-        = std::make_shared<CCommSocketEPoll>( mrCallback, mrServer );
+        = std::make_shared<CCommSocketEPoll>( mrLauncher, mrServer );
     aClientSock->Init( aClientFD, aClientAddr.sin_port, aClientAddr.sin_addr.s_addr );
     OnAccept( aClientSock );
     return 0;
@@ -143,5 +143,5 @@ void CListenSocketEPoll::OnAccept( esock iaSock )
 {
     mrServer.OnConnect( iaSock ); // 서버에게 접속되었음을 알린다. 
     CSysPacket aPack( iaSock->GetFD(), Packet::Sys::DCONNECT);
-    mrCallback( aPack );   // Callback에도 접속됨을 알린다. 
+    mrLauncher.Do( aPack );   // Callback에도 접속됨을 알린다. 
 }

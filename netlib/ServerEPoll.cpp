@@ -38,10 +38,10 @@ CServerEPoll::~CServerEPoll()
  * @return true 서버 시작 성공
  * @return false 서버 시작 실패
  */
-bool CServerEPoll::Init( const port iaPort, ICallback & irCallback ) 
+bool CServerEPoll::Init( const port iaPort, CActionLauncher & irLauncher ) 
 {
     try {
-        CreateEPoll( CreateListener( iaPort, irCallback ) );
+        CreateEPoll( CreateListener( iaPort, irLauncher ) );
     }
     catch( CNetworkException const & e ) {
         LOG_ERROR( L"netlib", e.GetErrorMessage().c_str() );
@@ -152,10 +152,10 @@ void CServerEPoll::InsertSock( esock iaSock )
  * @param irCallback callback 
  * @return JMLib::NetLib::esock 생성된 소켓 
  */
-JMLib::NetLib::esock CServerEPoll::CreateListener(const port iaPort, ICallback & irCallback)
+JMLib::NetLib::esock CServerEPoll::CreateListener(const port iaPort, CActionLauncher & irLauncher)
 {
     std::shared_ptr<CListenSocketEPoll> aListener 
-        = std::make_shared<CListenSocketEPoll>( *this, irCallback );
+        = std::make_shared<CListenSocketEPoll>( *this, irLauncher );
     aListener->Init( iaPort );
     return aListener;
 }

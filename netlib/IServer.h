@@ -1,10 +1,9 @@
 #pragma once
 #include "NetCommon.h"
-#include "ICallback.h"
 #include "IPacket.h"
+#include "ActionLauncher.h"
 namespace JMLib
 {
-
     namespace NetLib 
     {
         
@@ -16,7 +15,7 @@ namespace JMLib
         class IServer 
         {
             public:
-            virtual bool Init( const port iaPort, ICallback & irCallback ) = 0;
+            virtual bool Init( const port iaPort, CActionLauncher & irLauncher ) = 0;
             virtual int32 Send( IPacket & irPacket ) const = 0;
 
             protected:

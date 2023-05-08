@@ -8,9 +8,30 @@
 
 using namespace JMLib;
 
-ICallback & GetCallback();
+void InitLauncher( CActionLauncher & irLauncher );
 
 int main(int, char**) 
+{
+    CActionLauncher aLauncher;
+    InitLauncher( aLauncher );
+    CLogManager & aLM = CLogManager::GetInstance();
+    aLM.AddLogger(L"server", NLog::NType::DCONSOLE );
+    aLM.SetDefaultChannel( L"server" );
+
+    DBLib::CDBManager & rDBM = DBLib::CDBManager::GetInstance();
+    if( rDBM.Connect(L"tcp://127.0.0.1:3306",L"db_master", L"master", L"account" ) == false )
+        return -1;
+
+    NetLib::CNetworkManager & aNM = NetLib::CNetworkManager::GetInstance();
+    try {
+        aNM.Init(1536, aLauncher );
+    } catch ( NetLib::CNetworkException e ) {
+        LOG_ERROR_D( e.GetErrorMessage().c_str() );
+    }
+    return 0;
+}
+
+void InitLauncher( CActionLauncher & irLauncher )
 {
     ICallback aCallback = [] ( IPacket & irPacket ) -> int32 {
         if( irPacket.Command() >= Packet::Sys::DSYS_START ) {
@@ -53,20 +74,5 @@ int main(int, char**)
         }
         return 0;
     };
-
-    CLogManager & aLM = CLogManager::GetInstance();
-    aLM.AddLogger(L"server", NLog::NType::DCONSOLE );
-    aLM.SetDefaultChannel( L"server" );
-
-    DBLib::CDBManager & rDBM = DBLib::CDBManager::GetInstance();
-    if( rDBM.Connect(L"tcp://127.0.0.1:3306",L"db_master", L"master", L"account" ) == false )
-        return -1;
-
-    NetLib::CNetworkManager & aNM = NetLib::CNetworkManager::GetInstance();
-    try {
-        aNM.Init(1536, aCallback );
-    } catch ( NetLib::CNetworkException e ) {
-        LOG_ERROR_D( e.GetErrorMessage().c_str() );
-    }
-    return 0;
+    irLauncher.Regist( 1, aCallback );
 }

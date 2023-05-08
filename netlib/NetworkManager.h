@@ -17,7 +17,7 @@ namespace JMLib
             public:
             static CNetworkManager & GetInstance();
 
-            bool Init( const port iaPort, ICallback & irCallback );
+            bool Init( const port iaPort, CActionLauncher & irLauncher );
 
             int32 Send ( IPacket & irPacket ) const;
 

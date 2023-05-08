@@ -8,8 +8,8 @@
 
 using namespace JMLib::NetLib;
 
-CCommSocketEPoll::CCommSocketEPoll( ICallback & irCallback, CServerEPoll & irServer ) 
-    : CSocketEPoll( irCallback ), mrServer( irServer )
+CCommSocketEPoll::CCommSocketEPoll( CActionLauncher & irLauncher, CServerEPoll & irServer ) 
+    : CSocketEPoll( irLauncher ), mrServer( irServer )
 {
 }
 
@@ -56,7 +56,7 @@ JMLib::int32 CCommSocketEPoll::OnEvent()
         }
         aReadSize += aTemp;
     }
-    mrCallback( aPacket ); //! 읽은 패킷을 Callback 에 전달한다. 
+    mrLauncher.Do( aPacket ); //! 읽은 패킷을 Callback 에 전달한다. 
     return (int32) aPacket.Size();
 }
 
@@ -123,12 +123,12 @@ void CCommSocketEPoll::OnClose()
 {
     mrServer.OnClose( maFD );
     CSysPacket aPack( maFD, Packet::Sys::DCLOSE );
-    mrCallback( aPack );
+    mrLauncher.Do( aPack );
     Close();
 }
 
 void CCommSocketEPoll::onRecvError() const
 {
     CSysPacket aPack( maFD, Packet::Sys::DERROR );
-    mrCallback( aPack );
+    mrLauncher.Do( aPack );
 }
