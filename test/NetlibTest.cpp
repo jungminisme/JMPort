@@ -6,6 +6,7 @@
 #include "ServerEPoll.h"
 #include "CommSocketEPoll.h"
 #include "ListenSocketEPoll.h"
+#include "ActionLauncher.h"
 
 TEST( NetLibTest, PacketTest )
 {
@@ -193,14 +194,14 @@ TEST( NetLibTest, SysPacket )
 class CListenerMock : public JMLib::NetLib::CListenSocketEPoll
 {
     public:
-    CListenerMock( JMLib::NetLib::CServerEPoll & irServer, JMLib::ICallback & irCallback)
-        : JMLib::NetLib::CListenSocketEPoll( irServer, irCallback ) {}
+    CListenerMock( JMLib::NetLib::CServerEPoll & irServer, JMLib::CActionLauncher & irLauncher)
+        : JMLib::NetLib::CListenSocketEPoll( irServer, irLauncher ) {}
     ~CListenerMock() {}
 
     JMLib::int32 OnEvent()  
     {
         std::shared_ptr<JMLib::NetLib::CCommSocketEPoll> aClientSock 
-            = std::make_shared<JMLib::NetLib::CCommSocketEPoll>( mrCallback, mrServer );
+            = std::make_shared<JMLib::NetLib::CCommSocketEPoll>( mrLauncher, mrServer );
         EXPECT_THROW( aClientSock->Init( 10, 54352, 321324 ), JMLib::NetLib::CNetworkException );
         OnAccept( aClientSock );
         return 0;
@@ -221,9 +222,9 @@ class CServerEPollMock : public JMLib::NetLib::CServerEPoll
     JMLib::NetLib::fd GetEPollFD() {  return maEPollFD; }
 
     JMLib::NetLib::esock CreateListener( 
-        const JMLib::NetLib::port iaPort, JMLib::ICallback & irCallBack ) 
+        const JMLib::NetLib::port iaPort, JMLib::CActionLauncher & irLauncher ) 
     {
-        std::shared_ptr<CListenerMock> aSock = std::make_shared< CListenerMock > ( *this, irCallBack );
+        std::shared_ptr<CListenerMock> aSock = std::make_shared< CListenerMock > ( *this, irLauncher );
         aSock->Init( iaPort );
         maListenerSock = aSock;
         return maListenerSock;
@@ -244,23 +245,25 @@ class CServerEPollMock : public JMLib::NetLib::CServerEPoll
 TEST( NetLibTest, EPollServer )
 {
     CServerEPollMock aServer;
-    JMLib::ICallback aCallback =  [] ( JMLib::IPacket & irPacket ) -> JMLib::int32 {
-        if( irPacket.Command() == JMLib::Packet::Sys::DCONNECT ) {
+    JMLib::CActionLauncher aLauncher;
+    aLauncher.Regist( JMLib::Packet::Sys::DCONNECT, 
+        [] ( JMLib::IPacket & irPacket ) -> JMLib::int32 {
             EXPECT_EQ( irPacket.Command() , JMLib::Packet::Sys::DCONNECT );
             EXPECT_EQ( irPacket.Owner(), 10 );
             EXPECT_EQ( irPacket.Size(), JMLib::NetLib::DHEADER_SIZE );
-        }
-        if( irPacket.Command() == JMLib::Packet::Sys::DCLOSE ) {
+            return 0;
+        } );
+    aLauncher.Regist( JMLib::Packet::Sys::DCLOSE, 
+        [] ( JMLib::IPacket & irPacket ) -> JMLib::int32 {
             EXPECT_EQ( irPacket.Command() , JMLib::Packet::Sys::DCLOSE );
             EXPECT_EQ( irPacket.Owner(), 10 );
             EXPECT_EQ( irPacket.Size(), JMLib::NetLib::DHEADER_SIZE );
-        }
-        return 0;
-    };
+            return 0;
+        } );
     EXPECT_EQ( aServer.GetEPollFD(), 0 );
     EXPECT_EQ( aServer.maListenerSock.use_count(), 0 );
     EXPECT_EQ( aServer.GetSize(), 0 );
-    EXPECT_TRUE( aServer.Init( 6523, aCallback ) );
+    EXPECT_TRUE( aServer.Init( 6523, aLauncher) );
     EXPECT_NE( aServer.GetEPollFD(), 0 );
     EXPECT_NE( aServer.maListenerSock->GetFD(), 0 );
     EXPECT_EQ( aServer.GetSize(), 1 );
