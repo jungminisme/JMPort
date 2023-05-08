@@ -12,7 +12,12 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-include_directories( ${CMAKE_SOURCE_DIR}/common )
+include_directories( 
+    ${CMAKE_SOURCE_DIR}/common 
+    ${CMAKE_SOURCE_DIR}/dblib 
+    ${CMAKE_SOURCE_DIR}/netlib 
+)
+
 link_directories(/usr/local/lib/)
 add_subdirectory(common)
 add_subdirectory(test)
@@ -23,7 +28,15 @@ include(CTest)
 enable_testing()
 
 add_executable(JMPort main.cpp)
-target_link_libraries( JMPort common dblib mysqlcppconn mysqlclient netlib )  
+
+target_link_libraries( 
+    JMPort 
+    common 
+    dblib 
+    mysqlcppconn 
+    mysqlclient 
+    netlib 
+)  
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

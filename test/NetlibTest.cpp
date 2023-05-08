@@ -244,7 +244,7 @@ class CServerEPollMock : public JMLib::NetLib::CServerEPoll
 TEST( NetLibTest, EPollServer )
 {
     CServerEPollMock aServer;
-    JMLib::ICallback aCallback =  [] ( const JMLib::IPacket & irPacket ) -> JMLib::int32 {
+    JMLib::ICallback aCallback =  [] ( JMLib::IPacket & irPacket ) -> JMLib::int32 {
         if( irPacket.Command() == JMLib::Packet::Sys::DCONNECT ) {
             EXPECT_EQ( irPacket.Command() , JMLib::Packet::Sys::DCONNECT );
             EXPECT_EQ( irPacket.Owner(), 10 );

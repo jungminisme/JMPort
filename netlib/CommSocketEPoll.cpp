@@ -122,11 +122,13 @@ void CCommSocketEPoll::Init( fd iaFD, port iaPort, uint32 iaAddr )
 void CCommSocketEPoll::OnClose()
 {
     mrServer.OnClose( maFD );
-    mrCallback( CSysPacket( maFD, Packet::Sys::DCLOSE ) );
+    CSysPacket aPack( maFD, Packet::Sys::DCLOSE );
+    mrCallback( aPack );
     Close();
 }
 
 void CCommSocketEPoll::onRecvError() const
 {
-    mrCallback( CSysPacket( maFD, Packet::Sys::DERROR ) );
+    CSysPacket aPack( maFD, Packet::Sys::DERROR );
+    mrCallback( aPack );
 }

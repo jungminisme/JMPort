@@ -142,5 +142,6 @@ void CListenSocketEPoll::Listen()
 void CListenSocketEPoll::OnAccept( esock iaSock ) 
 {
     mrServer.OnConnect( iaSock ); // 서버에게 접속되었음을 알린다. 
-    mrCallback( CSysPacket(iaSock->GetFD(), Packet::Sys::DCONNECT) );   // Callback에도 접속됨을 알린다. 
+    CSysPacket aPack( iaSock->GetFD(), Packet::Sys::DCONNECT);
+    mrCallback( aPack );   // Callback에도 접속됨을 알린다. 
 }
