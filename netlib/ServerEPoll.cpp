@@ -96,11 +96,11 @@ void CServerEPoll::OnClose( fd iaSockFD )
  * OnEvent에 대한 행동은 socket들이 알아서 잘하게 한다. 
  * @return int32 발견된 event의 갯수, listener가 망가지는등 sever가 동작 못하면 -1
  */
-JMLib::int32 JMLib::NetLib::CServerEPoll::CheckSockets()
+void CServerEPoll::Run( int32 iaWait )
 {
     struct epoll_event aEvents[DMAX_EPOLL_EVENT];
     int32 aEventCount = 0;
-    aEventCount = epoll_wait( maEPollFD, aEvents, DMAX_EPOLL_EVENT, DEPOLL_TIME_OUT);
+    aEventCount = epoll_wait( maEPollFD, aEvents, DMAX_EPOLL_EVENT, iaWait );
     if( aEventCount < 0 ) {
         string aErrString;
         aErrString.StrToWstr( std::string( strerror(errno)));
@@ -114,7 +114,6 @@ JMLib::int32 JMLib::NetLib::CServerEPoll::CheckSockets()
         esock aCurSock = aIT->second;
         aCurSock->OnEvent();
     }
-    return 0;
 }
 
 /**

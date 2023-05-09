@@ -19,6 +19,8 @@ namespace JMLib
 
             bool Init( const port iaPort, CActionLauncher & irLauncher );
 
+            void Run( int32 iaWait = -1 );
+
             int32 Send ( IPacket & irPacket ) const;
 
             private:

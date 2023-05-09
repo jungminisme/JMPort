@@ -42,6 +42,11 @@ bool CNetworkManager::Init( const port iaPort, CActionLauncher & irLauncher )
     return mpServer->Init( iaPort, irLauncher );
 }
 
+void CNetworkManager::Run(int32 iaWait)
+{
+    mpServer->Run( iaWait );
+}
+
 /**
  * @brief 패킷의 정보를 client로 전송한다. 
  * 

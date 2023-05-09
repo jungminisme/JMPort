@@ -17,6 +17,7 @@ namespace JMLib
             public:
             virtual bool Init( const port iaPort, CActionLauncher & irLauncher ) = 0;
             virtual int32 Send( IPacket & irPacket ) const = 0;
+            virtual void Run( int32 iaWait = -1 ) = 0;
 
             protected:
             IServer() = default;

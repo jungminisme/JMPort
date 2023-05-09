@@ -28,7 +28,7 @@ namespace JMLib::NetLib
         void OnConnect( esock iaSock );
         void OnClose( fd iaSockFD );
 
-        int32 CheckSockets();
+        void Run( int32 iaWait = DEPOLL_TIME_OUT );
 
         private:
         void CreateEPoll( esock iaListener );
