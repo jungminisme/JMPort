@@ -1,5 +1,6 @@
 #include "Packet.h"
 #include <string.h>
+#include <arpa/inet.h>
 #include "NetworkException.h"
 
 using namespace JMLib::NetLib;
@@ -57,15 +58,29 @@ JMLib::IPacket & CPacket::operator << ( const uint8 iaVal )
     return * this;
 }
 
+/**
+ * @brief Packet 에 uint16값을 추가 한다. 
+ * 네트워크 전송을 위하여 network byteorder로 바꾼다. 
+ * @param iaVal 추가할 값
+ * @return JMLib::IPacket& this, Packet << val << val2 의 형태를 지원한다. 
+ */
 JMLib::IPacket & CPacket::operator << ( const uint16 iaVal )
 {
-    AddToBuffer( (void * ) &iaVal, sizeof( iaVal ) );
+    uint16 aNetVal = htons( iaVal );
+    AddToBuffer( (void * ) &aNetVal, sizeof( iaVal ) );
     return * this;
 }
 
+/**
+ * @brief Packet에 uint32값을 추가한다. 
+ * 네트워크 전송을 위하여 network byteorder(big endian)로 바꾼다. 
+ * @param iaVal 추가할 값
+ * @return JMLib::IPacket& this, Packet << val << val2 의 형태를 지원한다. 
+ */
 JMLib::IPacket & CPacket::operator << ( const uint32 iaVal )
 {
-    AddToBuffer( (void * ) &iaVal, sizeof( iaVal ) );
+    uint32 aNetVal = htonl( iaVal );
+    AddToBuffer( (void * ) &aNetVal, sizeof( iaVal ) );
     return * this;
 }
 
@@ -75,15 +90,31 @@ JMLib::IPacket & CPacket::operator << ( const int8 iaVal )
     return * this;
 }
 
+/**
+ * @brief Packet에 int16값을 추가 한다. 
+ * 네트워크 전송을 위하여 network byteorder(big endian)로 바꾼다. 
+ * htons는 uint16을 위한 함수이지만 어차피 byteorder만 바꿀꺼라서 상관 없다. 
+ * @param iaVal 추가 할 값
+ * @return JMLib::IPacket& this, Packet << val << val2 의 형태를 지원한다. 
+ */
 JMLib::IPacket & CPacket::operator << ( const int16 iaVal )
 {
-    AddToBuffer( (void * ) &iaVal, sizeof( iaVal ) );
+    int16 aNetVal = htons( iaVal );
+    AddToBuffer( (void * ) &aNetVal, sizeof( iaVal ) );
     return * this;
 }
 
+/**
+ * @brief Packet에 int32값을 추가 한다. 
+ * 네트워크 전송을 위하여 network byteorder(big endian)로 바꾼다. 
+ * htonl은 uint32을 위한 함수이지만 어차피 byteorder만 바꿀꺼라서 상관 없다. 
+ * @param iaVal 추가 할 값
+ * @return JMLib::IPacket& this, Packet << val << val2 의 형태를 지원한다. 
+ */
 JMLib::IPacket & CPacket::operator << ( const int32 iaVal )
 {
-    AddToBuffer( (void * ) &iaVal, sizeof( iaVal ) );
+    int32 aNetVal = htonl( iaVal );
+    AddToBuffer( (void * ) &aNetVal, sizeof( iaVal ) );
     return * this;
 }
 
@@ -131,15 +162,26 @@ JMLib::IPacket & CPacket::operator >> ( uint8 & orVal )
     return * this;
 }
 
+/**
+ * @brief Packet으로 부터 uint16값을 불러 온다. 
+ * network로 부터 읽어 들인 값은 모두 network byteorder라 추정한다. 
+ * 현재 시스템에 맞게 litten endian 으로 변경해 읽는다. 
+ * @param orVal 
+ * @return JMLib::IPacket& 
+ */
 JMLib::IPacket & CPacket::operator >> ( uint16 & orVal )
 {
-    ReadFromBuffer( &orVal, sizeof( uint16 ) );
+    uint16 aNetVal;
+    ReadFromBuffer( &aNetVal, sizeof( uint16 ) );
+    orVal = ntohs( aNetVal );
     return * this;
 }
 
 JMLib::IPacket & CPacket::operator >> ( uint32 & orVal )
 {
-    ReadFromBuffer( &orVal, sizeof( uint32 ) );
+    uint32 aNetVal;
+    ReadFromBuffer( &aNetVal, sizeof( uint32 ) );
+    orVal = ntohl( aNetVal );
     return * this;
 }
 
@@ -151,13 +193,17 @@ JMLib::IPacket & CPacket::operator >> ( int8 & orVal )
 
 JMLib::IPacket & CPacket::operator >> ( int16 & orVal )
 {
-    ReadFromBuffer( &orVal, sizeof( int16 ) );
+    int16 aNetVal;
+    ReadFromBuffer( &aNetVal, sizeof( int16 ) );
+    orVal = ntohs( aNetVal );
     return * this;
 }
 
 JMLib::IPacket & CPacket::operator >> ( int32 & orVal )
 {
-    ReadFromBuffer( &orVal, sizeof( int32 ) );
+    int32 aNetVal;
+    ReadFromBuffer( &aNetVal, sizeof( int32 ) );
+    orVal = ntohl( aNetVal );
     return * this;
 }
 
