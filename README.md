@@ -5,10 +5,10 @@ JungMin's Project for Portfolio
 코드 작성 스타일, 기본적인 라이브러리 활용, 객체지향 구조 설계 방식 등을 보여주기 위해 작성되었습니다. 
 
 1. 개발 환경
-1) OS : ubuntu 22.04
-2) compiler : g++ 11.3.0
-3) db : mysql Ver 8.0.33 
-4) tools : VSCode, CMake, WSL, gtest
+- OS : ubuntu 22.04
+- compiler : g++ 11.3.0
+- db : mysql Ver 8.0.33 
+- tools : VSCode, CMake, WSL, gtest
 
 2. 구현 내용
 1) common 
@@ -26,8 +26,8 @@ JungMin's Project for Portfolio
 - callback 구조 도입 : lambda function을 인자로 받아 처리할수 잇는 기본 구조 구현
 
 3. 미구현 내용
-1) multi thread : network 자체 IO 및 contents와의 연결을 위하여 필요하지만 포트폴리오에서는 생략 
-2) contents용 container : account 관리및 player관리 객체 역시 포트폴리오에서 생략 
+- multi thread : network 자체 IO 및 contents와의 연결을 위하여 필요하지만 포트폴리오에서는 생략 
+- contents용 container : account 관리및 player관리 객체 역시 포트폴리오에서 생략 
 
 4. 기타 
 - c++ 17 에 기반하여 작성을 하였습니다. 
