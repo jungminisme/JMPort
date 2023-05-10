@@ -14,7 +14,7 @@ JungMin's Project for Portfolio
 1) common 
 - string : std::wsstring을 사용상 편의를 위하여 wrapping 하였음. UNICODE 사용
 - file : fwstream을 wrapping하여 사용, Logger및 기본 입출력 용도
-= logger : console, file, null logger등을 구현. 
+- logger : console, file, null logger등을 구현. 
 
 2) dblib
 - mysql cppconnector 사용
