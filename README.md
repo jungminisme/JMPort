@@ -32,5 +32,6 @@ JungMin's Project for Portfolio
 4. 기타 
 - c++ 17 에 기반하여 작성을 하였습니다. 
 - 구현된 코드는 google gtest를 이용하여 테슽 되었습니다. 
+- doxygen comment가 추가되어 있습니다. 
 - 테스트를 위한 client는 android 환경의 kotlin으로 작성한 app이 사용되었습니다. (코드를 포함하지는 않음) 
 - 최종 수정일 : 2023. 05. 10
