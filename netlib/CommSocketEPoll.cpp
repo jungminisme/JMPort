@@ -40,21 +40,31 @@ JMLib::int32 CCommSocketEPoll::OnEvent()
         onRecvError();
         return aReadSize;
     }
-    aPacket.SetRead(aReadSize);
-    int aSizeToRead = (int) aPacket.Size();
+    int aSizeToRead = 0;
+    if( aReadSize < DHEADER_SIZE ) {        //! 최소 사이즈까지는 읽어야 된다. 
+        aSizeToRead = DHEADER_SIZE - aReadSize;
+    }
+    else {
+        aPacket.SetRead(aReadSize);
+        aSizeToRead = (int) aPacket.Size();
+    }
+    int aRetCount = 0;
     while( aReadSize < aSizeToRead ) {      //! 읽은양이 읽어야할 양보다 작은경우 
-        int aRemain = aSizeToRead - aReadSize;
+        if( aRetCount > DMAX_READ_RETRY )
+            throw CNetworkException( NError::NLevel::DWARN, L"Too many read retry!!" );
+        aRetCount++;
+        int aRemain = DMAX_PACKET_SIZE - aReadSize; //! Remain Buffer Size
         //! 다시 읽는다. 
         int aTemp = read( maFD, aPacket.GetBuffer() + aReadSize, aRemain );
-        if( aTemp == 0 ) {      //! 다시 읽는중 끊어짐
-            OnClose();
-            return 0;
+        if( aTemp == 0 ) {      //! 다시 읽었지만 아직 내용이 없다. 
+            continue;
         }
         if( aTemp < 0 ) {       //! 다시 읽는중 에러발생
             onRecvError();
             return aTemp;
         }
         aReadSize += aTemp;
+        sleep( DREAD_INTERVAL );
     }
     mrLauncher.Do( aPacket ); //! 읽은 패킷을 Callback 에 전달한다. 
     return (int32) aPacket.Size();
@@ -77,7 +87,7 @@ JMLib::int32 CCommSocketEPoll::Send( IPacket &irPacket) const
         throw CNetworkException( NError::NLevel::DERROR, aErrString );
     }
     int aRetryCount = 0;
-    //! 최대 5번까지만 write 해본다. 에러는 아니지만 0바이트를 적는 경우가 있다. 
+    //! 최대 DMAX_WRITE_RETRY 까지만 write 해본다. 에러는 아니지만 0바이트를 적는 경우가 있다. 
     while(  aWriteCount < aSizeToWrite ) { 
         int aRemain = aSizeToWrite - aWriteCount;
         int aRet = write( maFD, irPacket.GetBuffer() + aWriteCount, aRemain );
@@ -88,7 +98,7 @@ JMLib::int32 CCommSocketEPoll::Send( IPacket &irPacket) const
         }
         aWriteCount += aRet;
         aRetryCount++;
-        if( aRetryCount >= 4 ) {
+        if( aRetryCount >= DMAX_WRITE_RETRY ) {
             throw CNetworkException( NError::NLevel::DERROR, L"Write retry cout over!" );
         }
     }
