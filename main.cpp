@@ -23,13 +23,13 @@ int main(int, char**)
         return -1;
 
     NetLib::CNetworkManager & aNM = NetLib::CNetworkManager::GetInstance();
-    try {
-        aNM.Init(1536, aLauncher );
-        while(1) {
-            aNM.Run( -1 );
+    aNM.Init(1536, aLauncher );
+    while(1) {
+        try {
+                aNM.Run( -1 );
+        } catch ( NetLib::CNetworkException e ) {
+            LOG_ERROR_D( e.GetErrorMessage().c_str() );
         }
-    } catch ( NetLib::CNetworkException e ) {
-        LOG_ERROR_D( e.GetErrorMessage().c_str() );
     }
     return 0;
 }
@@ -58,7 +58,7 @@ void InitLauncher( CActionLauncher & irLauncher )
 
         DBLib::CDBManager & rDBM = DBLib::CDBManager::GetInstance();
         string aQuery = L"SELECT AID, NICK FROM ACCOUNT WHERE LNAME = " ;
-        aQuery << aID << L" AND PWD = " << aPass;
+        aQuery << aID << L" AND PWD = SHA1(" << aPass << L")";
         DBLib::result aResult = rDBM.ExecuteStatement( aQuery );
         if( aResult.use_count() < 1 ) {
             NetLib::CSendPacket aPacket( irPacket.Owner(), irPacket.Command() );
