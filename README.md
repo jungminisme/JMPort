@@ -5,10 +5,10 @@ JungMin's Project for Portfolio
 코드 작성 스타일, 기본적인 라이브러리 활용, 객체지향 구조 설계 방식 등을 보여주기 위해 작성되었습니다. 
 
 1. 개발 환경
-OS : ubuntu 22.04
-compiler : g++ 11.3.0
-db : mysql Ver 8.0.33 
-tools : VSCode, CMake, WSL, gtest
+1) OS : ubuntu 22.04
+2) compiler : g++ 11.3.0
+3) db : mysql Ver 8.0.33 
+4) tools : VSCode, CMake, WSL, gtest
 
 2. 구현 내용
 1) common 
