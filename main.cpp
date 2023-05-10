@@ -36,19 +36,24 @@ int main(int, char**)
 
 void InitLauncher( CActionLauncher & irLauncher )
 {
+    //! 접속 : 로그를 남긴다. 
     irLauncher.Regist( Packet::Sys::DCONNECT, [] (IPacket & irPacket ) -> int32 {
             LOG_INFO_D( L"Owner : %d Connected", irPacket.Owner() );
             return 0;
     } );
+    //! 연결 해제 : 로그를 남긴다. 
     irLauncher.Regist( Packet::Sys::DCLOSE, [] (IPacket & irPacket ) -> int32 {
             LOG_INFO_D( L"Owner : %d Disconnected ", irPacket.Owner());
             return 0;
     } );
+
+    //! 에러 : 로그를 남긴다. 
     irLauncher.Regist( Packet::Sys::DERROR, [] (IPacket & irPacket ) -> int32 {
             LOG_INFO_D( L"Owner : %d Error Find ", irPacket.Owner());
             return 0;
     } );
 
+    //! 로그인 요청 : DB로부터 사용자 정보를 읽어서 응답을 보낸다. 
     irLauncher.Regist( 1, [] (IPacket & irPacket ) -> int32 {
         string aID;
         string aPass;
@@ -57,18 +62,18 @@ void InitLauncher( CActionLauncher & irLauncher )
         NetLib::CNetworkManager & rNM = NetLib::CNetworkManager::GetInstance();
 
         DBLib::CDBManager & rDBM = DBLib::CDBManager::GetInstance();
-        string aQuery = L"SELECT AID, NICK FROM ACCOUNT WHERE LNAME = " ;
-        aQuery << aID << L" AND PWD = SHA1(" << aPass << L")";
+        string aQuery = L"SELECT AID, NICK FROM account WHERE LNAME = \'" ;
+        aQuery << aID << L"\' AND PWD = SHA1(\'" << aPass << L"\')";
         DBLib::result aResult = rDBM.ExecuteStatement( aQuery );
-        if( aResult.use_count() < 1 ) {
+        if( aResult->FetchNext() == false ) {
             NetLib::CSendPacket aPacket( irPacket.Owner(), irPacket.Command() );
             aPacket << false;
             rNM.Send( aPacket );
             return 0;
         }
         aPacket << true;
-        uint32 aAID = aResult->GetUInt(0);
-        string aNick = aResult->GetString(1);
+        uint32 aAID = aResult->GetUInt(1);
+        string aNick = aResult->GetString(2);
         aPacket << aAID << aNick;
         rNM.Send( aPacket );
         return 0;

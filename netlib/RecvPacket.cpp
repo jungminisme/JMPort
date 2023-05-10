@@ -31,11 +31,9 @@ void CRecvPacket::SetRead( uint16 iaSize )
     maSize = iaSize;
     maPos = 0;
     uint16 aIdentifier;
-    ReadFromBuffer( &aIdentifier, sizeof( uint16 ) );
+    *this >> aIdentifier >> maCommand >> maSize;
     if( aIdentifier != DPACKET_IDENTIFIER ) // 패킷이 정해진 양식인지 간단히 판단한다. 
         throw CNetworkException( NError::NLevel::DERROR, L"It is not JMPort Packet!");
-    ReadFromBuffer( &maCommand, sizeof(uint16));
-    ReadFromBuffer( &maSize, sizeof( uint16 ));
     if( maSize != iaSize ) 
         throw CNetworkException( NError::NLevel::DERROR, L"Read size mismatch! ");
 }
