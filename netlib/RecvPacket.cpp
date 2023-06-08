@@ -1,5 +1,6 @@
 #include "RecvPacket.h"
 #include "NetworkException.h"
+#include <arpa/inet.h>
 
 using namespace JMLib::NetLib;
 
@@ -31,9 +32,12 @@ void CRecvPacket::SetRead( uint16 iaSize )
     maSize = iaSize;
     maPos = 0;
     uint16 aIdentifier;
-    *this >> aIdentifier >> maCommand >> maSize;
-    if( aIdentifier != DPACKET_IDENTIFIER ) // 패킷이 정해진 양식인지 간단히 판단한다. 
+    uint16 aTempSize;
+    *this >> aIdentifier >> maCommand >> aTempSize;
+    uint16 aIde = ntohs(aIdentifier);
+    if( aIde != DPACKET_IDENTIFIER ) // 패킷이 정해진 양식인지 간단히 판단한다. 
         throw CNetworkException( NError::NLevel::DERROR, L"It is not JMPort Packet!");
+    maSize = ntohs(aTempSize);
     if( maSize != iaSize ) 
         throw CNetworkException( NError::NLevel::DERROR, L"Read size mismatch! ");
 }
