@@ -18,7 +18,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/netlib 
 )
 
-link_directories(/usr/local/lib/)
+link_directories(/usr/local/mysql/connector-c++-8.0.33/lib64/debug)
 add_subdirectory(common)
 add_subdirectory(test)
 add_subdirectory(dblib)
