@@ -58,12 +58,10 @@ bool CServerEPoll::Init( const port iaPort, CActionLauncher & irLauncher )
  */
 JMLib::int32 CServerEPoll::Send( IPacket & irPacket ) const
 {
-    int32 aKey = irPacket.Owner();
-    auto aIt =  maSockets.find( aKey );
+    auto aIt =  maSockets.find( irPacket.Owner() );
     if( aIt == maSockets.end() )
         throw CNetworkException( NError::NLevel::DERROR, L"No such a socket!");
-    esock aSock = aIt->second;
-    return aSock->Send(irPacket);
+    return aIt->second->Send(irPacket);
 }
 
 /**
@@ -107,12 +105,10 @@ void CServerEPoll::Run( int32 iaWait )
         throw CNetworkException( NError::NLevel::DERROR, aErrString );
     }
     for( int i = 0; i < aEventCount; i++ ) {
-        fd aFD = aEvents[i].data.fd;
-        auto aIT = maSockets.find( aFD );
+        auto aIT = maSockets.find( aEvents[i].data.fd );
         if( aIT == maSockets.end() ) 
             continue;
-        esock aCurSock = aIT->second;
-        aCurSock->OnEvent();
+        aIT->second->OnEvent();
     }
 }
 
@@ -153,8 +149,7 @@ void CServerEPoll::InsertSock( esock iaSock )
  */
 JMLib::NetLib::esock CServerEPoll::CreateListener(const port iaPort, CActionLauncher & irLauncher)
 {
-    std::shared_ptr<CListenSocketEPoll> aListener 
-        = std::make_shared<CListenSocketEPoll>( *this, irLauncher );
+    auto aListener = std::make_shared<CListenSocketEPoll>( *this, irLauncher );
     aListener->Init( iaPort );
     return aListener;
 }

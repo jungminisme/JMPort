@@ -39,7 +39,6 @@ const fd CSocketEPoll::GetFD() const
  */
 void CSocketEPoll::Close()
 {
-    if( maFD == 0 )
-        return;
-    close( maFD );
+    if( maFD != 0 )
+        close( maFD );
 }
