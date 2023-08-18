@@ -89,16 +89,14 @@ JMLib::int32 CCommSocketEPoll::Send( IPacket &irPacket) const
     int aRetryCount = 0;
     //! 최대 DMAX_WRITE_RETRY 까지만 write 해본다. 에러는 아니지만 0바이트를 적는 경우가 있다. 
     while(  aWriteCount < aSizeToWrite ) { 
-        int aRemain = aSizeToWrite - aWriteCount;
-        int aRet = write( maFD, irPacket.GetBuffer() + aWriteCount, aRemain );
+        int aRet = write( maFD, irPacket.GetBuffer() + aWriteCount, aSizeToWrite - aWriteCount );
         if( aRet < 0 ) {
             string aErrString;
             aErrString.StrToWstr( strerror( errno ) );
             throw CNetworkException( NError::NLevel::DERROR, aErrString );
         }
         aWriteCount += aRet;
-        aRetryCount++;
-        if( aRetryCount >= DMAX_WRITE_RETRY ) {
+        if( ++aRetryCount >= DMAX_WRITE_RETRY ) {
             throw CNetworkException( NError::NLevel::DERROR, L"Write retry cout over!" );
         }
     }
