@@ -120,8 +120,7 @@ void CCommSocketEPoll::Init( fd iaFD, port iaPort, uint32 iaAddr )
     maPublicAddr = iaAddr;
     int32 aFlag = fcntl( maFD, F_GETFL );
     aFlag |= O_NONBLOCK;
-    int aRet = fcntl( maFD, F_SETFL, aFlag );
-    if( aRet < 0 )
+    if( fcntl( maFD, F_SETFL, aFlag ) < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"fcntl() fuction Fail" );
 }
 
@@ -132,13 +131,13 @@ void CCommSocketEPoll::Init( fd iaFD, port iaPort, uint32 iaAddr )
 void CCommSocketEPoll::OnClose()
 {
     mrServer.OnClose( maFD );
-    CSysPacket aPack( maFD, Packet::Sys::DCLOSE );
+    auto aPack = CSysPacket( maFD, Packet::Sys::DCLOSE );
     mrLauncher.Do( aPack );
     Close();
 }
 
 void CCommSocketEPoll::onRecvError() const
 {
-    CSysPacket aPack( maFD, Packet::Sys::DERROR );
+    auto aPack = CSysPacket( maFD, Packet::Sys::DERROR );
     mrLauncher.Do( aPack );
 }
