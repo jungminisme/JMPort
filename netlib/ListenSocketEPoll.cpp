@@ -59,10 +59,9 @@ void CListenSocketEPoll::Init( const port iaPort )
  */
 JMLib::int32 CListenSocketEPoll::OnEvent() 
 {
-    int32 aClientFD = 0;
     struct sockaddr_in aClientAddr;
     int32 aClientLength = sizeof(aClientAddr);
-    aClientFD = accept( maFD, ( sockaddr * ) &aClientAddr, (socklen_t *) &aClientLength);
+    int32 aClientFD = accept( maFD, ( sockaddr * ) &aClientAddr, (socklen_t *) &aClientLength);
     if( aClientFD < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"accept() fuction Fail" );
     std::shared_ptr<CCommSocketEPoll> aClientSock 
@@ -96,12 +95,10 @@ void CListenSocketEPoll::Create()
 
     int32 aFlag = fcntl( maFD, F_GETFL );
     aFlag |= O_NONBLOCK;
-    int aRet = fcntl( maFD, F_SETFL, aFlag );
-    if( aRet < 0 )
+    if( fcntl( maFD, F_SETFL, aFlag ) < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"fcntl() fuction Fail" );
     int32 aOption = true;
-    aRet = setsockopt( maFD, SOL_SOCKET, SO_REUSEADDR, &aOption, sizeof(aOption) );
-    if( aRet < 0 )
+    if( setsockopt( maFD, SOL_SOCKET, SO_REUSEADDR, &aOption, sizeof(aOption) ) < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"setsockopt() fuction Fail" );
 }
 
@@ -117,8 +114,7 @@ void CListenSocketEPoll::Bind( const port iaPort )
     aServerAddr.sin_family = AF_INET;
     aServerAddr.sin_addr.s_addr = htonl( INADDR_ANY);
     aServerAddr.sin_port = htons( iaPort );
-    int aRet = bind( maFD, (struct sockaddr * ) &aServerAddr, sizeof(aServerAddr) );
-    if( aRet < 0 )
+    if( bind( maFD, (struct sockaddr * ) &aServerAddr, sizeof(aServerAddr) ) < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"bind() fuction Fail" );
 }
 
@@ -128,8 +124,7 @@ void CListenSocketEPoll::Bind( const port iaPort )
  */
 void CListenSocketEPoll::Listen()
 {
-    int aRet = listen( maFD, DMAX_BACKLOG );
-    if( aRet < 0 )
+    if( listen( maFD, DMAX_BACKLOG ) < 0 )
         throw CNetworkException( NError::NLevel::DERROR, L"listen() function fail");
 }
 
