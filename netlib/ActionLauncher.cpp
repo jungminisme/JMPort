@@ -30,10 +30,7 @@ void CActionLauncher::Regist( cmd iaCmd, ICallback irCallback )
  */
 void CActionLauncher::Do( IPacket & irPacket )
 {
-    cmd aCmd = irPacket.Command();
-    auto it = maActions.find( aCmd );
-    if( it == maActions.end() )
-        return;
-    ICallback & aCallback = it->second;
-    aCallback( irPacket );
+    auto it = maActions.find( irPacket.Command() );
+    if( it != maActions.end() )
+        it->second(irPacket);
 }
